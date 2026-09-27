@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Visiting Card</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#eef2f7;color:#172033}
+.container{max-width:1000px;margin:auto;padding:30px 18px}
+h1{text-align:center}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:25px}
+.panel{background:white;padding:25px;border-radius:18px;box-shadow:0 8px 30px #0001}
+label{display:block;font-weight:bold;margin:12px 0 6px}
+input,textarea{width:100%;padding:11px;border:1px solid #ccd3df;border-radius:9px;font-size:15px}
+textarea{height:90px;resize:vertical}
+button{margin-top:18px;padding:12px 18px;border:0;border-radius:9px;background:#536dfe;color:white;font-weight:bold;cursor:pointer}
+button+button{background:#e5e9f5;color:#26335f;margin-left:8px}
+.card{margin:auto;max-width:420px;min-height:280px;padding:30px;border-radius:22px;color:white;background:linear-gradient(135deg,#172554,#536dfe);display:flex;flex-direction:column;justify-content:space-between}
+.card h2{font-size:30px;margin:12px 0 5px}
+.muted{opacity:.8}
+.bio{line-height:1.5}
+.status{margin-top:12px;color:#536dfe}
+@media(max-width:750px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Digital Visiting Card</h1>
+
+<div class="grid">
+<div class="panel">
+<h2>Your Details</h2>
+
+<label>Name</label>
+<input id="name" placeholder="Your name">
+
+<label>Job Title</label>
+<input id="title" placeholder="Your job title">
+
+<label>Company</label>
+<input id="company" placeholder="Company name">
+
+<label>Phone</label>
+<input id="phone" placeholder="Phone number">
+
+<label>Email</label>
+<input id="email" placeholder="Email address">
+
+<label>Short Bio</label>
+<textarea id="bio" placeholder="A short introduction"></textarea>
+
+<button onclick="shareCard()">Create Share Link</button>
+<button onclick="clearCard()">Clear</button>
+
+<div class="status" id="status"></div>
+</div>
+
+<div class="panel">
+<h2>Preview</h2>
+
+<div class="card">
+<div>
+<div class="muted">DIGITAL VISITING CARD</div>
+<h2 id="pname">Your Name</h2>
+<div id="ptitle">Your Job Title</div>
+<div class="muted" id="pcompany">Your Company</div>
+<p class="bio" id="pbio">Your bio will appear here.</p>
+</div>
+
+<div>
+<div id="pphone">Phone</div>
+<div id="pemail">Email</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+const ids=["name","title","company","phone","email","bio"];
+
+function update(){
+ids.forEach(id=>{
+document.getElementById(id).addEventListener("input",()=>{
+document.getElementById("p"+id).textContent=
+document.getElementById(id).value||defaultText(id);
+});
+});
+}
+
+function defaultText(id){
+return {
+name:"Your Name",
+title:"Your Job Title",
+company:"Your Company",
+phone:"Phone",
+email:"Email",
+bio:"Your bio will appear here."
+}[id];
+}
+
+function shareCard(){
+let data={};
+ids.forEach(id=>data[id]=document.getElementById(id).value);
+if(!data.name){
+document.getElementById("status").textContent="Please enter your name.";
+return;
+}
+let encoded=btoa(JSON.stringify(data));
+let url=location.href.split("#")[0]+"#card="+encoded;
+history.replaceState(null,"",url);
+navigator.clipboard?.writeText(url);
+document.getElementById("status").textContent="Share link created and copied.";
+}
+
+function loadCard(){
+if(!location.hash.startsWith("#card="))return;
+try{
+let data=JSON.parse(atob(location.hash.substring(6)));
+ids.forEach(id=>{
+document.getElementById(id).value=data[id]||"";
+});
+ids.forEach(id=>{
+document.getElementById("p"+id).textContent=data[id]||defaultText(id);
+});
+}catch(e){}
+}
+
+function clearCard(){
+ids.forEach(id=>document.getElementById(id).value="");
+ids.forEach(id=>document.getElementById("p"+id).textContent=defaultText(id));
+history.replaceState(null,"",location.pathname);
+document.getElementById("status").textContent="";
+}
+
+update();
+loadCard();
+</script>
+</body>
+</html>

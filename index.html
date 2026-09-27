@@ -20,10 +20,83 @@ input,textarea,button{font:inherit}button{cursor:pointer}
 .preview-note{margin:12px 0 0;color:var(--muted);font-size:12px;text-align:center}
 #shared,#creator{display:none;min-height:100vh}#shared{align-items:center;justify-content:center;padding:26px}.shared{width:min(700px,100%);text-align:center}.shared-title{margin-bottom:14px;color:var(--brand);font-weight:900;letter-spacing:2.5px;font-size:12px}.shared .card{text-align:left}.shared-wrap{display:grid;grid-template-columns:1fr 170px;gap:16px;align-items:stretch}.qr-box{background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 16px 45px #27364d12}.qr-box strong{font-size:13px;margin-bottom:10px}.qr{background:#fff;padding:8px;border-radius:12px;min-height:140px;min-width:140px;display:grid;place-items:center}.qr img{max-width:140px}.own{display:block;margin:0 auto;padding:11px 15px;background:#ffffff18;border:1px solid #ffffff55;border-radius:10px;color:#fff;font-weight:800}.note{color:var(--muted);font-size:13px;margin-top:14px}
 #creator{padding:26px;background:transparent}.creator{width:min(1080px,100%);margin:auto}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;gap:12px}.back{background:#fff;border:1px solid var(--line);color:#26335f;padding:11px 15px;border-radius:10px;font-weight:800}.creator-label{color:var(--brand);font-size:12px;font-weight:900;letter-spacing:2px}.intro{padding:26px 5px}.intro h1{font-size:clamp(34px,5vw,52px);line-height:1.02;letter-spacing:-1.4px;margin:16px 0}.intro p{color:var(--muted);line-height:1.65;max-width:55ch}.badge{display:inline-block;background:#eef2ff;color:#3d51b5;padding:7px 10px;border-radius:20px;font-size:12px;font-weight:900}.steps{display:grid;gap:11px;margin-top:24px}.step{display:flex;gap:10px;align-items:center;font-weight:700}.num{width:29px;height:29px;display:grid;place-items:center;border-radius:50%;background:var(--brand);color:#fff;font-weight:900;flex:0 0 29px}.mini{margin-top:14px;padding:19px;border-radius:18px;background:linear-gradient(145deg,#101a36,#263969 55%,#536dfe);color:#fff;box-shadow:0 16px 35px #1d2d5422}.mini h3{font-size:26px;line-height:1.05;margin:8px 0 4px}.mini p{line-height:1.45}.error{color:#a33;font-size:14px;margin:10px 0;min-height:18px}
-@media(max-width:820px){.grid,.creator-grid,.shared-wrap{grid-template-columns:1fr}.header h1,.intro h1{font-size:34px}.top{align-items:flex-start;flex-direction:column-reverse}.qr-box{min-height:190px}.shared{width:min(560px,100%)}}
+
+.landing{min-height:100vh;padding:0 4vw 35px;background:radial-gradient(circle at 80% 6%,#e5eaff 0 16%,transparent 42%),linear-gradient(180deg,#fbfcff 0,#eef2f8 100%)}
+.landing-nav{width:min(1180px,100%);margin:auto;padding:22px 0;display:flex;justify-content:space-between;align-items:center}.brandmark{display:flex;align-items:center;gap:9px;font-weight:950;font-size:19px;letter-spacing:.2px}.brandmark-dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand2));box-shadow:0 0 0 6px #536dfe10}.nav-cta{border:1px solid var(--line);background:#fff;color:#26335f;padding:10px 14px;border-radius:10px;font-weight:850}
+.landing-wrap{width:min(1180px,100%);margin:55px auto 80px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}.eyebrow,.section-kicker{color:var(--brand);font-weight:950;letter-spacing:2.4px;font-size:11px}.hero-copy h1{font-size:clamp(48px,6vw,78px);line-height:.96;letter-spacing:-3px;margin:16px 0 20px;max-width:700px}.hero-sub{font-size:18px;color:var(--muted);line-height:1.7;max-width:590px}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}.landing-primary{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;padding:13px 18px;box-shadow:0 12px 30px #536dfe33}.landing-secondary{background:#fff;border:1px solid var(--line);color:#26335f;padding:13px 18px}.hero-points{display:flex;gap:16px;flex-wrap:wrap;margin-top:18px;color:#59657e;font-size:13px;font-weight:700}
+.hero-visual{min-height:440px;position:relative;display:grid;place-items:center}.float-card{position:absolute;width:78%;height:310px;border-radius:30px;background:#dfe5ff;transform:rotate(7deg);box-shadow:0 25px 60px #36476d14}.float-back{right:6%;top:12%}.landing-card{position:relative;z-index:2;width:86%;min-height:355px;padding:30px;border-radius:30px;background:linear-gradient(145deg,#101a36 0%,#2a3f7a 52%,#6678ff 100%);color:#fff;box-shadow:0 28px 75px #1d2d5438;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}.landing-card:after{content:"";position:absolute;right:-70px;top:-70px;width:190px;height:190px;border-radius:50%;background:#fff1}.landing-card-top{display:flex;justify-content:space-between;align-items:flex-start}.avatar{width:48px;height:48px;border-radius:15px;background:#ffffff18;display:grid;place-items:center;font-size:20px;font-weight:900;border:1px solid #ffffff25}.landing-name{font-size:40px;font-weight:900;letter-spacing:-1px;margin-top:40px}.landing-role{font-weight:800;margin-top:5px}.landing-bio{max-width:420px;margin-top:18px;line-height:1.5;color:#eef1ff}.landing-links{display:grid;gap:6px;font-size:13px;color:#fff;opacity:.86}.qr-float{position:absolute;z-index:3;right:0;bottom:10px;width:150px;padding:16px;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 18px 40px #27364d22;text-align:center}.qr-float small{display:block;margin-top:10px;font-weight:800;color:#26335f}.qr-fake{width:110px;height:110px;margin:auto;background:repeating-conic-gradient(#111 0 12deg,#fff 12deg 24deg);border:8px solid #fff;position:relative}.qr-fake span{position:absolute;width:26px;height:26px;background:#111;border:6px solid #fff;box-shadow:0 0 0 5px #111}.qr-fake span:nth-child(1){left:0;top:0}.qr-fake span:nth-child(2){right:0;top:0}.qr-fake span:nth-child(3){left:0;bottom:0}.qr-fake span:nth-child(4){right:15px;bottom:15px;width:18px;height:18px;box-shadow:none;border-width:3px}
+.landing-features{width:min(1180px,100%);margin:0 auto 90px;text-align:center}.landing-features h2,.landing-bottom-cta h2{font-size:clamp(32px,4vw,46px);letter-spacing:-1.5px;margin:9px 0 24px}.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px;text-align:left}.feature{background:#ffffffcc;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 15px 35px #27364d0c}.feature-icon{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;background:#eef2ff;color:#536dfe;font-size:18px;font-weight:900}.feature h3{margin:17px 0 7px}.feature p{margin:0;color:var(--muted);line-height:1.55}.landing-bottom-cta{width:min(1180px,100%);margin:0 auto;padding:28px 30px;border:1px solid var(--line);border-radius:24px;background:#fff;display:flex;align-items:center;justify-content:space-between;gap:18px;box-shadow:0 16px 40px #27364d10}.landing-bottom-cta h2{margin-bottom:0}.landing-footer{width:min(1180px,100%);margin:25px auto 0;color:#7a849a;text-align:center;font-size:12px}
+
+@media(max-width:820px){.grid,.creator-grid,.shared-wrap,.landing-wrap,.feature-grid{grid-template-columns:1fr}.header h1,.intro h1{font-size:34px}.top{align-items:flex-start;flex-direction:column-reverse}.qr-box{min-height:190px}.shared{width:min(560px,100%)}.landing-wrap{margin-top:28px;gap:30px}.hero-copy h1{font-size:50px;letter-spacing:-2.2px}.hero-visual{min-height:390px}.landing-card{width:92%;min-height:325px}.float-card{width:82%}.qr-float{right:1%}.landing-bottom-cta{align-items:flex-start;flex-direction:column}.landing-bottom-cta h2{font-size:34px}}
 </style>
 </head>
 <body>
+
+<section id="landing" class="landing">
+  <nav class="landing-nav">
+    <div class="brandmark"><span class="brandmark-dot"></span>ZetaCard</div>
+    <button id="landingCreateTop" class="nav-cta" type="button">Create your card</button>
+  </nav>
+
+  <div class="landing-wrap">
+    <div class="hero-copy">
+      <div class="eyebrow">YOUR DIGITAL IDENTITY, SIMPLIFIED</div>
+      <h1>Your professional card, one link.</h1>
+      <p class="hero-sub">Create a digital visiting card in minutes, share it anywhere, and let people save your contact with a tap.</p>
+      <div class="hero-actions">
+        <button id="landingCreate" class="btn landing-primary" type="button">Create my card</button>
+        <button id="landingLearn" class="btn landing-secondary" type="button">See how it works</button>
+      </div>
+      <div class="hero-points">
+        <span>✓ Clean profile link</span>
+        <span>✓ QR code included</span>
+        <span>✓ Save contact</span>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="float-card float-back"></div>
+      <div class="landing-card">
+        <div class="landing-card-top">
+          <div class="brand">DIGITAL VISITING CARD</div>
+          <div class="avatar">Z</div>
+        </div>
+        <div>
+          <div class="landing-name">Your Name</div>
+          <div class="landing-role">Founder · Your Company</div>
+          <div class="landing-bio">One simple card for your work, contact details, and online identity.</div>
+        </div>
+        <div class="landing-links">
+          <span>Phone</span>
+          <span>Email</span>
+          <span>zetacard.github.io/visiting-card-app/you</span>
+        </div>
+      </div>
+      <div class="qr-float"><div class="qr-fake"><span></span><span></span><span></span><span></span></div><small>Scan to open</small></div>
+    </div>
+  </div>
+
+  <div id="landingFeatures" class="landing-features">
+    <div class="section-kicker">WHY ZETACARD</div>
+    <h2>Everything your card needs.</h2>
+    <div class="feature-grid">
+      <div class="feature"><div class="feature-icon">↗</div><h3>Share one link</h3><p>Give people a memorable profile URL instead of sending screenshots or files.</p></div>
+      <div class="feature"><div class="feature-icon">▣</div><h3>Scan with QR</h3><p>Every profile includes a QR code so your card can move from screen to real life.</p></div>
+      <div class="feature"><div class="feature-icon">＋</div><h3>Save the contact</h3><p>Let visitors save your details as a contact file directly from your profile.</p></div>
+    </div>
+  </div>
+
+  <div class="landing-bottom-cta">
+    <div>
+      <div class="section-kicker">READY WHEN YOU ARE</div>
+      <h2>Make your card. Share your identity.</h2>
+    </div>
+    <button id="landingCreateBottom" class="btn landing-primary" type="button">Create my card</button>
+  </div>
+
+  <footer class="landing-footer">ZetaCard · Digital visiting cards</footer>
+</section>
+
 <main id="builder" class="container">
 <div class="header"><h1>Create your digital visiting card</h1><p>Enter your details and create a saved profile.</p></div>
 <div class="grid">
@@ -78,9 +151,10 @@ function newData(){return{username:uname($("nu").value),name:$("nn").value.trim(
 function updateMain(){const d=mainData();$("pn").textContent=d.name||"Your Name";$("pt").textContent=d.job_title||"Your job title";$("pc").textContent=d.company||"Your company";$("pb").textContent=d.bio||"Your short bio will appear here";$("pp").textContent=d.phone||"Phone";$("pe").textContent=d.email||"Email";$("pp").href=d.phone?"tel:"+d.phone.replace(/[^\d+]/g,""):"#";$("pe").href=d.email?"mailto:"+d.email:"#"}
 function updateNew(){const d=newData();$("mn").textContent=d.name||"Your Name";$("mt").textContent=d.job_title||"Your job title";$("mc").textContent=d.company||"Your company";$("mb").textContent=d.bio||"Your short bio will appear here";$("mp").textContent=d.phone||"Phone";$("me").textContent=d.email||"Email"}
 
-function showBuilder(){ $("builder").style.display="block";$("shared").style.display="none";$("creator").style.display="none" }
-function showShared(){ $("builder").style.display="none";$("shared").style.display="flex";$("creator").style.display="none" }
-function showCreator(){ $("builder").style.display="none";$("shared").style.display="none";$("creator").style.display="block" }
+function showLanding(){ $("landing").style.display="block";$("builder").style.display="none";$("shared").style.display="none";$("creator").style.display="none" }
+function showBuilder(){ $("landing").style.display="none";$("builder").style.display="block";$("shared").style.display="none";$("creator").style.display="none" }
+function showShared(){ $("landing").style.display="none";$("builder").style.display="none";$("shared").style.display="flex";$("creator").style.display="none" }
+function showCreator(){ $("landing").style.display="none";$("builder").style.display="none";$("shared").style.display="none";$("creator").style.display="block" }
 
 function fillCard(d){
   currentProfile=d;
@@ -190,6 +264,7 @@ async function createProfile(data,statusId){
 function clearMain(){["name","username","title","company","phone","email","bio"].forEach(id=>$(id).value="");msg("status","");msg("usernameStatus","");currentProfile=null;updateMain();showBuilder();history.replaceState(null,"",homeUrl())}
 function resetNew(){["nn","nu","nt","nc","np","ne","nb"].forEach(id=>$(id).value="");msg("newStatus","");msg("newUsernameStatus","");updateNew()}
 function openCreator(){resetNew();history.replaceState(null,"",homeUrl()+"#create");showCreator()}
+function openBuilder(){showBuilder();history.replaceState(null,"",homeUrl()+"#create-card");window.scrollTo({top:0,behavior:"smooth"})}
 function backToCard(){let s=null;try{s=sessionStorage.getItem("zetaProfile")}catch(e){}if(s){try{const d=JSON.parse(s);if(d&&d.username){fillCard(d);history.replaceState(null,"",profileUrl(d.username));showShared();return}}catch(e){}}history.replaceState(null,"",homeUrl());showBuilder()}
 
 function setupUsernameCheck(inputId,statusId){let timer=null;$(inputId).addEventListener("input",()=>{clearTimeout(timer);const u=uname($(inputId).value);$(inputId).value=u;msg(statusId,"");if(!u)return;if(!validUsername(u)){msg(statusId,"Use 3–30 lowercase letters, numbers or hyphens.");return}msg(statusId,"Checking...");timer=setTimeout(async()=>{try{msg(statusId,(await checkUsername(u))?"✅ Username available":"❌ Username already taken")}catch(e){console.error(e);msg(statusId,"Could not check username.")}},400)})}
@@ -205,7 +280,7 @@ async function openProfileFromQuery(){
 
 async function start(){
   updateMain();updateNew();initDb();
-  $("create").addEventListener("click",()=>createProfile(mainData(),"status"));
+  $("landingCreate").addEventListener("click",openBuilder);$("landingCreateTop").addEventListener("click",openBuilder);$("landingCreateBottom").addEventListener("click",openBuilder);$("landingLearn").addEventListener("click",()=>$("landingFeatures").scrollIntoView({behavior:"smooth"}));$("create").addEventListener("click",()=>createProfile(mainData(),"status"));
   $("clear").addEventListener("click",clearMain);
   $("own").addEventListener("click",openCreator);
   $("copy").addEventListener("click",copyCurrentLink);
@@ -218,7 +293,8 @@ async function start(){
   setupUsernameCheck("username","usernameStatus");setupUsernameCheck("nu","newUsernameStatus");
   if(await openProfileFromQuery())return;
   if(window.location.hash==="#create"){showCreator();return}
-  showBuilder();
+  if(window.location.hash==="#create-card"){showBuilder();return}
+  showLanding();
 }
 
 window.addEventListener("DOMContentLoaded",()=>{start().catch(e=>{console.error("Startup error",e);showBuilder();msg("status","The page loaded, but startup failed. Please refresh.")})});

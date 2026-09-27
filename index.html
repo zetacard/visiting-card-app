@@ -1,331 +1,691 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ZetaCard - Digital Visiting Card</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ZetaCard</title>
 
   <style>
-    * {
-      box-sizing: border-box;
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      background:#eef2f7;
+      color:#172033;
     }
 
-    :root {
-      --blue: #536dfe;
-      --blue-dark: #172554;
-      --text: #172033;
-      --muted: #68738b;
-      --border: #dfe5ef;
-      --background: #eef2f7;
+    button,input,textarea{
+      font:inherit;
     }
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--text);
-      background: linear-gradient(135deg, #f5f7fb, #e9eef8);
+    button{
+      cursor:pointer;
     }
 
-    button,
-    input,
-    textarea {
-      font: inherit;
+    .page{
+      width:min(1050px,94%);
+      margin:auto;
+      padding:30px 0;
     }
 
-    button {
-      cursor: pointer;
+    .header{
+      text-align:center;
+      margin-bottom:24px;
     }
 
-    .hidden {
-      display: none !important;
+    .header h1{
+      margin:0 0 8px;
+      font-size:clamp(2rem,5vw,3.1rem);
     }
 
-    .builder {
-      width: min(1080px, 94%);
-      margin: 0 auto;
-      padding: 32px 0 50px;
+    .header p{
+      margin:0;
+      color:#68738b;
     }
 
-    .header {
-      text-align: center;
-      margin-bottom: 28px;
+    .builder-grid,
+    .creator-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:24px;
     }
 
-    .header h1 {
-      margin: 0 0 8px;
-      font-size: clamp(2rem, 5vw, 3.1rem);
+    .panel,
+    .creator-form{
+      background:#fff;
+      border:1px solid #dfe5ef;
+      border-radius:20px;
+      padding:24px;
+      box-shadow:0 14px 40px #1f305214;
     }
 
-    .header p {
-      margin: 0;
-      color: var(--muted);
+    .field{
+      margin-bottom:14px;
     }
 
-    .builder-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    }
-
-    .panel {
-      padding: 24px;
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      box-shadow: 0 18px 48px rgba(31, 48, 82, 0.08);
-    }
-
-    .panel h2 {
-      margin-top: 0;
-    }
-
-    .field {
-      margin-bottom: 15px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 7px;
-      font-weight: 700;
-      font-size: 0.9rem;
+    label{
+      display:block;
+      margin-bottom:6px;
+      font-weight:700;
     }
 
     input,
-    textarea {
-      width: 100%;
-      padding: 12px 13px;
-      border: 1px solid #d2d9e6;
-      border-radius: 11px;
-      background: #ffffff;
-      color: var(--text);
-      outline: none;
+    textarea{
+      width:100%;
+      padding:12px;
+      border:1px solid #d2d9e6;
+      border-radius:10px;
+      outline:0;
+      background:#fff;
     }
 
     input:focus,
-    textarea:focus {
-      border-color: var(--blue);
-      box-shadow: 0 0 0 3px rgba(83, 109, 254, 0.12);
+    textarea:focus{
+      border-color:#536dfe;
+      box-shadow:0 0 0 3px #536dfe20;
     }
 
-    textarea {
-      min-height: 100px;
-      resize: vertical;
+    textarea{
+      min-height:90px;
+      resize:vertical;
     }
 
-    .button-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:16px;
     }
 
-    .primary {
-      border: 0;
-      padding: 12px 18px;
-      border-radius: 11px;
-      background: var(--blue);
-      color: #ffffff;
-      font-weight: 700;
+    .primary,
+    .secondary,
+    .back{
+      padding:12px 16px;
+      border-radius:10px;
+      font-weight:700;
     }
 
-    .secondary {
-      border: 0;
-      padding: 12px 18px;
-      border-radius: 11px;
-      background: #edf1ff;
-      color: #3d51b5;
-      font-weight: 700;
+    .primary{
+      background:#536dfe;
+      color:#fff;
+      border:0;
     }
 
-    .status {
-      min-height: 22px;
-      margin-top: 10px;
-      color: var(--blue);
-      font-size: 0.9rem;
+    .secondary{
+      background:#edf1ff;
+      color:#3d51b5;
+      border:0;
     }
 
-    .card-wrap {
-      display: flex;
-      justify-content: center;
+    .status{
+      min-height:20px;
+      margin-top:10px;
+      color:#536dfe;
+      font-size:.9rem;
     }
 
-    .card {
-      width: min(520px, 100%);
-      min-height: 320px;
-      padding: 32px;
-      border-radius: 28px;
-      background: linear-gradient(145deg, var(--blue-dark), var(--blue));
-      color: #ffffff;
-      box-shadow: 0 24px 55px rgba(30, 45, 100, 0.24);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      overflow-wrap: anywhere;
+    /* CARD */
+
+    .card{
+      width:min(500px,100%);
+      min-height:300px;
+      padding:30px;
+      border-radius:26px;
+      background:linear-gradient(145deg,#172554,#536dfe);
+      color:#fff;
+      box-shadow:0 22px 50px #1e2d6438;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      overflow-wrap:anywhere;
     }
 
-    .brand {
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      opacity: 0.72;
+    .card-wrap{
+      display:flex;
+      justify-content:center;
     }
 
-    .card h3 {
-      margin: 11px 0 4px;
-      font-size: 2.2rem;
-      line-height: 1.05;
+    .brand{
+      font-size:.75rem;
+      letter-spacing:.15em;
+      opacity:.72;
     }
 
-    .role {
-      font-weight: 700;
-      opacity: 0.9;
+    .card h2{
+      font-size:2.1rem;
+      margin:10px 0 4px;
     }
 
-    .company {
-      margin-top: 4px;
-      opacity: 0.72;
+    .role{
+      font-weight:700;
+      opacity:.9;
     }
 
-    .bio {
-      margin: 21px 0;
-      line-height: 1.55;
-      opacity: 0.92;
+    .company{
+      margin-top:4px;
+      opacity:.72;
     }
 
-    .contact {
-      display: grid;
-      gap: 8px;
+    .bio{
+      line-height:1.5;
+      margin:20px 0;
     }
 
-    .contact a {
-      color: #ffffff;
-      text-decoration: none;
+    .contact{
+      display:grid;
+      gap:7px;
     }
 
-    .contact a:hover {
-      text-decoration: underline;
+    .contact a{
+      color:#fff;
+      text-decoration:none;
     }
 
-    /* Shared profile */
-    #sharedScreen {
-      min-height: 100vh;
-      padding: 24px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    .contact a:hover{
+      text-decoration:underline;
     }
 
-    .shared-container {
-      width: min(560px, 100%);
-      text-align: center;
+    /* SHARED PROFILE */
+
+    #shared{
+      display:none;
+      min-height:100vh;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
     }
 
-    .shared-label {
-      margin-bottom: 18px;
-      color: var(--muted);
-      font-weight: 800;
-      font-size: 0.78rem;
-      letter-spacing: 0.15em;
+    .shared-wrap{
+      width:min(540px,100%);
+      text-align:center;
     }
 
-    .create-own {
-      display: block;
-      margin: 22px auto 0;
-      padding: 12px 16px;
-      border: 1px solid rgba(255,255,255,0.35);
-      border-radius: 11px;
-      background: rgba(255,255,255,0.12);
-      color: white;
-      font-weight: 700;
+    .tag{
+      margin-bottom:15px;
+      color:#68738b;
+      font-weight:800;
+      letter-spacing:.14em;
+      font-size:.76rem;
     }
 
-    .shared-note {
-      margin-top: 14px;
-      color: var(--muted);
-      font-size: 0.82rem;
+    .shared-wrap .card{
+      text-align:left;
+      margin:auto;
     }
 
-    /* New card screen */
-    #creatorScreen {
-      min-height: 100vh;
-      padding: 24px;
+    .create-own{
+      margin:20px auto 0;
+      display:block;
+      padding:12px 16px;
+      border-radius:10px;
+      background:#ffffff18;
+      border:1px solid #ffffff55;
+      color:#fff;
+      font-weight:700;
+    }
+
+    .note{
+      margin-top:13px;
+      color:#68738b;
+      font-size:.82rem;
+    }
+
+    /* NEW CARD SCREEN */
+
+    #creator{
+      display:none;
+      min-height:100vh;
+      padding:24px;
       background:
-        radial-gradient(circle at top left, #dce5ff 0, transparent 35%),
-        linear-gradient(135deg, #f8faff, #edf2fb);
+        linear-gradient(
+          135deg,
+          #f8faff,
+          #edf2fb
+        );
     }
 
-    .creator-container {
-      width: min(1100px, 100%);
-      margin: 0 auto;
+    .creator-wrap{
+      width:min(1050px,100%);
+      margin:auto;
     }
 
-    .creator-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 24px;
+    .top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:22px;
     }
 
-    .back-button {
-      padding: 11px 16px;
-      border: 1px solid var(--border);
-      border-radius: 11px;
-      background: #ffffff;
-      color: #26335f;
-      font-weight: 700;
+    .back{
+      background:#fff;
+      color:#26335f;
+      border:1px solid #dfe5ef;
     }
 
-    .creator-label {
-      color: var(--blue);
-      font-size: 0.76rem;
-      font-weight: 800;
-      letter-spacing: 0.14em;
+    .creator-label{
+      color:#536dfe;
+      font-size:.76rem;
+      font-weight:800;
+      letter-spacing:.14em;
     }
 
-    .creator-grid {
-      display: grid;
-      grid-template-columns: 0.8fr 1.2fr;
-      gap: 28px;
-      align-items: start;
+    .intro{
+      padding:22px 8px;
     }
 
-    .creator-intro {
-      padding: 25px 10px;
+    .badge{
+      display:inline-block;
+      padding:7px 10px;
+      border-radius:999px;
+      background:#eef2ff;
+      color:#3d51b5;
+      font-size:.74rem;
+      font-weight:800;
+      letter-spacing:.1em;
     }
 
-    .badge {
-      display: inline-block;
-      padding: 7px 11px;
-      border-radius: 999px;
-      background: #eef2ff;
-      color: #3d51b5;
-      font-size: 0.74rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
+    .intro h1{
+      margin:18px 0 12px;
+      font-size:clamp(2.2rem,5vw,4rem);
+      line-height:1.03;
     }
 
-    .creator-intro h1 {
-      margin: 18px 0 12px;
-      font-size: clamp(2.2rem, 5vw, 4rem);
-      line-height: 1.03;
+    .intro p{
+      color:#68738b;
+      line-height:1.6;
     }
 
-    .creator-intro p {
-      max-width: 540px;
-      color: var(--muted);
-      line-height: 1.65;
-      font-size: 1.05rem;
+    .steps{
+      display:grid;
+      gap:11px;
+      margin-top:24px;
     }
 
-    .steps {
-      display: grid;
-      gap: 12px;
-      margin-top: 26px;
+    .step{
+      display:flex;
+      align-items:center;
+      gap:10px;
     }
 
-    .step {
-      display: flex;
-      align-items: center;
-      gap: 11px;
+    .num{
+      width:30px;
+      height:30px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      background:#536dfe;
+      color:#fff;
+      font-weight:700;
+      flex:0 0 30px;
+    }
+
+    .mini{
+      margin-top:16px;
+      padding:20px;
+      border-radius:18px;
+      background:linear-gradient(145deg,#172554,#536dfe);
+      color:#fff;
+    }
+
+    .mini h3{
+      margin:9px 0 4px;
+      font-size:1.5rem;
+    }
+
+    .mini p{
+      margin:14px 0;
+      line-height:1.45;
+      color:#fff;
+    }
+
+    .creator-form .primary{
+      width:100%;
+      margin-top:18px;
+    }
+
+    @media(max-width:800px){
+      .builder-grid,
+      .creator-grid{
+        grid-template-columns:1fr;
+      }
+
+      .top{
+        align-items:flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     MAIN FORM
+===================================================== -->
+
+<main id="builder" class="page">
+
+  <header class="header">
+    <h1>Create your digital visiting card</h1>
+    <p>Enter your details and create a profile you can share.</p>
+  </header>
+
+  <section class="builder-grid">
+
+    <!-- FORM -->
+
+    <div class="panel">
+
+      <h2>Your details</h2>
+
+      <div class="field">
+        <label for="name">Name</label>
+        <input
+          id="name"
+          placeholder="e.g. Alex Morgan"
+        >
+      </div>
+
+      <div class="field">
+        <label for="title">Job title</label>
+        <input
+          id="title"
+          placeholder="e.g. Founder"
+        >
+      </div>
+
+      <div class="field">
+        <label for="company">Company</label>
+        <input
+          id="company"
+          placeholder="e.g. Acme Studio"
+        >
+      </div>
+
+      <div class="field">
+        <label for="phone">Phone</label>
+        <input
+          id="phone"
+          type="tel"
+          placeholder="e.g. +91 98765 43210"
+        >
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          placeholder="e.g. hello@example.com"
+        >
+      </div>
+
+      <div class="field">
+        <label for="bio">Short bio</label>
+        <textarea
+          id="bio"
+          placeholder="A short introduction about you..."
+        ></textarea>
+      </div>
+
+      <div class="actions">
+
+        <button
+          id="create"
+          class="primary"
+        >
+          Create share link
+        </button>
+
+        <button
+          id="clear"
+          class="secondary"
+        >
+          Clear
+        </button>
+
+      </div>
+
+      <div
+        id="status"
+        class="status"
+      ></div>
+
+    </div>
+
+
+    <!-- PREVIEW -->
+
+    <div class="panel">
+
+      <h2>Preview</h2>
+
+      <div class="card-wrap">
+
+        <div class="card">
+
+          <div>
+
+            <div class="brand">
+              DIGITAL VISITING CARD
+            </div>
+
+            <h2 id="pn">
+              Your Name
+            </h2>
+
+            <div
+              id="pt"
+              class="role"
+            >
+              Your job title
+            </div>
+
+            <div
+              id="pc"
+              class="company"
+            >
+              Your company
+            </div>
+
+            <p
+              id="pb"
+              class="bio"
+            >
+              Your short bio will appear here.
+            </p>
+
+          </div>
+
+          <div class="contact">
+
+            <a
+              id="pp"
+              href="#"
+            >
+              Phone
+            </a>
+
+            <a
+              id="pe"
+              href="#"
+            >
+              Email
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- =====================================================
+     SHARED PROFILE
+     ONLY CARD IS SHOWN
+===================================================== -->
+
+<section id="shared">
+
+  <div class="shared-wrap">
+
+    <div class="tag">
+      ZETACARD
+    </div>
+
+
+    <article class="card">
+
+      <div>
+
+        <div class="brand">
+          DIGITAL VISITING CARD
+        </div>
+
+        <h2 id="sn">
+          Your Name
+        </h2>
+
+        <div
+          id="st"
+          class="role"
+        >
+          Your job title
+        </div>
+
+        <div
+          id="sc"
+          class="company"
+        >
+          Your company
+        </div>
+
+        <p
+          id="sb"
+          class="bio"
+        >
+          Your short bio will appear here.
+        </p>
+
+      </div>
+
+
+      <div class="contact">
+
+        <a
+          id="sp"
+          href="#"
+        >
+          Phone
+        </a>
+
+        <a
+          id="se"
+          href="#"
+        >
+          Email
+        </a>
+
+      </div>
+
+
+      <button
+        id="createOwn"
+        class="create-own"
+      >
+        Create your own card
+      </button>
+
+    </article>
+
+
+    <div class="note">
+      This is a shared ZetaCard profile.
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     NEW CARD INTERFACE
+===================================================== -->
+
+<section id="creator">
+
+  <div class="creator-wrap">
+
+    <div class="top">
+
+      <button
+        id="back"
+        class="back"
+      >
+        ← Back to card
+      </button>
+
+      <div class="creator-label">
+        CREATE A NEW CARD
+      </div>
+
+    </div>
+
+
+    <div class="creator-grid">
+
+      <div class="intro">
+
+        <span class="badge">
+          ZETACARD
+        </span>
+
+        <h1>
+          Create a new digital card.
+        </h1>
+
+        <p>
+          Start a completely new profile,
+          review your card, and generate
+          a fresh shareable link.
+        </p>
+
+
+        <div class="steps">
+
+          <div class="step">
+            <span class="num">1</span>
+            <span>Enter your details</span>
+          </div>
+
+          <div class="step">
+            <span class="num">2</span>
+            <span>Review your card</span>
+          </div>
+
+          <div class="step">
+            <span class="num">3</span>
+            <span>Create your share link</span>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="creator-form">
+
+        <h2>
+          New card
+        </h2>
+
+
+        <div class="field">
+          <

@@ -1,141 +1,590 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Digital Visiting Card</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#eef2f7;color:#172033}
-.container{max-width:1000px;margin:auto;padding:30px 18px}
-h1{text-align:center}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:25px}
-.panel{background:white;padding:25px;border-radius:18px;box-shadow:0 8px 30px #0001}
-label{display:block;font-weight:bold;margin:12px 0 6px}
-input,textarea{width:100%;padding:11px;border:1px solid #ccd3df;border-radius:9px;font-size:15px}
-textarea{height:90px;resize:vertical}
-button{margin-top:18px;padding:12px 18px;border:0;border-radius:9px;background:#536dfe;color:white;font-weight:bold;cursor:pointer}
-button+button{background:#e5e9f5;color:#26335f;margin-left:8px}
-.card{margin:auto;max-width:420px;min-height:280px;padding:30px;border-radius:22px;color:white;background:linear-gradient(135deg,#172554,#536dfe);display:flex;flex-direction:column;justify-content:space-between}
-.card h2{font-size:30px;margin:12px 0 5px}
-.muted{opacity:.8}
-.bio{line-height:1.5}
-.status{margin-top:12px;color:#536dfe}
-@media(max-width:750px){.grid{grid-template-columns:1fr}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Visiting Card</title>
+
+  <style>
+    :root {
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      color: #172033;
+      background: #eef2f7;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f4f7fb, #e9eef8);
+    }
+
+    .app {
+      width: min(1080px, 94%);
+      margin: auto;
+      padding: 30px 0 50px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(2rem, 5vw, 3.1rem);
+    }
+
+    header p {
+      margin: 0;
+      color: #657089;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 1fr);
+      gap: 24px;
+    }
+
+    .panel {
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid #e2e7f0;
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 16px 45px #1f305214;
+    }
+
+    .panel h2 {
+      margin-top: 0;
+    }
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid #d8deea;
+      border-radius: 11px;
+      padding: 12px 13px;
+      font: inherit;
+      background: #fff;
+      outline: none;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #536dfe;
+      box-shadow: 0 0 0 3px #536dfe1f;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    button {
+      border: 0;
+      border-radius: 11px;
+      padding: 12px 16px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: #536dfe;
+      color: #fff;
+    }
+
+    .secondary {
+      background: #eef2ff;
+      color: #3d51b5;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .status {
+      min-height: 22px;
+      margin-top: 10px;
+      color: #536dfe;
+      font-size: 0.9rem;
+    }
+
+    .card-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .share-card {
+      width: min(520px, 100%);
+      min-height: 320px;
+      padding: 34px;
+      border-radius: 28px;
+      color: #fff;
+      background: linear-gradient(145deg, #172554, #536dfe);
+      box-shadow: 0 24px 60px #1e2d6440;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-wrap: anywhere;
+    }
+
+    .brand {
+      font-size: 0.76rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.72;
+    }
+
+    .person h3 {
+      margin: 10px 0 4px;
+      font-size: 2.2rem;
+      line-height: 1.05;
+    }
+
+    .role {
+      font-weight: 700;
+      opacity: 0.9;
+    }
+
+    .company {
+      margin-top: 4px;
+      opacity: 0.7;
+    }
+
+    .bio {
+      margin: 22px 0;
+      line-height: 1.55;
+      opacity: 0.92;
+    }
+
+    .contact {
+      display: grid;
+      gap: 8px;
+    }
+
+    .contact a {
+      color: #fff;
+      text-decoration: none;
+      opacity: 0.92;
+    }
+
+    .contact a:hover {
+      text-decoration: underline;
+    }
+
+    .hint {
+      text-align: center;
+      margin-top: 14px;
+      color: #74809a;
+      font-size: 0.82rem;
+    }
+
+    /* Shared-link mode */
+    .card-only .panel-form,
+    .card-only header {
+      display: none;
+    }
+
+    .card-only .layout {
+      display: block;
+    }
+
+    .card-only .preview-panel {
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      padding: 0;
+    }
+
+    .card-only .preview-heading,
+    .card-only .hint {
+      display: none;
+    }
+
+    .back {
+      display: block;
+      margin: 18px auto 0;
+      background: #ffffff22;
+      color: #fff;
+      border: 1px solid #ffffff55;
+    }
+
+    @media (max-width: 800px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div class="container">
-<h1>Digital Visiting Card</h1>
 
-<div class="grid">
-<div class="panel">
-<h2>Your Details</h2>
+  <main class="app" id="app">
 
-<label>Name</label>
-<input id="name" placeholder="Your name">
+    <header>
+      <h1>Digital Visiting Card</h1>
+      <p>Create a card and share it with one link.</p>
+    </header>
 
-<label>Job Title</label>
-<input id="title" placeholder="Your job title">
+    <section class="layout">
 
-<label>Company</label>
-<input id="company" placeholder="Company name">
+      <!-- FORM -->
+      <div class="panel panel-form">
 
-<label>Phone</label>
-<input id="phone" placeholder="Phone number">
+        <h2>Your details</h2>
 
-<label>Email</label>
-<input id="email" placeholder="Email address">
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" placeholder="e.g. Alex Morgan">
+        </div>
 
-<label>Short Bio</label>
-<textarea id="bio" placeholder="A short introduction"></textarea>
+        <div class="field">
+          <label for="title">Job title</label>
+          <input id="title" placeholder="e.g. Founder & Designer">
+        </div>
 
-<button onclick="shareCard()">Create Share Link</button>
-<button onclick="clearCard()">Clear</button>
+        <div class="field">
+          <label for="company">Company</label>
+          <input id="company" placeholder="e.g. Acme Studio">
+        </div>
 
-<div class="status" id="status"></div>
-</div>
+        <div class="field">
+          <label for="phone">Phone</label>
+          <input id="phone" type="tel" placeholder="e.g. +91 98765 43210">
+        </div>
 
-<div class="panel">
-<h2>Preview</h2>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" type="email" placeholder="e.g. hello@example.com">
+        </div>
 
-<div class="card">
-<div>
-<div class="muted">DIGITAL VISITING CARD</div>
-<h2 id="pname">Your Name</h2>
-<div id="ptitle">Your Job Title</div>
-<div class="muted" id="pcompany">Your Company</div>
-<p class="bio" id="pbio">Your bio will appear here.</p>
-</div>
+        <div class="field">
+          <label for="bio">Short bio</label>
+          <textarea id="bio" placeholder="A short introduction about you..."></textarea>
+        </div>
 
-<div>
-<div id="pphone">Phone</div>
-<div id="pemail">Email</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+        <div class="actions">
+          <button class="primary" id="shareBtn">
+            Create share link
+          </button>
 
-<script>
-const ids=["name","title","company","phone","email","bio"];
+          <button class="secondary" id="clearBtn">
+            Clear
+          </button>
+        </div>
 
-function update(){
-ids.forEach(id=>{
-document.getElementById(id).addEventListener("input",()=>{
-document.getElementById("p"+id).textContent=
-document.getElementById(id).value||defaultText(id);
-});
-});
-}
+        <div class="status" id="status"></div>
 
-function defaultText(id){
-return {
-name:"Your Name",
-title:"Your Job Title",
-company:"Your Company",
-phone:"Phone",
-email:"Email",
-bio:"Your bio will appear here."
-}[id];
-}
+      </div>
 
-function shareCard(){
-let data={};
-ids.forEach(id=>data[id]=document.getElementById(id).value);
-if(!data.name){
-document.getElementById("status").textContent="Please enter your name.";
-return;
-}
-let encoded=btoa(JSON.stringify(data));
-let url=location.href.split("#")[0]+"#card="+encoded;
-history.replaceState(null,"",url);
-navigator.clipboard?.writeText(url);
-document.getElementById("status").textContent="Share link created and copied.";
-}
+      <!-- CARD PREVIEW -->
+      <div class="panel preview-panel">
 
-function loadCard(){
-if(!location.hash.startsWith("#card="))return;
-try{
-let data=JSON.parse(atob(location.hash.substring(6)));
-ids.forEach(id=>{
-document.getElementById(id).value=data[id]||"";
-});
-ids.forEach(id=>{
-document.getElementById("p"+id).textContent=data[id]||defaultText(id);
-});
-}catch(e){}
-}
+        <h2 class="preview-heading">Preview</h2>
 
-function clearCard(){
-ids.forEach(id=>document.getElementById(id).value="");
-ids.forEach(id=>document.getElementById("p"+id).textContent=defaultText(id));
-history.replaceState(null,"",location.pathname);
-document.getElementById("status").textContent="";
-}
+        <div class="card-page">
 
-update();
-loadCard();
-</script>
+          <article class="share-card" id="card">
+
+            <div>
+
+              <div class="brand">
+                DIGITAL VISITING CARD
+              </div>
+
+              <div class="person">
+
+                <h3 id="previewName">
+                  Your Name
+                </h3>
+
+                <div class="role" id="previewTitle">
+                  Your job title
+                </div>
+
+                <div class="company" id="previewCompany">
+                  Your company
+                </div>
+
+              </div>
+
+              <p class="bio" id="previewBio">
+                Your short bio will appear here.
+              </p>
+
+            </div>
+
+            <div class="contact">
+
+              <a id="previewPhoneLink" href="#">
+                Phone
+              </a>
+
+              <a id="previewEmailLink" href="#">
+                Email
+              </a>
+
+            </div>
+
+            <button
+              class="back"
+              id="backBtn"
+              hidden
+            >
+              Create your own card
+            </button>
+
+          </article>
+
+        </div>
+
+        <div class="hint">
+          Shared profile links open in card-only mode.
+        </div>
+
+      </div>
+
+    </section>
+  </main>
+
+  <script>
+
+    const fields = [
+      "name",
+      "title",
+      "company",
+      "phone",
+      "email",
+      "bio"
+    ];
+
+    const $ = id => document.getElementById(id);
+
+    function getData() {
+
+      return Object.fromEntries(
+        fields.map(id => [
+          id,
+          $(id).value.trim()
+        ])
+      );
+
+    }
+
+    function updatePreview() {
+
+      const data = getData();
+
+      $("previewName").textContent =
+        data.name || "Your Name";
+
+      $("previewTitle").textContent =
+        data.title || "Your job title";
+
+      $("previewCompany").textContent =
+        data.company || "Your company";
+
+      $("previewBio").textContent =
+        data.bio || "Your short bio will appear here.";
+
+      const phoneLink =
+        $("previewPhoneLink");
+
+      phoneLink.textContent =
+        data.phone || "Phone";
+
+      phoneLink.href =
+        data.phone
+          ? "tel:" + data.phone.replace(/[^\d+]/g, "")
+          : "#";
+
+      const emailLink =
+        $("previewEmailLink");
+
+      emailLink.textContent =
+        data.email || "Email";
+
+      emailLink.href =
+        data.email
+          ? "mailto:" + data.email
+          : "#";
+    }
+
+    function encodeData(data) {
+
+      return btoa(
+        unescape(
+          encodeURIComponent(
+            JSON.stringify(data)
+          )
+        )
+      );
+
+    }
+
+    function decodeData(value) {
+
+      return JSON.parse(
+        decodeURIComponent(
+          escape(
+            atob(value)
+          )
+        )
+      );
+
+    }
+
+    function loadSharedCard() {
+
+      const match =
+        location.hash.match(/^#card=(.+)$/);
+
+      if (!match) {
+        return false;
+      }
+
+      try {
+
+        const data =
+          decodeData(match[1]);
+
+        fields.forEach(id => {
+
+          $(id).value =
+            data[id] || "";
+
+        });
+
+        updatePreview();
+
+        document.body.classList.add("card-only");
+
+        $("backBtn").hidden = false;
+
+        $("backBtn").onclick = () => {
+
+          history.replaceState(
+            null,
+            "",
+            location.pathname
+          );
+
+          location.reload();
+
+        };
+
+        return true;
+
+      } catch (error) {
+
+        console.error(error);
+
+        return false;
+
+      }
+
+    }
+
+    fields.forEach(id => {
+
+      $(id).addEventListener(
+        "input",
+        updatePreview
+      );
+
+    });
+
+    $("shareBtn").onclick = async () => {
+
+      const data = getData();
+
+      if (!data.name) {
+
+        $("status").textContent =
+          "Please enter your name first.";
+
+        $("name").focus();
+
+        return;
+
+      }
+
+      const encoded =
+        encodeData(data);
+
+      const url =
+        location.origin +
+        location.pathname +
+        "#card=" +
+        encoded;
+
+      history.replaceState(
+        null,
+        "",
+        url
+      );
+
+      try {
+
+        await navigator.clipboard.writeText(url);
+
+        $("status").textContent =
+          "Share link copied to clipboard.";
+
+      } catch {
+
+        $("status").textContent =
+          "Share link created. Copy the URL from the address bar.";
+
+      }
+
+    };
+
+    $("clearBtn").onclick = () => {
+
+      fields.forEach(id => {
+        $(id).value = "";
+      });
+
+      history.replaceState(
+        null,
+        "",
+        location.pathname
+      );
+
+      $("status").textContent = "";
+
+      updatePreview();
+
+    };
+
+    updatePreview();
+
+    loadSharedCard();
+
+  </script>
+
 </body>
 </html>

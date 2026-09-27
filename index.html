@@ -18,6 +18,393 @@ input,textarea,button{font:inherit}button{cursor:pointer}
 .actions,.card-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:17px}.btn{padding:11px 15px;border:0;border-radius:11px;font-weight:800}.primary{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff}.secondary{background:#edf1ff;color:#3d51b5}.ghost{background:#fff;border:1px solid var(--line);color:#26335f}.btn:disabled{opacity:.55;cursor:not-allowed}.status{min-height:20px;margin-top:10px;color:var(--brand);font-size:14px}
 .card{min-height:335px;padding:30px;border-radius:26px;background:radial-gradient(circle at 85% 12%,#ffffff20 0 9%,transparent 10%),linear-gradient(145deg,#101a36 0%,#263969 55%,#536dfe 100%);color:#fff;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 24px 55px #1d2d5433;overflow-wrap:anywhere;position:relative}.brand{font-size:11px;letter-spacing:2.2px;font-weight:800;opacity:.68}.card h2{font-size:36px;line-height:1.05;margin:11px 0 5px;letter-spacing:-.6px}.role{font-weight:800}.company{opacity:.75}.bio{line-height:1.55;max-width:48ch}.contact{display:grid;gap:8px}.contact a{color:#fff;text-decoration:none}.contact a:hover{text-decoration:underline}
 
+
+/* Profile photo upload and avatar display */
+.avatar{position:relative;overflow:hidden;width:58px;height:58px;border-radius:18px;background:#ffffff18;display:grid;place-items:center;font-size:21px;font-weight:900;border:1px solid #ffffff30;flex:0 0 58px}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.card-topline{display:flex;align-items:center;gap:12px;margin-bottom:7px}.card-topline .brand{margin-left:auto}.avatar.has-photo{background:#fff}
+.avatar.has-photo img{object-position:center}
+.photo-picker{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;margin-top:10px}
+.photo-preview{width:74px;height:74px;border-radius:22px;background:#edf1f7;border:1px solid var(--line);display:grid;place-items:center;overflow:hidden;color:#536dfe;font-weight:900;font-size:22px}
+.photo-preview img{width:100%;height:100%;object-fit:cover;display:block}
+.photo-controls{display:flex;gap:8px;flex-wrap:wrap}
+.photo-input{display:none}
+.photo-label{display:inline-flex;align-items:center;justify-content:center;padding:10px 13px;border-radius:10px;background:#edf1ff;color:#3d51b5;font-weight:800;font-size:13px;cursor:pointer}
+.photo-remove{padding:10px 13px;border-radius:10px;border:1px solid var(--line);background:#fff;color:#4b5870;font-weight:800;font-size:13px}
+.photo-help{margin-top:6px;color:var(--muted);font-size:11px}
+@media(max-width:520px){.photo-picker{grid-template-columns:1fr}.photo-preview{width:86px;height:86px}}
+/* More visual profile-photo picker */
+.photo-picker{
+  display:grid;
+  grid-template-columns:96px 1fr;
+  gap:16px;
+  align-items:center;
+  margin-top:10px;
+  padding:14px;
+  border:1px dashed #c7d2e3;
+  border-radius:18px;
+  background:linear-gradient(180deg,#fbfcff,#f5f8fc);
+  transition:.16s ease;
+}
+.photo-picker.dragover{
+  border-color:var(--brand);
+  background:#eef2ff;
+  box-shadow:0 0 0 4px #536dfe12;
+}
+.photo-preview{
+  width:96px;
+  height:96px;
+  border-radius:50%;
+  background:linear-gradient(145deg,#eef2ff,#dfe5f1);
+  border:4px solid #fff;
+  box-shadow:0 8px 22px #27364d1f;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  color:#536dfe;
+  font-weight:900;
+  font-size:30px;
+}
+.photo-preview img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.photo-upload-title{
+  font-size:15px;
+  font-weight:900;
+  margin-bottom:3px;
+}
+.photo-upload-subtitle{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.45;
+  max-width:430px;
+}
+.photo-controls{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
+  margin-top:10px;
+}
+.photo-upload-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 13px;
+  border-radius:10px;
+  background:linear-gradient(135deg,var(--brand),var(--brand2));
+  color:#fff;
+  font-weight:900;
+  font-size:13px;
+  cursor:pointer;
+  box-shadow:0 7px 16px #536dfe2b;
+}
+.photo-upload-btn svg{width:15px;height:15px;flex:0 0 15px}
+.photo-remove{
+  padding:10px 13px;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:#fff;
+  color:#4b5870;
+  font-weight:800;
+  font-size:13px;
+}
+.photo-file{
+  margin-top:8px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  color:#53607a;
+  font-size:11px;
+  min-height:16px;
+}
+.photo-file-dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#536dfe;
+  flex:0 0 6px;
+}
+.photo-drag-note{
+  margin-top:9px;
+  color:var(--muted);
+  font-size:11px;
+  text-align:center;
+}
+.photo-input{display:none}
+
+@media(max-width:520px){
+  .photo-picker{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+  .photo-preview{margin:auto}
+  .photo-controls{justify-content:center}
+  .photo-file{justify-content:center}
+}
+
+
+
+
+.avatar:has(.avatar-art){
+  background:transparent;
+  border:0;
+  box-shadow:none;
+}
+.avatar .avatar-art{
+  width:100%;
+  height:100%;
+  margin:0;
+  border:0;
+  box-shadow:none;
+}
+
+/* Photo + avatar chooser */
+.identity-picker{
+  margin-top:10px;
+  border:1px solid #dfe5ef;
+  border-radius:20px;
+  background:linear-gradient(180deg,#ffffff,#f7f9fd);
+  padding:14px;
+}
+.identity-tabs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-bottom:13px;
+}
+.identity-tab{
+  border:1px solid #d9e1ec;
+  background:#fff;
+  color:#526078;
+  border-radius:12px;
+  padding:10px 11px;
+  font-weight:900;
+  cursor:pointer;
+}
+.identity-tab.active{
+  border-color:var(--brand);
+  background:#eef2ff;
+  color:#3d51b5;
+  box-shadow:0 0 0 3px #536dfe12;
+}
+.identity-panel{display:none}
+.identity-panel.active{display:block}
+
+.upload-stage{
+  display:grid;
+  grid-template-columns:92px 1fr;
+  gap:15px;
+  align-items:center;
+  padding:13px;
+  border:1px dashed #c6d1e1;
+  border-radius:17px;
+  background:linear-gradient(180deg,#fbfcff,#f2f6fb);
+  transition:.16s ease;
+}
+.upload-stage.dragover{
+  border-color:var(--brand);
+  background:#eef2ff;
+  box-shadow:0 0 0 4px #536dfe12;
+}
+.upload-stage-preview{
+  width:92px;
+  height:92px;
+  border-radius:50%;
+  overflow:hidden;
+  background:linear-gradient(145deg,#edf1f8,#dfe6f1);
+  border:4px solid #fff;
+  box-shadow:0 9px 24px #27364d20;
+  display:grid;
+  place-items:center;
+  color:var(--brand);
+  font-size:28px;
+  font-weight:900;
+}
+.upload-stage-preview img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+}
+.identity-title{
+  font-weight:900;
+  font-size:15px;
+}
+.identity-sub{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.45;
+  margin-top:3px;
+}
+.identity-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+.identity-upload{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:10px 13px;
+  border-radius:10px;
+  background:linear-gradient(135deg,var(--brand),var(--brand2));
+  color:#fff;
+  font-size:13px;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 7px 16px #536dfe2b;
+}
+.identity-upload svg{width:15px;height:15px}
+.identity-remove{
+  padding:10px 13px;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:#fff;
+  color:#4c5870;
+  font-size:13px;
+  font-weight:800;
+}
+.identity-file{
+  min-height:16px;
+  margin-top:8px;
+  display:flex;
+  gap:7px;
+  align-items:center;
+  color:#526078;
+  font-size:11px;
+}
+.identity-file-dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--brand);
+  flex:0 0 6px;
+}
+.avatar-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+}
+.avatar-choice{
+  position:relative;
+  border:2px solid #dce3ee;
+  border-radius:15px;
+  background:#fff;
+  padding:8px;
+  cursor:pointer;
+  text-align:center;
+  transition:.16s ease;
+  color:var(--ink);
+}
+.avatar-choice:hover{
+  transform:translateY(-2px);
+  border-color:#aebbd0;
+  box-shadow:0 9px 20px #27364d12;
+}
+.avatar-choice.selected{
+  border-color:var(--brand);
+  box-shadow:0 0 0 3px #536dfe12,0 9px 20px #27364d12;
+}
+.avatar-choice:focus-visible{
+  outline:3px solid #536dfe33;
+  outline-offset:2px;
+}
+.avatar-art{
+  width:66px;
+  height:66px;
+  margin:1px auto 7px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  font-size:25px;
+  font-weight:900;
+  border:4px solid #fff;
+  box-shadow:0 7px 18px #27364d1c;
+}
+.avatar-art.initials{
+  background:linear-gradient(145deg,#4d63e8,#7a8aff);
+  font-size:20px;
+}
+.avatar-art.sun{
+  background:radial-gradient(circle at 65% 30%,#fff8 0 9%,transparent 10%),
+             linear-gradient(145deg,#ef7f43,#e9506e);
+}
+.avatar-art.ocean{
+  background:radial-gradient(circle at 30% 30%,#fff8 0 8%,transparent 9%),
+             linear-gradient(145deg,#056a83,#27bdc8);
+}
+.avatar-art.forest{
+  background:radial-gradient(circle at 65% 25%,#fff7 0 8%,transparent 9%),
+             linear-gradient(145deg,#285a3e,#69b77b);
+}
+.avatar-art.night{
+  background:radial-gradient(circle at 68% 28%,#fff9 0 6%,transparent 7%),
+             linear-gradient(145deg,#181d3b,#596dff);
+}
+.avatar-art.spark{
+  background:radial-gradient(circle at 30% 28%,#fff7 0 7%,transparent 8%),
+             linear-gradient(145deg,#7438ba,#ee5aa0);
+}
+.avatar-choice-name{
+  display:block;
+  font-size:12px;
+  font-weight:900;
+}
+.avatar-choice-sub{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-top:2px;
+}
+.avatar-check{
+  position:absolute;
+  right:8px;
+  top:8px;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:var(--brand);
+  color:#fff;
+  font-size:11px;
+  font-weight:900;
+  opacity:0;
+  transform:scale(.8);
+  transition:.16s ease;
+}
+.avatar-choice.selected .avatar-check{
+  opacity:1;
+  transform:scale(1);
+}
+.avatar-note{
+  margin-top:9px;
+  color:var(--muted);
+  text-align:center;
+  font-size:11px;
+  line-height:1.45;
+}
+
+.card-avatar-choice{
+  background:transparent;
+  border:0;
+  padding:0;
+}
+
+@media(max-width:520px){
+  .identity-tabs{grid-template-columns:1fr 1fr}
+  .upload-stage{grid-template-columns:1fr;text-align:center}
+  .upload-stage-preview{margin:auto}
+  .identity-actions,.identity-file{justify-content:center}
+  .avatar-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
 /* Visual theme picker */
 .theme-picker{
   display:grid;
@@ -252,6 +639,81 @@ input,textarea,button{font:inherit}button{cursor:pointer}
 <div class="field"><label for="email">Email</label><input id="email" type="email" placeholder="e.g. hello@example.com"></div>
 <div class="field"><label for="bio">Short bio</label><textarea id="bio" placeholder="A short introduction..."></textarea></div>
 <div class="field">
+<label>Photo or avatar</label>
+
+<div class="identity-picker">
+  <div class="identity-tabs">
+    <button type="button" class="identity-tab active" id="mainPhotoTab" aria-selected="true">Upload photo</button>
+    <button type="button" class="identity-tab" id="mainAvatarTab" aria-selected="false">Choose avatar</button>
+  </div>
+
+  <div id="mainPhotoPanel" class="identity-panel active">
+    <div id="mainPhotoDrop" class="upload-stage">
+      <div id="mainPhotoPreview" class="upload-stage-preview">Z</div>
+      <div>
+        <div class="identity-title">Add your photo or logo</div>
+        <div class="identity-sub">Use a clear portrait, company logo, or brand image. The preview updates instantly.</div>
+        <div class="identity-actions">
+          <label class="identity-upload" for="mainPhoto">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 16V4"></path><path d="m7 9 5-5 5 5"></path><path d="M5 20h14"></path>
+            </svg>
+            Choose image
+          </label>
+          <button id="removeMainPhoto" class="identity-remove" type="button">Remove</button>
+          <input id="mainPhoto" class="photo-input" type="file" accept="image/jpeg,image/png,image/webp">
+        </div>
+        <div class="identity-file"><span class="identity-file-dot"></span><span id="mainPhotoFileName">No photo selected</span></div>
+      </div>
+    </div>
+    <div class="avatar-note">JPG, PNG or WebP · max 5 MB · drag and drop also works</div>
+  </div>
+
+  <div id="mainAvatarPanel" class="identity-panel">
+    <div id="mainAvatarGrid" class="avatar-grid" role="group" aria-label="Choose an avatar">
+      <button type="button" class="avatar-choice selected" data-avatar-value="avatar:initials" aria-pressed="true">
+        <div class="avatar-art initials">AZ</div>
+        <span class="avatar-choice-name">Initials</span>
+        <span class="avatar-choice-sub">Uses your name</span>
+        <span class="avatar-check">✓</span>
+      </button>
+      <button type="button" class="avatar-choice" data-avatar-value="avatar:sun" aria-pressed="false">
+        <div class="avatar-art sun">☀</div>
+        <span class="avatar-choice-name">Sunset</span>
+        <span class="avatar-choice-sub">Warm & bright</span>
+        <span class="avatar-check">✓</span>
+      </button>
+      <button type="button" class="avatar-choice" data-avatar-value="avatar:ocean" aria-pressed="false">
+        <div class="avatar-art ocean">≈</div>
+        <span class="avatar-choice-name">Ocean</span>
+        <span class="avatar-choice-sub">Fresh & cool</span>
+        <span class="avatar-check">✓</span>
+      </button>
+      <button type="button" class="avatar-choice" data-avatar-value="avatar:forest" aria-pressed="false">
+        <div class="avatar-art forest">✦</div>
+        <span class="avatar-choice-name">Forest</span>
+        <span class="avatar-choice-sub">Natural & calm</span>
+        <span class="avatar-check">✓</span>
+      </button>
+      <button type="button" class="avatar-choice" data-avatar-value="avatar:night" aria-pressed="false">
+        <div class="avatar-art night">★</div>
+        <span class="avatar-choice-name">Night</span>
+        <span class="avatar-choice-sub">Deep & bold</span>
+        <span class="avatar-check">✓</span>
+      </button>
+      <button type="button" class="avatar-choice" data-avatar-value="avatar:spark" aria-pressed="false">
+        <div class="avatar-art spark">✦</div>
+        <span class="avatar-choice-name">Spark</span>
+        <span class="avatar-choice-sub">Creative & fun</span>
+        <span class="avatar-check">✓</span>
+      </button>
+    </div>
+    <div class="avatar-note">Choose an avatar when you do not want to upload a photo.</div>
+  </div>
+</div>
+</div>
+
+<div class="field">
 <label>Card theme</label>
 <div id="themePicker" class="theme-picker" role="group" aria-label="Choose a card theme">
   <button type="button" class="theme-option selected" data-theme-value="midnight" aria-pressed="true">
@@ -304,14 +766,89 @@ input,textarea,button{font:inherit}button{cursor:pointer}
 <div class="actions"><button id="create" class="btn primary" type="button">Create share link</button><button id="clear" class="btn secondary" type="button">Clear</button></div>
 <div id="status" class="status"></div>
 </div>
-<div class="box"><h2>Preview</h2><div id="mainCard" class="card" data-theme="midnight"><div><div class="brand">DIGITAL VISITING CARD</div><h2 id="pn">Your Name</h2><div id="pt" class="role">Your job title</div><div id="pc" class="company">Your company</div><p id="pb" class="bio">Your short bio will appear here.</p></div><div class="contact"><a id="pp" href="#">Phone</a><a id="pe" href="#">Email</a></div></div><div class="preview-note">Your card will use your clean profile link after creation.</div></div>
+<div class="box"><h2>Preview</h2><div id="mainCard" class="card" data-theme="midnight"><div><div class="card-topline"><div id="mainAvatar" class="avatar">Z</div><div class="brand">DIGITAL VISITING CARD</div></div><h2 id="pn">Your Name</h2><div id="pt" class="role">Your job title</div><div id="pc" class="company">Your company</div><p id="pb" class="bio">Your short bio will appear here.</p></div><div class="contact"><a id="pp" href="#">Phone</a><a id="pe" href="#">Email</a></div></div><div class="preview-note">Your card will use your clean profile link after creation.</div></div>
 </div>
 </main>
 
-<section id="shared"><div class="shared"><div class="profile-home-row"><a class="profile-home" href="https://zetacard.github.io/visiting-card-app/" onclick="window.location.assign('https://zetacard.github.io/visiting-card-app/'); return false;">← Home</a></div><div class="shared-title">ZETACARD</div><div id="sharedError" class="error"></div><div class="shared-wrap"><div id="sharedCard" class="card" data-theme="midnight"><div><div id="sharedAvatar" class="avatar" aria-hidden="true">Z</div><div class="brand">DIGITAL VISITING CARD</div><h2 id="sn">Your Name</h2><div id="st" class="role">Your job title</div><div id="sc" class="company">Your company</div><p id="sb" class="bio">Your short bio will appear here.</p></div><div class="contact"><a id="sp" href="#">Phone</a><a id="se" href="#">Email</a></div></div><div class="qr-box"><strong>Scan to open</strong><div id="qr" class="qr"></div></div></div><div class="card-actions"><button id="copy" class="btn primary" type="button">Copy link</button><button id="share" class="btn ghost" type="button">Share</button><button id="contact" class="btn ghost" type="button">Save contact</button><button id="own" class="btn secondary" type="button">Create your own card</button></div><div id="shareStatus" class="status"></div><div class="note">Your digital card · Easy to share anywhere</div></div></section>
+<section id="shared"><div class="shared"><div class="profile-home-row"><a class="profile-home" href="https://zetacard.github.io/visiting-card-app/" onclick="window.location.assign('https://zetacard.github.io/visiting-card-app/'); return false;">← Home</a></div><div class="shared-title">ZETACARD</div><div id="sharedError" class="error"></div><div class="shared-wrap"><div id="sharedCard" class="card" data-theme="midnight"><div><div class="card-topline"><div id="sharedAvatar" class="avatar" aria-hidden="true">Z</div><div class="brand">DIGITAL VISITING CARD</div></div><h2 id="sn">Your Name</h2><div id="st" class="role">Your job title</div><div id="sc" class="company">Your company</div><p id="sb" class="bio">Your short bio will appear here.</p></div><div class="contact"><a id="sp" href="#">Phone</a><a id="se" href="#">Email</a></div></div><div class="qr-box"><strong>Scan to open</strong><div id="qr" class="qr"></div></div></div><div class="card-actions"><button id="copy" class="btn primary" type="button">Copy link</button><button id="share" class="btn ghost" type="button">Share</button><button id="contact" class="btn ghost" type="button">Save contact</button><button id="own" class="btn secondary" type="button">Create your own card</button></div><div id="shareStatus" class="status"></div><div class="note">Your digital card · Easy to share anywhere</div></div></section>
 
 <section id="creator"><div class="creator"><div class="top"><div style="display:flex;gap:8px;flex-wrap:wrap"><button id="back" class="back" type="button">← Back to card</button><a class="back" href="https://zetacard.github.io/visiting-card-app/" onclick="window.location.assign('https://zetacard.github.io/visiting-card-app/'); return false;" style="text-decoration:none">Home</a></div><div class="creator-label">CREATE A NEW CARD</div></div><div class="creator-grid"><div class="intro"><span class="badge">ZETACARD</span><h1>Create a new digital card.</h1><p>Create a completely new profile, choose a username, preview the card, and generate a new shareable link.</p><div class="steps"><div class="step"><span class="num">1</span>Enter your details</div><div class="step"><span class="num">2</span>Choose a username</div><div class="step"><span class="num">3</span>Create your share link</div></div></div>
 <div class="box"><h2>New card</h2><div class="field"><label for="nn">Name</label><input id="nn" placeholder="e.g. Alex Morgan"></div><div class="field"><label for="nu">Username</label><input id="nu" maxlength="30" placeholder="e.g. alex-morgan"><div class="help">This becomes part of your profile link.</div><div id="newUsernameStatus" class="status"></div></div><div class="field"><label for="nt">Job title</label><input id="nt" placeholder="e.g. Founder"></div><div class="field"><label for="nc">Company</label><input id="nc" placeholder="e.g. Acme Studio"></div><div class="field"><label for="np">Phone</label><input id="np" placeholder="e.g. +91 98765 43210"></div><div class="field"><label for="ne">Email</label><input id="ne" type="email" placeholder="e.g. hello@example.com"></div><div class="field"><label for="nb">Short bio</label><textarea id="nb" placeholder="A short introduction..."></textarea></div>
+<div class="field">
+<label>Photo or avatar</label>
+
+<div class="identity-picker">
+  <div class="identity-tabs">
+    <button type="button" class="identity-tab active" id="newPhotoTab" aria-selected="true">Upload photo</button>
+    <button type="button" class="identity-tab" id="newAvatarTab" aria-selected="false">Choose avatar</button>
+  </div>
+
+  <div id="newPhotoPanel" class="identity-panel active">
+    <div id="newPhotoDrop" class="upload-stage">
+      <div id="newPhotoPreview" class="upload-stage-preview">Z</div>
+      <div>
+        <div class="identity-title">Add your photo or logo</div>
+        <div class="identity-sub">Use a clear portrait, company logo, or brand image. The preview updates instantly.</div>
+        <div class="identity-actions">
+          <label class="identity-upload" for="newPhoto">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 16V4"></path><path d="m7 9 5-5 5 5"></path><path d="M5 20h14"></path>
+            </svg>
+            Choose image
+          </label>
+          <button id="removeNewPhoto" class="identity-remove" type="button">Remove</button>
+          <input id="newPhoto" class="photo-input" type="file" accept="image/jpeg,image/png,image/webp">
+        </div>
+        <div class="identity-file"><span class="identity-file-dot"></span><span id="newPhotoFileName">No photo selected</span></div>
+      </div>
+    </div>
+    <div class="avatar-note">JPG, PNG or WebP · max 5 MB · drag and drop also works</div>
+  </div>
+
+  <div id="newAvatarPanel" class="identity-panel">
+    <div id="newAvatarGrid" class="avatar-grid" role="group" aria-label="Choose an avatar">
+      <button type="button" class="avatar-choice selected" data-avatar-value="avatar:initials" aria-pressed="true">
+        <div class="avatar-art initials">AZ</div>
+        <span class="avatar-choice-name">Initials</span>
+        <span class="avatar-choice-sub">Uses your name</span>
+        <span class="avatar-check">✓</span>
+      </button>
+      <button type="button" class="avatar-choice" data-avatar-value="avatar:sun" aria-pressed="false">
+        <div class="avatar-art sun">☀</div>
+        <span class="avatar-choice-name">Sunset</span>
+        <span class="avatar-choice-sub">Warm & bright</span>
+        <span class="avatar-check">✓</span>
+      </button>
+      <button type="button" class="avatar-choice" data-avatar-value="avatar:ocean" aria-pressed="false">
+        <div class="avatar-art ocean">≈</div>
+        <span class="avatar-choice-name">Ocean</span>
+        <span class="avatar-choice-sub">Fresh & cool</span>
+        <span class="avatar-check">✓</span>
+      </button>
+      <button type="button" class="avatar-choice" data-avatar-value="avatar:forest" aria-pressed="false">
+        <div class="avatar-art forest">✦</div>
+        <span class="avatar-choice-name">Forest</span>
+        <span class="avatar-choice-sub">Natural & calm</span>
+        <span class="avatar-check">✓</span>
+      </button>
+      <button type="button" class="avatar-choice" data-avatar-value="avatar:night" aria-pressed="false">
+        <div class="avatar-art night">★</div>
+        <span class="avatar-choice-name">Night</span>
+        <span class="avatar-choice-sub">Deep & bold</span>
+        <span class="avatar-check">✓</span>
+      </button>
+      <button type="button" class="avatar-choice" data-avatar-value="avatar:spark" aria-pressed="false">
+        <div class="avatar-art spark">✦</div>
+        <span class="avatar-choice-name">Spark</span>
+        <span class="avatar-choice-sub">Creative & fun</span>
+        <span class="avatar-check">✓</span>
+      </button>
+    </div>
+    <div class="avatar-note">Choose an avatar when you do not want to upload a photo.</div>
+  </div>
+</div>
+</div>
+
 <div class="field">
 <label>Card theme</label>
 <div id="nthemePicker" class="theme-picker" role="group" aria-label="Choose a card theme">
@@ -337,7 +874,7 @@ input,textarea,button{font:inherit}button{cursor:pointer}
 </div>
 <input id="ntheme" type="hidden" value="midnight">
 <div class="help">Click a card preview to choose the style you want.</div>
-</div><div class="creator-label">LIVE PREVIEW</div><div id="newMini" class="mini" data-theme="midnight"><div class="brand">DIGITAL VISITING CARD</div><h3 id="mn">Your Name</h3><div id="mt" class="role">Your job title</div><div id="mc" class="company">Your company</div><p id="mb">Your short bio will appear here.</p><div class="contact"><span id="mp">Phone</span><span id="me">Email</span></div></div><button id="newCreate" class="btn primary" type="button" style="width:100%;margin-top:16px">Create card &amp; get share link</button><div id="newStatus" class="status"></div></div></div></div></section>
+</div><div class="creator-label">LIVE PREVIEW</div><div id="newMini" class="mini" data-theme="midnight"><div class="card-topline"><div id="newMiniAvatar" class="avatar">Z</div><div class="brand">DIGITAL VISITING CARD</div></div><h3 id="mn">Your Name</h3><div id="mt" class="role">Your job title</div><div id="mc" class="company">Your company</div><p id="mb">Your short bio will appear here.</p><div class="contact"><span id="mp">Phone</span><span id="me">Email</span></div></div><button id="newCreate" class="btn primary" type="button" style="width:100%;margin-top:16px">Create card &amp; get share link</button><div id="newStatus" class="status"></div></div></div></div></section>
 
 <script>
 "use strict";
@@ -347,6 +884,12 @@ const SUPABASE_PUBLISHABLE_KEY="sb_publishable_--O6hnERwb8RwEa-VFHnUw_SRUE54C-";
 const SITE_BASE="/visiting-card-app/";
 let db=null;
 let currentProfile=null;
+let mainAvatarFile=null;
+let newAvatarFile=null;
+let mainAvatarObjectUrl=null;
+let newAvatarObjectUrl=null;
+let mainAvatarChoice="avatar:initials";
+let newAvatarChoice="avatar:initials";
 
 const $=id=>document.getElementById(id);
 const msg=(id,t)=>{const e=$(id);if(e)e.textContent=t;};
@@ -367,11 +910,224 @@ function safeTheme(t){return ["midnight","ocean","forest","sunset"].includes(t)?
 function applyTheme(el,theme){if(el)el.dataset.theme=safeTheme(theme)}
 function initials(name){const parts=String(name||"ZetaCard").trim().split(/\s+/).filter(Boolean);return ((parts[0]?.[0]||"Z")+(parts[1]?.[0]||"")).toUpperCase().slice(0,2)}
 
-function mainData(){return{username:uname($("username").value),name:$("name").value.trim(),job_title:$("title").value.trim(),company:$("company").value.trim(),phone:$("phone").value.trim(),email:$("email").value.trim(),bio:$("bio").value.trim(),theme:$("theme").value||"midnight"}}
-function newData(){return{username:uname($("nu").value),name:$("nn").value.trim(),job_title:$("nt").value.trim(),company:$("nc").value.trim(),phone:$("np").value.trim(),email:$("ne").value.trim(),bio:$("nb").value.trim(),theme:$("ntheme").value||"midnight"}}
+function mainData(){return{username:uname($("username").value),name:$("name").value.trim(),job_title:$("title").value.trim(),company:$("company").value.trim(),phone:$("phone").value.trim(),email:$("email").value.trim(),bio:$("bio").value.trim(),theme:$("theme").value||"midnight",avatar_file:mainAvatarFile,avatar_choice:mainAvatarChoice}}
+function newData(){return{username:uname($("nu").value),name:$("nn").value.trim(),job_title:$("nt").value.trim(),company:$("nc").value.trim(),phone:$("np").value.trim(),email:$("ne").value.trim(),bio:$("nb").value.trim(),theme:$("ntheme").value||"midnight",avatar_file:newAvatarFile,avatar_choice:newAvatarChoice}}
 
-function updateMain(){setThemeSelection("theme","themePicker",$( "theme").value||"midnight");const d=mainData();$("pn").textContent=d.name||"Your Name";$("pt").textContent=d.job_title||"Your job title";$("pc").textContent=d.company||"Your company";$("pb").textContent=d.bio||"Your short bio will appear here";$("pp").textContent=d.phone||"Phone";$("pe").textContent=d.email||"Email";$("pp").href=d.phone?"tel:"+d.phone.replace(/[^\d+]/g,""):"#";$("pe").href=d.email?"mailto:"+d.email:"#";applyTheme($("mainCard"),d.theme);}
-function updateNew(){setThemeSelection("ntheme","nthemePicker",$("ntheme").value||"midnight");const d=newData();$("mn").textContent=d.name||"Your Name";$("mt").textContent=d.job_title||"Your job title";$("mc").textContent=d.company||"Your company";$("mb").textContent=d.bio||"Your short bio will appear here";$("mp").textContent=d.phone||"Phone";$("me").textContent=d.email||"Email";applyTheme($("newMini"),d.theme);}
+
+function avatarMarkup(choice,name){
+  const value=String(choice||"avatar:initials").replace("avatar:","");
+  if(value==="initials"){
+    return '<div class="avatar-art initials">'+escapeHtml(initials(name))+'</div>';
+  }
+  const map={
+    sun:["sun","☀"],
+    ocean:["ocean","≈"],
+    forest:["forest","✦"],
+    night:["night","★"],
+    spark:["spark","✦"]
+  };
+  const item=map[value]||map.night;
+  return '<div class="avatar-art '+item[0]+'">'+item[1]+'</div>';
+}
+
+function escapeHtml(value){
+  return String(value??"")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;");
+}
+
+function renderAvatar(id,name,imageUrl,localUrl){
+  const el=$(id);
+  if(!el)return;
+  const url=localUrl||imageUrl||"";
+
+  if(url.startsWith("avatar:")){
+    el.classList.remove("has-photo");
+    el.innerHTML=avatarMarkup(url,name);
+    return;
+  }
+
+  if(url){
+    el.classList.add("has-photo");
+    el.innerHTML="<img alt=\"Profile photo\" src=\""+escapeHtml(url)+"\">";
+  }else{
+    el.classList.remove("has-photo");
+    el.textContent=initials(name);
+  }
+}
+
+function validateAvatarFile(file){
+  if(!file)return false;
+  const allowed=["image/jpeg","image/png","image/webp"];
+  if(!allowed.includes(file.type)){
+    throw new Error("Please choose a JPG, PNG or WebP image.");
+  }
+  if(file.size>5*1024*1024){
+    throw new Error("Please choose an image smaller than 5 MB.");
+  }
+  return true;
+}
+
+function readImage(file){
+  return new Promise((resolve,reject)=>{
+    const url=URL.createObjectURL(file);
+    const img=new Image();
+    img.onload=()=>{URL.revokeObjectURL(url);resolve(img)};
+    img.onerror=()=>{URL.revokeObjectURL(url);reject(new Error("Could not read that image."))};
+    img.src=url;
+  });
+}
+
+async function prepareAvatar(file){
+  validateAvatarFile(file);
+  if(file.size<=900*1024){
+    return {body:file,contentType:file.type,extension:file.type==="image/png"?"png":file.type==="image/webp"?"webp":"jpg"};
+  }
+  const img=await readImage(file);
+  const max=600;
+  const scale=Math.min(1,max/Math.max(img.naturalWidth||img.width,img.naturalHeight||img.height));
+  const w=Math.max(1,Math.round((img.naturalWidth||img.width)*scale));
+  const h=Math.max(1,Math.round((img.naturalHeight||img.height)*scale));
+  const canvas=document.createElement("canvas");
+  canvas.width=w;canvas.height=h;
+  const ctx=canvas.getContext("2d");
+  if(!ctx)throw new Error("Image processing is unavailable in this browser.");
+  ctx.fillStyle="#ffffff";ctx.fillRect(0,0,w,h);
+  ctx.drawImage(img,0,0,w,h);
+  const blob=await new Promise(resolve=>canvas.toBlob(resolve,"image/jpeg",0.82));
+  if(!blob)throw new Error("Could not optimize the image.");
+  return {body:blob,contentType:"image/jpeg",extension:"jpg"};
+}
+
+async function uploadAvatar(file,username){
+  if(!file)return null;
+  if(!initDb())throw new Error("Database connection is unavailable.");
+  const prepared=await prepareAvatar(file);
+  const suffix=Math.random().toString(36).slice(2,8);
+  const path="public/"+username+"-"+Date.now()+"-"+suffix+"."+prepared.extension;
+  const r=await db.storage.from("avatars").upload(path,prepared.body,{contentType:prepared.contentType,cacheControl:"3600",upsert:false});
+  if(r.error)throw r.error;
+  const pub=db.storage.from("avatars").getPublicUrl(path);
+  return pub&&pub.data?pub.data.publicUrl:null;
+}
+
+function clearMainPhoto(){
+  if(mainAvatarObjectUrl)URL.revokeObjectURL(mainAvatarObjectUrl);
+  mainAvatarObjectUrl=null;mainAvatarFile=null;
+  const input=$("mainPhoto");if(input)input.value="";
+  setPhotoFileName("main","No photo selected");
+  setIdentityMode("main","avatar");
+  selectAvatar("mainAvatarGrid",mainAvatarChoice);
+  updateMain();
+}
+
+function clearNewPhoto(){
+  if(newAvatarObjectUrl)URL.revokeObjectURL(newAvatarObjectUrl);
+  newAvatarObjectUrl=null;newAvatarFile=null;
+  const input=$("newPhoto");if(input)input.value="";
+  setPhotoFileName("new","No photo selected");
+  setIdentityMode("new","avatar");
+  selectAvatar("newAvatarGrid",newAvatarChoice);
+  updateNew();
+}
+
+
+function setPhotoFileName(type,name){
+  const id=type==="main"?"mainPhotoFileName":"newPhotoFileName";
+  const el=$(id);
+  if(el)el.textContent=name||"No photo selected";
+}
+
+function handlePhotoFile(file,type,input){
+  if(!file)return;
+  try{
+    validateAvatarFile(file);
+    if(input) {
+      try{
+        const transfer=new DataTransfer();
+        transfer.items.add(file);
+        input.files=transfer.files;
+      }catch(e){}
+    }
+    if(type==="main"){
+      if(mainAvatarObjectUrl)URL.revokeObjectURL(mainAvatarObjectUrl);
+      mainAvatarFile=file;
+      mainAvatarChoice="avatar:initials";
+      setIdentityMode("main","photo");
+      if(mainAvatarObjectUrl)URL.revokeObjectURL(mainAvatarObjectUrl);
+      mainAvatarObjectUrl=URL.createObjectURL(file);
+      updateMain();
+      setPhotoFileName("main",file.name);
+      msg("status","Photo selected.");
+    }else{
+      if(newAvatarObjectUrl)URL.revokeObjectURL(newAvatarObjectUrl);
+      newAvatarFile=file;
+      newAvatarChoice="avatar:initials";
+      setIdentityMode("new","photo");
+      if(newAvatarObjectUrl)URL.revokeObjectURL(newAvatarObjectUrl);
+      newAvatarObjectUrl=URL.createObjectURL(file);
+      updateNew();
+      setPhotoFileName("new",file.name);
+      msg("newStatus","Photo selected.");
+    }
+  }catch(e){
+    if(input)input.value="";
+    msg(type==="main"?"status":"newStatus",e&&e.message?e.message:"Could not use that image.");
+  }
+}
+
+function setupPhotoDropzone(dropId,inputId,type){
+  const zone=$(dropId);
+  const input=$(inputId);
+  if(!zone||!input)return;
+
+  ["dragenter","dragover"].forEach(name=>{
+    zone.addEventListener(name,event=>{
+      event.preventDefault();
+      zone.classList.add("dragover");
+    });
+  });
+
+  ["dragleave","drop"].forEach(name=>{
+    zone.addEventListener(name,event=>{
+      event.preventDefault();
+      zone.classList.remove("dragover");
+    });
+  });
+
+  zone.addEventListener("drop",event=>{
+    const file=event.dataTransfer&&event.dataTransfer.files
+      ? event.dataTransfer.files[0]
+      : null;
+    handlePhotoFile(file,type,input);
+  });
+}
+
+function setupPhotoInput(inputId,type){
+  const input=$(inputId);
+  if(!input)return;
+  input.addEventListener("change",()=>{
+    const file=input.files&&input.files[0];
+    handlePhotoFile(file,type,input);
+  });
+}
+
+function updateMain(){setThemeSelection("theme","themePicker",$("theme").value||"midnight");const d=mainData();$("pn").textContent=d.name||"Your Name";$("pt").textContent=d.job_title||"Your job title";$("pc").textContent=d.company||"Your company";$("pb").textContent=d.bio||"Your short bio will appear here";$("pp").textContent=d.phone||"Phone";$("pe").textContent=d.email||"Email";$("pp").href=d.phone?"tel:"+d.phone.replace(/[^\d+]/g,""):"#";$("pe").href=d.email?"mailto:"+d.email:"#";applyTheme($("mainCard"),d.theme);if(mainAvatarFile||mainAvatarObjectUrl){
+    renderAvatar("mainAvatar",d.name,null,mainAvatarObjectUrl);
+    renderAvatar("mainPhotoPreview",d.name,null,mainAvatarObjectUrl);
+  }else{
+    renderAvatar("mainAvatar",d.name,mainAvatarChoice,null);
+    renderAvatar("mainPhotoPreview",d.name,mainAvatarChoice,null);
+  }}
+function updateNew(){setThemeSelection("ntheme","nthemePicker",$("ntheme").value||"midnight");const d=newData();$("mn").textContent=d.name||"Your Name";$("mt").textContent=d.job_title||"Your job title";$("mc").textContent=d.company||"Your company";$("mb").textContent=d.bio||"Your short bio will appear here";$("mp").textContent=d.phone||"Phone";$("me").textContent=d.email||"Email";applyTheme($("newMini"),d.theme);if(newAvatarFile||newAvatarObjectUrl){
+    renderAvatar("newMiniAvatar",d.name,null,newAvatarObjectUrl);
+    renderAvatar("newPhotoPreview",d.name,null,newAvatarObjectUrl);
+  }else{
+    renderAvatar("newMiniAvatar",d.name,newAvatarChoice,null);
+    renderAvatar("newPhotoPreview",d.name,newAvatarChoice,null);
+  }}
 
 function showLanding(){ $("landing").style.display="block";$("builder").style.display="none";$("shared").style.display="none";$("creator").style.display="none" }
 function showBuilder(){ $("landing").style.display="none";$("builder").style.display="block";$("shared").style.display="none";$("creator").style.display="none" }
@@ -381,7 +1137,7 @@ function showCreator(){ $("landing").style.display="none";$("builder").style.dis
 function fillCard(d){
   currentProfile=d;
   $("sn").textContent=d.name||"Your Name";
-  $("sharedAvatar").textContent=initials(d.name);
+  renderAvatar("sharedAvatar",d.name,d.avatar_url||null,null);
   applyTheme($("sharedCard"),d.theme);
   $("st").textContent=d.job_title||"Your job title";
   $("sc").textContent=d.company||"Your company";
@@ -467,7 +1223,7 @@ function saveContact(){
 }
 
 async function checkUsername(u){if(!initDb())throw new Error("Database connection is unavailable.");const r=await db.from("profiles").select("username").eq("username",u).maybeSingle();if(r.error)throw r.error;return !r.data}
-async function loadProfile(u){if(!initDb())throw new Error("Database connection is unavailable.");const r=await db.from("profiles").select("username,name,job_title,company,phone,email,bio,theme").eq("username",u).maybeSingle();if(r.error)throw r.error;if(!r.data)throw new Error("Profile not found.");return r.data}
+async function loadProfile(u){if(!initDb())throw new Error("Database connection is unavailable.");const r=await db.from("profiles").select("username,name,job_title,company,phone,email,bio,theme,avatar_url").eq("username",u).maybeSingle();if(r.error)throw r.error;if(!r.data)throw new Error("Profile not found.");return r.data}
 async function copyLink(url,statusId){try{await navigator.clipboard.writeText(url);msg(statusId,"Profile created. Share link copied.")}catch(e){msg(statusId,"Profile created. Copy the link from the address bar.")}}
 
 async function createProfile(data,statusId){
@@ -477,16 +1233,38 @@ async function createProfile(data,statusId){
   msg(statusId,"Checking username...");
   try{
     if(!(await checkUsername(data.username))){msg(statusId,"Username already taken. Choose another.");return}
+
+    const payload={
+      username:data.username,
+      name:data.name,
+      job_title:data.job_title,
+      company:data.company,
+      phone:data.phone,
+      email:data.email,
+      bio:data.bio,
+      theme:safeTheme(data.theme)
+    };
+
+    if(data.avatar_file){
+      msg(statusId,"Uploading photo...");
+      payload.avatar_url=await uploadAvatar(data.avatar_file,data.username);
+    }else{
+      payload.avatar_url=data.avatar_choice||"avatar:initials";
+    }
+
     msg(statusId,"Creating profile...");
-    const r=await db.from("profiles").insert(data).select().single();
+    const r=await db.from("profiles").insert(payload).select().single();
     if(r.error)throw r.error;
     const saved=r.data;const url=profileUrl(saved.username);
     fillCard(saved);showShared();history.replaceState(null,"",url);await copyLink(url,statusId);
-  }catch(e){console.error("Create failed",e);msg(statusId,e&&e.code==="23505"?"Username already taken. Choose another.":"Could not create profile: "+(e&&e.message?e.message:"Unknown error"))}
+  }catch(e){
+    console.error("Create failed",e);
+    msg(statusId,e&&e.code==="23505"?"Username already taken. Choose another.":"Could not create profile: "+(e&&e.message?e.message:"Unknown error"));
+  }
 }
 
-function clearMain(){["name","username","title","company","phone","email","bio"].forEach(id=>$(id).value="");setThemeSelection("theme","themePicker","midnight");msg("status","");msg("usernameStatus","");currentProfile=null;updateMain();showBuilder();history.replaceState(null,"",homeUrl())}
-function resetNew(){["nn","nu","nt","nc","np","ne","nb"].forEach(id=>$(id).value="");setThemeSelection("ntheme","nthemePicker","midnight");msg("newStatus","");msg("newUsernameStatus","");updateNew()}
+function clearMain(){mainAvatarChoice="avatar:initials";["name","username","title","company","phone","email","bio"].forEach(id=>$(id).value="");setIdentityMode("main","avatar");selectAvatar("mainAvatarGrid","avatar:initials");setThemeSelection("theme","themePicker","midnight");clearMainPhoto();msg("status","");msg("usernameStatus","");currentProfile=null;updateMain();showBuilder();history.replaceState(null,"",homeUrl())}
+function resetNew(){newAvatarChoice="avatar:initials";["nn","nu","nt","nc","np","ne","nb"].forEach(id=>$(id).value="");setIdentityMode("new","avatar");selectAvatar("newAvatarGrid","avatar:initials");setThemeSelection("ntheme","nthemePicker","midnight");clearNewPhoto();msg("newStatus","");msg("newUsernameStatus","");updateNew()}
 function openCreator(){resetNew();history.replaceState(null,"",homeUrl()+"#create");showCreator()}
 function openBuilder(){showBuilder();history.replaceState(null,"",homeUrl()+"#create-card");window.scrollTo({top:0,behavior:"smooth"})}
 function backToCard(){let s=null;try{s=sessionStorage.getItem("zetaProfile")}catch(e){}if(s){try{const d=JSON.parse(s);if(d&&d.username){fillCard(d);history.replaceState(null,"",profileUrl(d.username));showShared();return}}catch(e){}}history.replaceState(null,"",homeUrl());showBuilder()}
@@ -522,6 +1300,88 @@ function setupThemePicker(inputId,pickerId,onChange){
   setThemeSelection(inputId,pickerId,$(inputId).value||"midnight");
 }
 
+
+function selectAvatar(gridId,value){
+  const grid=$(gridId);
+  if(!grid)return;
+  const safe=value&&value.startsWith("avatar:")?value:"avatar:initials";
+  grid.querySelectorAll(".avatar-choice").forEach(btn=>{
+    const selected=btn.dataset.avatarValue===safe;
+    btn.classList.toggle("selected",selected);
+    btn.setAttribute("aria-pressed",selected?"true":"false");
+  });
+}
+
+function setIdentityMode(prefix,mode){
+  const photoTab=$(prefix+"PhotoTab");
+  const avatarTab=$(prefix+"AvatarTab");
+  const photoPanel=$(prefix+"PhotoPanel");
+  const avatarPanel=$(prefix+"AvatarPanel");
+  const isPhoto=mode==="photo";
+
+  if(photoTab){
+    photoTab.classList.toggle("active",isPhoto);
+    photoTab.setAttribute("aria-selected",isPhoto?"true":"false");
+  }
+  if(avatarTab){
+    avatarTab.classList.toggle("active",!isPhoto);
+    avatarTab.setAttribute("aria-selected",!isPhoto?"true":"false");
+  }
+  if(photoPanel)photoPanel.classList.toggle("active",isPhoto);
+  if(avatarPanel)avatarPanel.classList.toggle("active",!isPhoto);
+}
+
+function setupIdentityPicker(prefix){
+  const photoTab=$(prefix+"PhotoTab");
+  const avatarTab=$(prefix+"AvatarTab");
+  const grid=$(prefix+"AvatarGrid");
+
+  if(photoTab)photoTab.addEventListener("click",()=>{
+    setIdentityMode(prefix,"photo");
+  });
+
+  if(avatarTab)avatarTab.addEventListener("click",()=>{
+    setIdentityMode(prefix,"avatar");
+  });
+
+  if(grid){
+    grid.addEventListener("click",event=>{
+      const button=event.target.closest(".avatar-choice");
+      if(!button || !grid.contains(button))return;
+
+      const value=button.dataset.avatarValue||"avatar:initials";
+
+      if(prefix==="main"){
+        mainAvatarChoice=value;
+        mainAvatarFile=null;
+        const input=$("mainPhoto");
+        if(input)input.value="";
+        setPhotoFileName("main","No photo selected");
+        if(mainAvatarObjectUrl){
+          URL.revokeObjectURL(mainAvatarObjectUrl);
+          mainAvatarObjectUrl=null;
+        }
+        setIdentityMode("main","avatar");
+        selectAvatar("mainAvatarGrid",value);
+        updateMain();
+      }else{
+        newAvatarChoice=value;
+        newAvatarFile=null;
+        const input=$("newPhoto");
+        if(input)input.value="";
+        setPhotoFileName("new","No photo selected");
+        if(newAvatarObjectUrl){
+          URL.revokeObjectURL(newAvatarObjectUrl);
+          newAvatarObjectUrl=null;
+        }
+        setIdentityMode("new","avatar");
+        selectAvatar("newAvatarGrid",value);
+        updateNew();
+      }
+    });
+  }
+}
+
 function setupUsernameCheck(inputId,statusId){let timer=null;$(inputId).addEventListener("input",()=>{clearTimeout(timer);const u=uname($(inputId).value);$(inputId).value=u;msg(statusId,"");if(!u)return;if(!validUsername(u)){msg(statusId,"Use 3–30 lowercase letters, numbers or hyphens.");return}msg(statusId,"Checking...");timer=setTimeout(async()=>{try{msg(statusId,(await checkUsername(u))?"✅ Username available":"❌ Username already taken")}catch(e){console.error(e);msg(statusId,"Could not check username.")}},400)})}
 
 async function openProfileFromQuery(){
@@ -534,7 +1394,17 @@ async function openProfileFromQuery(){
 }
 
 async function start(){
-  updateMain();updateNew();initDb();
+  setIdentityMode("main","avatar");
+  setIdentityMode("new","avatar");
+  selectAvatar("mainAvatarGrid",mainAvatarChoice);
+  selectAvatar("newAvatarGrid",newAvatarChoice);
+  setupIdentityPicker("main");
+  setupIdentityPicker("new");
+  setPhotoFileName("main","No photo selected");
+  setPhotoFileName("new","No photo selected");
+  updateMain();
+  updateNew();
+  initDb();
   $("landingCreate").addEventListener("click",openBuilder);$("landingCreateTop").addEventListener("click",openBuilder);$("landingCreateBottom").addEventListener("click",openBuilder);$("landingLearn").addEventListener("click",()=>$("landingFeatures").scrollIntoView({behavior:"smooth"}));$("create").addEventListener("click",()=>createProfile(mainData(),"status"));
   $("clear").addEventListener("click",clearMain);
   $("own").addEventListener("click",openCreator);
@@ -545,7 +1415,7 @@ async function start(){
   $("back").addEventListener("click",backToCard);
   ["name","title","company","phone","email","bio"].forEach(id=>$(id).addEventListener("input",updateMain));setupThemePicker("theme","themePicker",updateMain);
   ["nn","nt","nc","np","ne","nb"].forEach(id=>$(id).addEventListener("input",updateNew));setupThemePicker("ntheme","nthemePicker",updateNew);
-  setupUsernameCheck("username","usernameStatus");setupUsernameCheck("nu","newUsernameStatus");
+  setupUsernameCheck("username","usernameStatus");setupUsernameCheck("nu","newUsernameStatus");setupPhotoInput("mainPhoto","main");setupPhotoInput("newPhoto","new");setupPhotoDropzone("mainPhotoDrop","mainPhoto","main");setupPhotoDropzone("newPhotoDrop","newPhoto","new");$("removeMainPhoto").addEventListener("click",clearMainPhoto);$("removeNewPhoto").addEventListener("click",clearNewPhoto);
   if(await openProfileFromQuery())return;
   if(window.location.hash==="#create"){showCreator();return}
   if(window.location.hash==="#create-card"){showBuilder();return}

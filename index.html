@@ -9,68 +9,53 @@
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,sans-serif;background:#eef2f7;color:#172033}
 button,input,textarea{font:inherit}
-button{cursor:pointer;border:0;border-radius:10px;padding:12px 16px;font-weight:700}
-.primary{background:#536dfe;color:white}.secondary{background:#edf1ff;color:#3d51b5}
-.container{width:min(1000px,94%);margin:auto;padding:30px 0}
-.header{text-align:center;margin-bottom:25px}
-.header h1{font-size:40px;margin:0 0 8px}
-.header p{color:#68738b}
+button{cursor:pointer}
+.page{max-width:1000px;margin:auto;padding:30px 18px}
+h1{margin:0 0 8px}.head{text-align:center;margin-bottom:25px}.head p{color:#68738b}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-.box{background:#fff;padding:22px;border:1px solid #dfe5ef;border-radius:20px;box-shadow:0 12px 35px #00000010}
-.field{margin:13px 0}
-label{display:block;font-weight:700;margin-bottom:6px}
-input,textarea{width:100%;padding:11px;border:1px solid #d1d8e4;border-radius:10px}
-textarea{min-height:90px}
-.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}
-.status{min-height:20px;margin-top:9px;color:#536dfe;font-size:14px}
+.box{background:#fff;border:1px solid #dfe5ef;border-radius:18px;padding:22px;box-shadow:0 10px 30px #0001}
+.field{margin:12px 0}label{display:block;font-weight:bold;margin-bottom:6px}
+input,textarea{width:100%;padding:11px;border:1px solid #ccd5e2;border-radius:9px}
+textarea{min-height:85px;resize:vertical}
+.btn{padding:11px 15px;border:0;border-radius:9px;font-weight:bold}
+.primary{background:#536dfe;color:#fff}.secondary{background:#edf1ff;color:#3d51b5}
+.actions{display:flex;gap:9px;margin-top:15px}.status{color:#536dfe;font-size:14px;margin-top:9px;min-height:20px}
 
-.card{width:100%;min-height:300px;padding:28px;border-radius:25px;background:linear-gradient(145deg,#172554,#536dfe);color:white;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 20px 45px #17255433;overflow-wrap:anywhere}
+.card{min-height:300px;padding:28px;border-radius:24px;background:linear-gradient(145deg,#172554,#536dfe);color:#fff;display:flex;flex-direction:column;justify-content:space-between;overflow-wrap:anywhere}
 .brand{font-size:12px;letter-spacing:2px;opacity:.7}
-.card h2{font-size:34px;margin:10px 0 4px}
-.role{font-weight:700}.company{opacity:.75}.bio{line-height:1.5}
-.contact{display:grid;gap:7px}.contact a{color:#fff;text-decoration:none}
+.card h2{font-size:34px;margin:10px 0 4px}.role{font-weight:bold}.company{opacity:.75}.bio{line-height:1.5}.contact{display:grid;gap:7px}.contact a{color:white;text-decoration:none}
 
 #shared,#creator{display:none;min-height:100vh}
 #shared{align-items:center;justify-content:center;padding:22px}
-.shared{width:min(540px,100%);text-align:center}
-.shared .card{text-align:left}
-.tag{margin-bottom:15px;color:#68738b;font-weight:800;letter-spacing:2px;font-size:12px}
-.own{display:block;margin:20px auto 0;background:#ffffff18;color:white;border:1px solid #ffffff55}
+.shared{width:min(520px,100%);text-align:center}.shared .card{text-align:left}
+.own{display:block;margin:20px auto 0;padding:11px 15px;background:#ffffff18;border:1px solid #ffffff55;border-radius:9px;color:#fff;font-weight:bold}
+.note{color:#68738b;font-size:13px;margin-top:12px}
 
-#creator{padding:22px;background:linear-gradient(135deg,#f8faff,#edf2fb)}
-.creator{width:min(1000px,100%);margin:auto}
-.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
-.back{background:white;color:#26335f;border:1px solid #dfe5ef}
-.label{color:#536dfe;font-size:12px;font-weight:800;letter-spacing:2px}
+#creator{padding:22px;background:#f3f6fc}
+.creator{max-width:1000px;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.back{background:#fff;border:1px solid #dfe5ef;color:#26335f;padding:11px 15px;border-radius:9px;font-weight:bold}
+.label{color:#536dfe;font-size:12px;font-weight:bold;letter-spacing:2px}
 .creator-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:22px}
-.intro{padding:22px 6px}
-.badge{display:inline-block;padding:6px 10px;border-radius:999px;background:#eef2ff;color:#3d51b5;font-size:12px;font-weight:700}
-.intro h1{font-size:42px;line-height:1.05}
-.intro p{color:#68738b;line-height:1.6}
-.steps{display:grid;gap:10px}
-.step{display:flex;align-items:center;gap:10px}
-.num{width:28px;height:28px;border-radius:50%;background:#536dfe;color:white;display:grid;place-items:center;font-weight:700}
-.mini{margin-top:14px;padding:18px;border-radius:16px;background:linear-gradient(145deg,#172554,#536dfe);color:white}
-.mini h3{font-size:24px;margin:8px 0 4px}
-.mini p{line-height:1.4}
-@media(max-width:760px){.grid,.creator-grid{grid-template-columns:1fr}.header h1,.intro h1{font-size:32px}}
+.intro{padding:25px 5px}.intro p{color:#68738b;line-height:1.6}.badge{display:inline-block;background:#eef2ff;color:#3d51b5;padding:7px 10px;border-radius:20px;font-size:12px;font-weight:bold}
+.steps{display:grid;gap:10px;margin-top:22px}.step{display:flex;gap:9px;align-items:center}.num{width:28px;height:28px;display:grid;place-items:center;border-radius:50%;background:#536dfe;color:#fff;font-weight:bold}
+.mini{margin-top:14px;padding:18px;border-radius:16px;background:linear-gradient(145deg,#172554,#536dfe);color:white}.mini h3{font-size:24px;margin:8px 0 4px}.mini p{line-height:1.4}
+@media(max-width:760px){.grid,.creator-grid{grid-template-columns:1fr}}
 </style>
 </head>
 
 <body>
 
 <!-- MAIN FORM -->
-<main id="builder" class="container">
+<main id="builder" class="page">
 
-<header class="header">
+<div class="head">
 <h1>Create your digital visiting card</h1>
 <p>Enter your details and create a profile you can share.</p>
-</header>
+</div>
 
-<section class="grid">
+<div class="grid">
 
 <div class="box">
-
 <h2>Your details</h2>
 
 <div class="field">
@@ -104,30 +89,23 @@ textarea{min-height:90px}
 </div>
 
 <div class="actions">
-<button id="create" class="primary">Create share link</button>
-<button id="clear" class="secondary">Clear</button>
+<button id="create" class="btn primary">Create share link</button>
+<button id="clear" class="btn secondary">Clear</button>
 </div>
 
 <div id="status" class="status"></div>
-
 </div>
 
 
 <div class="box">
-
 <h2>Preview</h2>
 
 <div class="card">
-
 <div>
 <div class="brand">DIGITAL VISITING CARD</div>
-
 <h2 id="pn">Your Name</h2>
-
 <div id="pt" class="role">Your job title</div>
-
 <div id="pc" class="company">Your company</div>
-
 <p id="pb" class="bio">Your short bio will appear here.</p>
 </div>
 
@@ -135,11 +113,10 @@ textarea{min-height:90px}
 <a id="pp">Phone</a>
 <a id="pe">Email</a>
 </div>
-
 </div>
 </div>
 
-</section>
+</div>
 </main>
 
 
@@ -147,20 +124,15 @@ textarea{min-height:90px}
 <section id="shared">
 
 <div class="shared">
-
-<div class="tag">ZETACARD</div>
+<div class="brand" style="color:#68738b;text-align:center">ZETACARD</div>
 
 <div class="card">
 
 <div>
 <div class="brand">DIGITAL VISITING CARD</div>
-
 <h2 id="sn">Your Name</h2>
-
 <div id="st" class="role">Your job title</div>
-
 <div id="sc" class="company">Your company</div>
-
 <p id="sb" class="bio">Your short bio will appear here.</p>
 </div>
 
@@ -169,16 +141,10 @@ textarea{min-height:90px}
 <a id="se">Email</a>
 </div>
 
-<button id="own" class="own">
-Create your own card
-</button>
-
+<button id="own" class="own">Create your own card</button>
 </div>
 
-<p style="color:#68738b;font-size:13px">
-Shared ZetaCard profile
-</p>
-
+<div class="note">Shared ZetaCard profile</div>
 </div>
 
 </section>
@@ -190,53 +156,29 @@ Shared ZetaCard profile
 <div class="creator">
 
 <div class="top">
-
-<button id="back" class="back">
-← Back to card
-</button>
-
-<div class="label">
-CREATE A NEW CARD
-</div>
-
+<button id="back" class="back">← Back to card</button>
+<div class="label">CREATE A NEW CARD</div>
 </div>
 
 
 <div class="creator-grid">
 
-
 <div class="intro">
 
-<span class="badge">
-ZETACARD
-</span>
+<span class="badge">ZETACARD</span>
 
-<h1>
-Create a new digital card.
-</h1>
+<h1>Create a new digital card.</h1>
 
 <p>
-Create a completely new profile and
-generate a fresh shareable link.
+Create a completely new profile,
+preview it, and generate a fresh
+shareable link.
 </p>
 
 <div class="steps">
-
-<div class="step">
-<span class="num">1</span>
-Enter your details
-</div>
-
-<div class="step">
-<span class="num">2</span>
-Review your card
-</div>
-
-<div class="step">
-<span class="num">3</span>
-Create your share link
-</div>
-
+<div class="step"><span class="num">1</span>Enter your details</div>
+<div class="step"><span class="num">2</span>Review your card</div>
+<div class="step"><span class="num">3</span>Create your share link</div>
 </div>
 
 </div>
@@ -244,9 +186,7 @@ Create your share link
 
 <div class="box">
 
-<h2>
-New card
-</h2>
+<h2>New card</h2>
 
 <div class="field">
 <label>Name</label>
@@ -278,141 +218,113 @@ New card
 <textarea id="nb" placeholder="A short introduction..."></textarea>
 </div>
 
-
-<div class="label">
-LIVE PREVIEW
-</div>
-
+<div class="label">LIVE PREVIEW</div>
 
 <div class="mini">
-
-<div class="brand">
-DIGITAL VISITING CARD
-</div>
-
-<h3 id="mn">
-Your Name
-</h3>
-
-<div id="mt" class="role">
-Your job title
-</div>
-
-<div id="mc" class="company">
-Your company
-</div>
-
-<p id="mb">
-Your short bio will appear here.
-</p>
-
+<div class="brand">DIGITAL VISITING CARD</div>
+<h3 id="mn">Your Name</h3>
+<div id="mt" class="role">Your job title</div>
+<div id="mc" class="company">Your company</div>
+<p id="mb">Your short bio will appear here.</p>
 <div class="contact">
 <span id="mp">Phone</span>
 <span id="me">Email</span>
 </div>
-
 </div>
 
-
-<button
-id="newCreate"
-class="primary"
-style="width:100%;margin-top:16px"
->
+<button id="newCreate" class="btn primary" style="width:100%;margin-top:16px">
 Create card & get share link
 </button>
 
 <div id="newStatus" class="status"></div>
 
 </div>
-
 </div>
-
 </div>
-
 </section>
 
 
 <script>
+const $=id=>document.getElementById(id);
 
-const $ = id =>
-document.getElementById(id);
-
-
-/* -------------------------
-   DATA
--------------------------- */
+const mainIds=["name","title","company","phone","email","bio"];
+const newIds=["nn","nt","nc","np","ne","nb"];
 
 function mainData(){
-
-return {
-
-name:$("name").value.trim(),
-title:$("title").value.trim(),
-company:$("company").value.trim(),
-phone:$("phone").value.trim(),
-email:$("email").value.trim(),
-bio:$("bio").value.trim()
-
-};
-
+return Object.fromEntries(mainIds.map(id=>[id,$(id).value.trim()]));
 }
 
-
 function newData(){
-
-return {
-
+return{
 name:$("nn").value.trim(),
 title:$("nt").value.trim(),
 company:$("nc").value.trim(),
 phone:$("np").value.trim(),
 email:$("ne").value.trim(),
 bio:$("nb").value.trim()
-
 };
-
 }
 
-
-/* -------------------------
-   ENCODE / DECODE
--------------------------- */
-
-function encode(data){
-
-return encodeURIComponent(
-JSON.stringify(data)
-);
-
+function enc(data){
+return encodeURIComponent(JSON.stringify(data));
 }
 
-
-function decode(value){
-
-return JSON.parse(
-decodeURIComponent(value)
-);
-
+function dec(value){
+return JSON.parse(decodeURIComponent(value));
 }
-
 
 function base(){
-
-return new URL(
-"./",
-location.href
-).href;
-
+return new URL("./",location.href).href;
 }
 
+function showBuilder(){
+$("builder").style.display="block";
+$("shared").style.display="none";
+$("creator").style.display="none";
+}
 
-/* -------------------------
-   PREVIEWS
--------------------------- */
+function showCreator(){
+$("builder").style.display="none";
+$("shared").style.display="none";
+$("creator").style.display="block";
+
+newIds.forEach(id=>$(id).value="");
+
+updateNew();
+}
+
+function showCard(d){
+$("sn").textContent=d.name||"Your Name";
+$("st").textContent=d.title||"Your job title";
+$("sc").textContent=d.company||"Your company";
+$("sb").textContent=d.bio||"Your short bio will appear here";
+
+$("sp").textContent=d.phone||"Phone";
+$("se").textContent=d.email||"Email";
+
+$("sp").href=d.phone?"tel:"+d.phone.replace(/[^\d+]/g,""):"#";
+$("se").href=d.email?"mailto:"+d.email:"#";
+
+sessionStorage.setItem(
+"zetaProfile",
+JSON.stringify(d)
+);
+
+$("builder").style.display="none";
+$("shared").style.display="flex";
+$("creator").style.display="none";
+}
+
+async function copy(url,id){
+try{
+await navigator.clipboard.writeText(url);
+$(id).textContent="Share link copied to clipboard.";
+}catch{
+$(id).textContent="Share link created. Copy it from the address bar.";
+}
+}
 
 function updateMain(){
-
 const d=mainData();
 
 $("pn").textContent=d.name||"Your Name";
@@ -423,21 +335,11 @@ $("pb").textContent=d.bio||"Your short bio will appear here";
 $("pp").textContent=d.phone||"Phone";
 $("pe").textContent=d.email||"Email";
 
-$("pp").href=
-d.phone
-?"tel:"+d.phone.replace(/[^\d+]/g,"")
-:"#";
-
-$("pe").href=
-d.email
-?"mailto:"+d.email
-:"#";
-
+$("pp").href=d.phone?"tel:"+d.phone.replace(/[^\d+]/g,""):"#";
+$("pe").href=d.email?"mailto:"+d.email:"#";
 }
 
-
 function updateNew(){
-
 const d=newData();
 
 $("mn").textContent=d.name||"Your Name";
@@ -447,251 +349,100 @@ $("mb").textContent=d.bio||"Your short bio will appear here";
 
 $("mp").textContent=d.phone||"Phone";
 $("me").textContent=d.email||"Email";
-
 }
 
 
-/* -------------------------
-   SCREENS
--------------------------- */
+/* Live previews */
 
-function builder(){
+mainIds.forEach(id=>{
+$(id).addEventListener("input",updateMain);
+});
 
-$("builder").style.display="block";
-$("shared").style.display="none";
-$("creator").style.display="none";
-
-}
+newIds.forEach(id=>{
+$(id).addEventListener("input",updateNew);
+});
 
 
-function shared(){
-
-$("builder").style.display="none";
-$("shared").style.display="flex";
-$("creator").style.display="none";
-
-}
-
-
-function creator(){
-
-$("builder").style.display="none";
-$("shared").style.display="none";
-$("creator").style.display="block";
-
-}
-
-
-/* -------------------------
-   SHARED CARD
--------------------------- */
-
-function showCard(d){
-
-$("sn").textContent=d.name||"Your Name";
-$("st").textContent=d.title||"Your job title";
-$("sc").textContent=d.company||"Your company";
-$("sb").textContent=d.bio||"Your short bio will appear here";
-
-$("sp").textContent=d.phone||"Phone";
-$("se").textContent=d.email||"Email";
-
-$("sp").href=
-d.phone
-?"tel:"+d.phone.replace(/[^\d+]/g,"")
-:"#";
-
-$("se").href=
-d.email
-?"mailto:"+d.email
-:"#";
-
-sessionStorage.setItem(
-"zetaProfile",
-JSON.stringify(d)
-);
-
-shared();
-
-}
-
-
-/* -------------------------
-   COPY
--------------------------- */
-
-async function copy(url,id){
-
-try{
-
-await navigator.clipboard.writeText(url);
-
-$(id).textContent=
-"Share link copied to clipboard.";
-
-}catch{
-
-$(id).textContent=
-"Share link created. Copy it from the address bar.";
-
-}
-
-}
-
-
-/* -------------------------
-   MAIN CREATE
--------------------------- */
+/* Create first profile */
 
 $("create").onclick=async()=>{
 
 const d=mainData();
 
 if(!d.name){
-
-$("status").textContent=
-"Please enter your name first.";
-
+$("status").textContent="Please enter your name first.";
 return;
-
 }
 
-const url=
-base()+
-"#card="+
-encode(d);
+const e=enc(d);
+const url=base()+"#card="+e;
 
-history.replaceState(
-null,
-"",
-"#card="+encode(d)
-);
+history.replaceState(null,"","#card="+e);
 
 showCard(d);
 
-await copy(
-url,
-"status"
-);
-
+await copy(url,"status");
 };
 
 
-/* -------------------------
-   CLEAR
--------------------------- */
+/* Clear */
 
 $("clear").onclick=()=>{
+mainIds.forEach(id=>$(id).value="");
 
-[
-"name",
-"title",
-"company",
-"phone",
-"email",
-"bio"
-].forEach(id=>{
-$(id).value="";
-});
-
-history.replaceState(
-null,
-"",
-base()
-);
+history.replaceState(null,"",base());
 
 $("status").textContent="";
 
 updateMain();
-
-builder();
-
+showBuilder();
 };
 
 
-/* -------------------------
-   CREATE YOUR OWN
--------------------------- */
+/* Create your own card */
 
 $("own").onclick=()=>{
-
-history.replaceState(
-null,
-"",
-base()+"#create"
-);
-
-creator();
-
+history.replaceState(null,"",base()+"#create");
+showCreator();
 };
 
 
-/* -------------------------
-   NEW CARD
--------------------------- */
+/* Create new profile */
 
 $("newCreate").onclick=async()=>{
 
 const d=newData();
 
 if(!d.name){
-
-$("newStatus").textContent=
-"Please enter your name first.";
-
+$("newStatus").textContent="Please enter your name first.";
 return;
-
 }
 
-const url=
-base()+
-"#card="+
-encode(d);
+const e=enc(d);
+const url=base()+"#card="+e;
 
-history.replaceState(
-null,
-"",
-"#card="+encode(d)
-);
+history.replaceState(null,"","#card="+e);
 
 showCard(d);
 
-await copy(
-url,
-"newStatus"
-);
-
+await copy(url,"newStatus");
 };
 
 
-/* -------------------------
-   BACK
--------------------------- */
+/* Back */
 
 $("back").onclick=()=>{
 
-const saved=
-sessionStorage.getItem(
-"zetaProfile"
-);
+const saved=sessionStorage.getItem("zetaProfile");
 
 if(saved){
 
 try{
 
-const d=
-JSON.parse(saved);
+const d=JSON.parse(saved);
+const e=enc(d);
 
-const url=
-base()+
-"#card="+
-encode(d);
-
-history.replaceState(
-null,
-"",
-"#card="+encode(d)
-);
+history.replaceState(null,"","#card="+e);
 
 showCard(d);
 
@@ -701,77 +452,26 @@ return;
 
 }
 
-history.replaceState(
-null,
-"",
-base()
-);
+history.replaceState(null,"",base());
 
-builder();
-
+showBuilder();
 };
 
 
-/* -------------------------
-   LIVE PREVIEW
--------------------------- */
-
-[
-"name",
-"title",
-"company",
-"phone",
-"email",
-"bio"
-].forEach(id=>{
-
-$(id).addEventListener(
-"input",
-updateMain
-);
-
-});
-
-
-[
-"nn",
-"nt",
-"nc",
-"np",
-"ne",
-"nb"
-].forEach(id=>{
-
-$(id).addEventListener(
-"input",
-updateNew
-);
-
-});
-
-
-/* -------------------------
-   START
--------------------------- */
+/* Start */
 
 function start(){
 
 updateMain();
-
 updateNew();
 
-const hash=
-location.hash;
-
+const hash=location.hash;
 
 if(hash.indexOf("#card=")===0){
 
 try{
 
-const d=
-decode(
-hash.substring(6)
-);
+const d=dec(hash.substring(6));
 
 showCard(d);
 
@@ -785,24 +485,19 @@ console.error(error);
 
 }
 
-
 if(hash==="#create"){
 
-creator();
+showCreator();
 
 return;
 
 }
 
-
-builder();
-
+showBuilder();
 }
-
 
 start();
 
 </script>
-
 </body>
 </html>

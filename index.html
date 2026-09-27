@@ -3,588 +3,413 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Digital Visiting Card</title>
+  <title>ZetaCard — Digital Visiting Card</title>
 
   <style>
-    :root {
-      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-      color: #172033;
-      background: #eef2f7;
+    :root{
+      --text:#172033;
+      --muted:#657089;
+      --line:#dfe5ef;
+      --blue:#536dfe;
+      --blue-dark:#172554;
+      --soft:#eef2ff;
+
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
     }
 
-    * {
-      box-sizing: border-box;
+    *{
+      box-sizing:border-box;
     }
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #f4f7fb, #e9eef8);
+    body{
+      margin:0;
+      min-height:100vh;
+      color:var(--text);
+      background:
+        linear-gradient(
+          135deg,
+          #f5f7fb,
+          #e9eef8
+        );
     }
 
-    .app {
-      width: min(1080px, 94%);
-      margin: auto;
-      padding: 30px 0 50px;
+    button,
+    input,
+    textarea{
+      font:inherit;
     }
 
-    header {
-      text-align: center;
-      margin-bottom: 24px;
+    button{
+      border:0;
+      border-radius:12px;
+      padding:12px 16px;
+      font-weight:700;
+      cursor:pointer;
     }
 
-    h1 {
-      margin: 0 0 8px;
-      font-size: clamp(2rem, 5vw, 3.1rem);
+    .primary{
+      background:var(--blue);
+      color:#fff;
     }
 
-    header p {
-      margin: 0;
-      color: #657089;
+    .secondary{
+      background:var(--soft);
+      color:#3d51b5;
     }
 
-    .layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(320px, 1fr);
-      gap: 24px;
+    /* =========================
+       MAIN BUILDER
+    ========================== */
+
+    .builder{
+      width:min(1100px,94%);
+      margin:auto;
+      padding:32px 0 50px;
     }
 
-    .panel {
-      background: rgba(255, 255, 255, 0.95);
-      border: 1px solid #e2e7f0;
-      border-radius: 20px;
-      padding: 24px;
-      box-shadow: 0 16px 45px #1f305214;
+    .builder-header{
+      text-align:center;
+      margin-bottom:26px;
     }
 
-    .panel h2 {
-      margin-top: 0;
+    .builder-header h1{
+      margin:0 0 8px;
+      font-size:
+        clamp(
+          2rem,
+          5vw,
+          3.2rem
+        );
     }
 
-    .field {
-      margin-bottom: 14px;
+    .builder-header p{
+      margin:0;
+      color:var(--muted);
     }
 
-    label {
-      display: block;
-      margin-bottom: 7px;
-      font-size: 0.9rem;
-      font-weight: 700;
+    .builder-grid{
+      display:grid;
+      grid-template-columns:
+        minmax(0,1fr)
+        minmax(320px,1fr);
+      gap:24px;
+      align-items:start;
+    }
+
+    .panel{
+      background:
+        rgba(255,255,255,.96);
+
+      border:1px solid var(--line);
+
+      border-radius:22px;
+
+      padding:24px;
+
+      box-shadow:
+        0 18px 48px
+        rgba(31,48,82,.08);
+    }
+
+    .panel h2{
+      margin-top:0;
+    }
+
+    .field{
+      margin-bottom:15px;
+    }
+
+    label{
+      display:block;
+      margin-bottom:7px;
+
+      font-size:.9rem;
+      font-weight:750;
     }
 
     input,
-    textarea {
-      width: 100%;
-      border: 1px solid #d8deea;
-      border-radius: 11px;
-      padding: 12px 13px;
-      font: inherit;
-      background: #fff;
-      outline: none;
+    textarea{
+      width:100%;
+
+      border:1px solid #d4dbe7;
+
+      border-radius:11px;
+
+      padding:12px 13px;
+
+      background:#fff;
+      color:var(--text);
+
+      outline:none;
     }
 
     input:focus,
-    textarea:focus {
-      border-color: #536dfe;
-      box-shadow: 0 0 0 3px #536dfe1f;
+    textarea:focus{
+      border-color:var(--blue);
+
+      box-shadow:
+        0 0 0 3px
+        rgba(83,109,254,.12);
     }
 
-    textarea {
-      min-height: 90px;
-      resize: vertical;
+    textarea{
+      min-height:100px;
+      resize:vertical;
     }
 
-    button {
-      border: 0;
-      border-radius: 11px;
-      padding: 12px 16px;
-      font: inherit;
-      font-weight: 700;
-      cursor: pointer;
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+
+      gap:10px;
+
+      margin-top:18px;
     }
 
-    .primary {
-      background: #536dfe;
-      color: #fff;
+    .status{
+      min-height:22px;
+
+      margin-top:11px;
+
+      color:var(--blue);
+
+      font-size:.9rem;
     }
 
-    .secondary {
-      background: #eef2ff;
-      color: #3d51b5;
+    /* =========================
+       VISITING CARD
+    ========================== */
+
+    .card-area{
+      display:flex;
+      justify-content:center;
     }
 
-    .actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 18px;
+    .visiting-card{
+      width:min(520px,100%);
+
+      min-height:320px;
+
+      padding:34px;
+
+      border-radius:28px;
+
+      color:#fff;
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--blue-dark),
+          var(--blue)
+        );
+
+      box-shadow:
+        0 26px 60px
+        rgba(30,45,100,.24);
+
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+
+      overflow-wrap:anywhere;
     }
 
-    .status {
-      min-height: 22px;
-      margin-top: 10px;
-      color: #536dfe;
-      font-size: 0.9rem;
+    .brand{
+      font-size:.76rem;
+
+      letter-spacing:.15em;
+
+      text-transform:uppercase;
+
+      opacity:.72;
     }
 
-    .card-page {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
+    .visiting-card h3{
+      margin:11px 0 4px;
+
+      font-size:2.2rem;
+
+      line-height:1.05;
     }
 
-    .share-card {
-      width: min(520px, 100%);
-      min-height: 320px;
-      padding: 34px;
-      border-radius: 28px;
-      color: #fff;
-      background: linear-gradient(145deg, #172554, #536dfe);
-      box-shadow: 0 24px 60px #1e2d6440;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      overflow-wrap: anywhere;
+    .role{
+      font-weight:700;
+      opacity:.9;
     }
 
-    .brand {
-      font-size: 0.76rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      opacity: 0.72;
+    .company{
+      margin-top:4px;
+      opacity:.72;
     }
 
-    .person h3 {
-      margin: 10px 0 4px;
-      font-size: 2.2rem;
-      line-height: 1.05;
+    .bio{
+      margin:22px 0;
+
+      line-height:1.55;
+
+      opacity:.92;
     }
 
-    .role {
-      font-weight: 700;
-      opacity: 0.9;
+    .contact{
+      display:grid;
+      gap:8px;
     }
 
-    .company {
-      margin-top: 4px;
-      opacity: 0.7;
+    .contact a{
+      color:#fff;
+
+      text-decoration:none;
+
+      opacity:.94;
     }
 
-    .bio {
-      margin: 22px 0;
-      line-height: 1.55;
-      opacity: 0.92;
+    .contact a:hover{
+      text-decoration:underline;
     }
 
-    .contact {
-      display: grid;
-      gap: 8px;
+    /* =========================
+       SHARED CARD VIEW
+    ========================== */
+
+    #sharedView,
+    #creatorView{
+      min-height:100vh;
     }
 
-    .contact a {
-      color: #fff;
-      text-decoration: none;
-      opacity: 0.92;
+    .shared-page{
+      min-height:100vh;
+
+      display:flex;
+
+      align-items:center;
+      justify-content:center;
+
+      padding:24px;
     }
 
-    .contact a:hover {
-      text-decoration: underline;
+    .shared-content{
+      width:min(560px,100%);
+
+      text-align:center;
     }
 
-    .hint {
-      text-align: center;
-      margin-top: 14px;
-      color: #74809a;
-      font-size: 0.82rem;
+    .shared-brand{
+      margin-bottom:18px;
+
+      color:var(--muted);
+
+      font-size:.78rem;
+
+      font-weight:800;
+
+      letter-spacing:.15em;
     }
 
-    /* Shared-link mode */
-    .card-only .panel-form,
-    .card-only header {
-      display: none;
+    .shared-content .visiting-card{
+      margin:auto;
+      text-align:left;
     }
 
-    .card-only .layout {
-      display: block;
+    .shared-note{
+      margin-top:16px;
+
+      color:var(--muted);
+
+      font-size:.84rem;
     }
 
-    .card-only .preview-panel {
-      background: transparent;
-      border: 0;
-      box-shadow: none;
-      padding: 0;
+    .card-action{
+      display:block;
+
+      margin:20px auto 0;
+
+      background:
+        rgba(255,255,255,.12);
+
+      color:#fff;
+
+      border:
+        1px solid
+        rgba(255,255,255,.34);
     }
 
-    .card-only .preview-heading,
-    .card-only .hint {
-      display: none;
+    /* =========================
+       NEW CARD INTERFACE
+    ========================== */
+
+    .creator-page{
+      min-height:100vh;
+
+      padding:24px;
+
+      background:
+        radial-gradient(
+          circle at top left,
+          #dce5ff 0,
+          transparent 34%
+        ),
+        linear-gradient(
+          135deg,
+          #f8faff,
+          #edf2fb
+        );
     }
 
-    .back {
-      display: block;
-      margin: 18px auto 0;
-      background: #ffffff22;
-      color: #fff;
-      border: 1px solid #ffffff55;
+    .creator-shell{
+      width:min(1120px,100%);
+
+      margin:auto;
     }
 
-    @media (max-width: 800px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
-</head>
+    .creator-nav{
+      display:flex;
 
-<body>
+      align-items:center;
 
-  <main class="app" id="app">
+      justify-content:space-between;
 
-    <header>
-      <h1>Digital Visiting Card</h1>
-      <p>Create a card and share it with one link.</p>
-    </header>
+      gap:16px;
 
-    <section class="layout">
-
-      <!-- FORM -->
-      <div class="panel panel-form">
-
-        <h2>Your details</h2>
-
-        <div class="field">
-          <label for="name">Name</label>
-          <input id="name" placeholder="e.g. Alex Morgan">
-        </div>
-
-        <div class="field">
-          <label for="title">Job title</label>
-          <input id="title" placeholder="e.g. Founder & Designer">
-        </div>
-
-        <div class="field">
-          <label for="company">Company</label>
-          <input id="company" placeholder="e.g. Acme Studio">
-        </div>
-
-        <div class="field">
-          <label for="phone">Phone</label>
-          <input id="phone" type="tel" placeholder="e.g. +91 98765 43210">
-        </div>
-
-        <div class="field">
-          <label for="email">Email</label>
-          <input id="email" type="email" placeholder="e.g. hello@example.com">
-        </div>
-
-        <div class="field">
-          <label for="bio">Short bio</label>
-          <textarea id="bio" placeholder="A short introduction about you..."></textarea>
-        </div>
-
-        <div class="actions">
-          <button class="primary" id="shareBtn">
-            Create share link
-          </button>
-
-          <button class="secondary" id="clearBtn">
-            Clear
-          </button>
-        </div>
-
-        <div class="status" id="status"></div>
-
-      </div>
-
-      <!-- CARD PREVIEW -->
-      <div class="panel preview-panel">
-
-        <h2 class="preview-heading">Preview</h2>
-
-        <div class="card-page">
-
-          <article class="share-card" id="card">
-
-            <div>
-
-              <div class="brand">
-                DIGITAL VISITING CARD
-              </div>
-
-              <div class="person">
-
-                <h3 id="previewName">
-                  Your Name
-                </h3>
-
-                <div class="role" id="previewTitle">
-                  Your job title
-                </div>
-
-                <div class="company" id="previewCompany">
-                  Your company
-                </div>
-
-              </div>
-
-              <p class="bio" id="previewBio">
-                Your short bio will appear here.
-              </p>
-
-            </div>
-
-            <div class="contact">
-
-              <a id="previewPhoneLink" href="#">
-                Phone
-              </a>
-
-              <a id="previewEmailLink" href="#">
-                Email
-              </a>
-
-            </div>
-
-            <button
-              class="back"
-              id="backBtn"
-              hidden
-            >
-              Create your own card
-            </button>
-
-          </article>
-
-        </div>
-
-        <div class="hint">
-          Shared profile links open in card-only mode.
-        </div>
-
-      </div>
-
-    </section>
-  </main>
-
-  <script>
-
-    const fields = [
-      "name",
-      "title",
-      "company",
-      "phone",
-      "email",
-      "bio"
-    ];
-
-    const $ = id => document.getElementById(id);
-
-    function getData() {
-
-      return Object.fromEntries(
-        fields.map(id => [
-          id,
-          $(id).value.trim()
-        ])
-      );
-
+      margin-bottom:24px;
     }
 
-    function updatePreview() {
+    .creator-back{
+      background:#fff;
 
-      const data = getData();
+      color:#26335f;
 
-      $("previewName").textContent =
-        data.name || "Your Name";
-
-      $("previewTitle").textContent =
-        data.title || "Your job title";
-
-      $("previewCompany").textContent =
-        data.company || "Your company";
-
-      $("previewBio").textContent =
-        data.bio || "Your short bio will appear here.";
-
-      const phoneLink =
-        $("previewPhoneLink");
-
-      phoneLink.textContent =
-        data.phone || "Phone";
-
-      phoneLink.href =
-        data.phone
-          ? "tel:" + data.phone.replace(/[^\d+]/g, "")
-          : "#";
-
-      const emailLink =
-        $("previewEmailLink");
-
-      emailLink.textContent =
-        data.email || "Email";
-
-      emailLink.href =
-        data.email
-          ? "mailto:" + data.email
-          : "#";
+      border:
+        1px solid
+        var(--line);
     }
 
-    function encodeData(data) {
+    .creator-label{
+      color:var(--blue);
 
-      return btoa(
-        unescape(
-          encodeURIComponent(
-            JSON.stringify(data)
-          )
-        )
-      );
+      font-size:.76rem;
 
+      font-weight:800;
+
+      letter-spacing:.14em;
     }
 
-    function decodeData(value) {
+    .creator-grid{
+      display:grid;
 
-      return JSON.parse(
-        decodeURIComponent(
-          escape(
-            atob(value)
-          )
-        )
-      );
+      grid-template-columns:
+        minmax(0,.8fr)
+        minmax(360px,1.2fr);
 
+      gap:28px;
+
+      align-items:start;
     }
 
-    function loadSharedCard() {
-
-      const match =
-        location.hash.match(/^#card=(.+)$/);
-
-      if (!match) {
-        return false;
-      }
-
-      try {
-
-        const data =
-          decodeData(match[1]);
-
-        fields.forEach(id => {
-
-          $(id).value =
-            data[id] || "";
-
-        });
-
-        updatePreview();
-
-        document.body.classList.add("card-only");
-
-        $("backBtn").hidden = false;
-
-        $("backBtn").onclick = () => {
-
-          history.replaceState(
-            null,
-            "",
-            location.pathname
-          );
-
-          location.reload();
-
-        };
-
-        return true;
-
-      } catch (error) {
-
-        console.error(error);
-
-        return false;
-
-      }
-
-    }
-
-    fields.forEach(id => {
-
-      $(id).addEventListener(
-        "input",
-        updatePreview
-      );
-
-    });
-
-    $("shareBtn").onclick = async () => {
-
-      const data = getData();
-
-      if (!data.name) {
-
-        $("status").textContent =
-          "Please enter your name first.";
-
-        $("name").focus();
-
-        return;
-
-      }
-
-      const encoded =
-        encodeData(data);
-
-      const url =
-        location.origin +
-        location.pathname +
-        "#card=" +
-        encoded;
-
-      history.replaceState(
-        null,
-        "",
-        url
-      );
-
-      try {
-
-        await navigator.clipboard.writeText(url);
-
-        $("status").textContent =
-          "Share link copied to clipboard.";
-
-      } catch {
-
-        $("status").textContent =
-          "Share link created. Copy the URL from the address bar.";
-
-      }
-
-    };
-
-    $("clearBtn").onclick = () => {
-
-      fields.forEach(id => {
-        $(id).value = "";
-      });
-
-      history.replaceState(
-        null,
-        "",
-        location.pathname
-      );
-
-      $("status").textContent = "";
-
-      updatePreview();
-
-    };
-
-    updatePreview();
-
-    loadSharedCard();
-
-  </script>
-
-</body>
-</html>
+    .creator-intro{
+      padding:36px 

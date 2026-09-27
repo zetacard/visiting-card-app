@@ -1,691 +1,808 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>ZetaCard</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ZetaCard</title>
 
-  <style>
-    *{box-sizing:border-box}
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#eef2f7;color:#172033}
+button,input,textarea{font:inherit}
+button{cursor:pointer;border:0;border-radius:10px;padding:12px 16px;font-weight:700}
+.primary{background:#536dfe;color:white}.secondary{background:#edf1ff;color:#3d51b5}
+.container{width:min(1000px,94%);margin:auto;padding:30px 0}
+.header{text-align:center;margin-bottom:25px}
+.header h1{font-size:40px;margin:0 0 8px}
+.header p{color:#68738b}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.box{background:#fff;padding:22px;border:1px solid #dfe5ef;border-radius:20px;box-shadow:0 12px 35px #00000010}
+.field{margin:13px 0}
+label{display:block;font-weight:700;margin-bottom:6px}
+input,textarea{width:100%;padding:11px;border:1px solid #d1d8e4;border-radius:10px}
+textarea{min-height:90px}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}
+.status{min-height:20px;margin-top:9px;color:#536dfe;font-size:14px}
 
-    body{
-      margin:0;
-      font-family:Arial,Helvetica,sans-serif;
-      background:#eef2f7;
-      color:#172033;
-    }
+.card{width:100%;min-height:300px;padding:28px;border-radius:25px;background:linear-gradient(145deg,#172554,#536dfe);color:white;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 20px 45px #17255433;overflow-wrap:anywhere}
+.brand{font-size:12px;letter-spacing:2px;opacity:.7}
+.card h2{font-size:34px;margin:10px 0 4px}
+.role{font-weight:700}.company{opacity:.75}.bio{line-height:1.5}
+.contact{display:grid;gap:7px}.contact a{color:#fff;text-decoration:none}
 
-    button,input,textarea{
-      font:inherit;
-    }
+#shared,#creator{display:none;min-height:100vh}
+#shared{align-items:center;justify-content:center;padding:22px}
+.shared{width:min(540px,100%);text-align:center}
+.shared .card{text-align:left}
+.tag{margin-bottom:15px;color:#68738b;font-weight:800;letter-spacing:2px;font-size:12px}
+.own{display:block;margin:20px auto 0;background:#ffffff18;color:white;border:1px solid #ffffff55}
 
-    button{
-      cursor:pointer;
-    }
-
-    .page{
-      width:min(1050px,94%);
-      margin:auto;
-      padding:30px 0;
-    }
-
-    .header{
-      text-align:center;
-      margin-bottom:24px;
-    }
-
-    .header h1{
-      margin:0 0 8px;
-      font-size:clamp(2rem,5vw,3.1rem);
-    }
-
-    .header p{
-      margin:0;
-      color:#68738b;
-    }
-
-    .builder-grid,
-    .creator-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:24px;
-    }
-
-    .panel,
-    .creator-form{
-      background:#fff;
-      border:1px solid #dfe5ef;
-      border-radius:20px;
-      padding:24px;
-      box-shadow:0 14px 40px #1f305214;
-    }
-
-    .field{
-      margin-bottom:14px;
-    }
-
-    label{
-      display:block;
-      margin-bottom:6px;
-      font-weight:700;
-    }
-
-    input,
-    textarea{
-      width:100%;
-      padding:12px;
-      border:1px solid #d2d9e6;
-      border-radius:10px;
-      outline:0;
-      background:#fff;
-    }
-
-    input:focus,
-    textarea:focus{
-      border-color:#536dfe;
-      box-shadow:0 0 0 3px #536dfe20;
-    }
-
-    textarea{
-      min-height:90px;
-      resize:vertical;
-    }
-
-    .actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:16px;
-    }
-
-    .primary,
-    .secondary,
-    .back{
-      padding:12px 16px;
-      border-radius:10px;
-      font-weight:700;
-    }
-
-    .primary{
-      background:#536dfe;
-      color:#fff;
-      border:0;
-    }
-
-    .secondary{
-      background:#edf1ff;
-      color:#3d51b5;
-      border:0;
-    }
-
-    .status{
-      min-height:20px;
-      margin-top:10px;
-      color:#536dfe;
-      font-size:.9rem;
-    }
-
-    /* CARD */
-
-    .card{
-      width:min(500px,100%);
-      min-height:300px;
-      padding:30px;
-      border-radius:26px;
-      background:linear-gradient(145deg,#172554,#536dfe);
-      color:#fff;
-      box-shadow:0 22px 50px #1e2d6438;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      overflow-wrap:anywhere;
-    }
-
-    .card-wrap{
-      display:flex;
-      justify-content:center;
-    }
-
-    .brand{
-      font-size:.75rem;
-      letter-spacing:.15em;
-      opacity:.72;
-    }
-
-    .card h2{
-      font-size:2.1rem;
-      margin:10px 0 4px;
-    }
-
-    .role{
-      font-weight:700;
-      opacity:.9;
-    }
-
-    .company{
-      margin-top:4px;
-      opacity:.72;
-    }
-
-    .bio{
-      line-height:1.5;
-      margin:20px 0;
-    }
-
-    .contact{
-      display:grid;
-      gap:7px;
-    }
-
-    .contact a{
-      color:#fff;
-      text-decoration:none;
-    }
-
-    .contact a:hover{
-      text-decoration:underline;
-    }
-
-    /* SHARED PROFILE */
-
-    #shared{
-      display:none;
-      min-height:100vh;
-      align-items:center;
-      justify-content:center;
-      padding:24px;
-    }
-
-    .shared-wrap{
-      width:min(540px,100%);
-      text-align:center;
-    }
-
-    .tag{
-      margin-bottom:15px;
-      color:#68738b;
-      font-weight:800;
-      letter-spacing:.14em;
-      font-size:.76rem;
-    }
-
-    .shared-wrap .card{
-      text-align:left;
-      margin:auto;
-    }
-
-    .create-own{
-      margin:20px auto 0;
-      display:block;
-      padding:12px 16px;
-      border-radius:10px;
-      background:#ffffff18;
-      border:1px solid #ffffff55;
-      color:#fff;
-      font-weight:700;
-    }
-
-    .note{
-      margin-top:13px;
-      color:#68738b;
-      font-size:.82rem;
-    }
-
-    /* NEW CARD SCREEN */
-
-    #creator{
-      display:none;
-      min-height:100vh;
-      padding:24px;
-      background:
-        linear-gradient(
-          135deg,
-          #f8faff,
-          #edf2fb
-        );
-    }
-
-    .creator-wrap{
-      width:min(1050px,100%);
-      margin:auto;
-    }
-
-    .top{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      margin-bottom:22px;
-    }
-
-    .back{
-      background:#fff;
-      color:#26335f;
-      border:1px solid #dfe5ef;
-    }
-
-    .creator-label{
-      color:#536dfe;
-      font-size:.76rem;
-      font-weight:800;
-      letter-spacing:.14em;
-    }
-
-    .intro{
-      padding:22px 8px;
-    }
-
-    .badge{
-      display:inline-block;
-      padding:7px 10px;
-      border-radius:999px;
-      background:#eef2ff;
-      color:#3d51b5;
-      font-size:.74rem;
-      font-weight:800;
-      letter-spacing:.1em;
-    }
-
-    .intro h1{
-      margin:18px 0 12px;
-      font-size:clamp(2.2rem,5vw,4rem);
-      line-height:1.03;
-    }
-
-    .intro p{
-      color:#68738b;
-      line-height:1.6;
-    }
-
-    .steps{
-      display:grid;
-      gap:11px;
-      margin-top:24px;
-    }
-
-    .step{
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
-
-    .num{
-      width:30px;
-      height:30px;
-      display:grid;
-      place-items:center;
-      border-radius:50%;
-      background:#536dfe;
-      color:#fff;
-      font-weight:700;
-      flex:0 0 30px;
-    }
-
-    .mini{
-      margin-top:16px;
-      padding:20px;
-      border-radius:18px;
-      background:linear-gradient(145deg,#172554,#536dfe);
-      color:#fff;
-    }
-
-    .mini h3{
-      margin:9px 0 4px;
-      font-size:1.5rem;
-    }
-
-    .mini p{
-      margin:14px 0;
-      line-height:1.45;
-      color:#fff;
-    }
-
-    .creator-form .primary{
-      width:100%;
-      margin-top:18px;
-    }
-
-    @media(max-width:800px){
-      .builder-grid,
-      .creator-grid{
-        grid-template-columns:1fr;
-      }
-
-      .top{
-        align-items:flex-start;
-      }
-    }
-  </style>
+#creator{padding:22px;background:linear-gradient(135deg,#f8faff,#edf2fb)}
+.creator{width:min(1000px,100%);margin:auto}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.back{background:white;color:#26335f;border:1px solid #dfe5ef}
+.label{color:#536dfe;font-size:12px;font-weight:800;letter-spacing:2px}
+.creator-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:22px}
+.intro{padding:22px 6px}
+.badge{display:inline-block;padding:6px 10px;border-radius:999px;background:#eef2ff;color:#3d51b5;font-size:12px;font-weight:700}
+.intro h1{font-size:42px;line-height:1.05}
+.intro p{color:#68738b;line-height:1.6}
+.steps{display:grid;gap:10px}
+.step{display:flex;align-items:center;gap:10px}
+.num{width:28px;height:28px;border-radius:50%;background:#536dfe;color:white;display:grid;place-items:center;font-weight:700}
+.mini{margin-top:14px;padding:18px;border-radius:16px;background:linear-gradient(145deg,#172554,#536dfe);color:white}
+.mini h3{font-size:24px;margin:8px 0 4px}
+.mini p{line-height:1.4}
+@media(max-width:760px){.grid,.creator-grid{grid-template-columns:1fr}.header h1,.intro h1{font-size:32px}}
+</style>
 </head>
 
 <body>
 
-<!-- =====================================================
-     MAIN FORM
-===================================================== -->
+<!-- MAIN FORM -->
+<main id="builder" class="container">
 
-<main id="builder" class="page">
+<header class="header">
+<h1>Create your digital visiting card</h1>
+<p>Enter your details and create a profile you can share.</p>
+</header>
 
-  <header class="header">
-    <h1>Create your digital visiting card</h1>
-    <p>Enter your details and create a profile you can share.</p>
-  </header>
+<section class="grid">
 
-  <section class="builder-grid">
+<div class="box">
 
-    <!-- FORM -->
+<h2>Your details</h2>
 
-    <div class="panel">
+<div class="field">
+<label>Name</label>
+<input id="name" placeholder="e.g. Alex Morgan">
+</div>
 
-      <h2>Your details</h2>
+<div class="field">
+<label>Job title</label>
+<input id="title" placeholder="e.g. Founder">
+</div>
 
-      <div class="field">
-        <label for="name">Name</label>
-        <input
-          id="name"
-          placeholder="e.g. Alex Morgan"
-        >
-      </div>
+<div class="field">
+<label>Company</label>
+<input id="company" placeholder="e.g. Acme Studio">
+</div>
 
-      <div class="field">
-        <label for="title">Job title</label>
-        <input
-          id="title"
-          placeholder="e.g. Founder"
-        >
-      </div>
+<div class="field">
+<label>Phone</label>
+<input id="phone" placeholder="e.g. +91 98765 43210">
+</div>
 
-      <div class="field">
-        <label for="company">Company</label>
-        <input
-          id="company"
-          placeholder="e.g. Acme Studio"
-        >
-      </div>
+<div class="field">
+<label>Email</label>
+<input id="email" placeholder="e.g. hello@example.com">
+</div>
 
-      <div class="field">
-        <label for="phone">Phone</label>
-        <input
-          id="phone"
-          type="tel"
-          placeholder="e.g. +91 98765 43210"
-        >
-      </div>
+<div class="field">
+<label>Short bio</label>
+<textarea id="bio" placeholder="A short introduction..."></textarea>
+</div>
 
-      <div class="field">
-        <label for="email">Email</label>
-        <input
-          id="email"
-          type="email"
-          placeholder="e.g. hello@example.com"
-        >
-      </div>
+<div class="actions">
+<button id="create" class="primary">Create share link</button>
+<button id="clear" class="secondary">Clear</button>
+</div>
 
-      <div class="field">
-        <label for="bio">Short bio</label>
-        <textarea
-          id="bio"
-          placeholder="A short introduction about you..."
-        ></textarea>
-      </div>
+<div id="status" class="status"></div>
 
-      <div class="actions">
-
-        <button
-          id="create"
-          class="primary"
-        >
-          Create share link
-        </button>
-
-        <button
-          id="clear"
-          class="secondary"
-        >
-          Clear
-        </button>
-
-      </div>
-
-      <div
-        id="status"
-        class="status"
-      ></div>
-
-    </div>
+</div>
 
 
-    <!-- PREVIEW -->
+<div class="box">
 
-    <div class="panel">
+<h2>Preview</h2>
 
-      <h2>Preview</h2>
+<div class="card">
 
-      <div class="card-wrap">
+<div>
+<div class="brand">DIGITAL VISITING CARD</div>
 
-        <div class="card">
+<h2 id="pn">Your Name</h2>
 
-          <div>
+<div id="pt" class="role">Your job title</div>
 
-            <div class="brand">
-              DIGITAL VISITING CARD
-            </div>
+<div id="pc" class="company">Your company</div>
 
-            <h2 id="pn">
-              Your Name
-            </h2>
+<p id="pb" class="bio">Your short bio will appear here.</p>
+</div>
 
-            <div
-              id="pt"
-              class="role"
-            >
-              Your job title
-            </div>
+<div class="contact">
+<a id="pp">Phone</a>
+<a id="pe">Email</a>
+</div>
 
-            <div
-              id="pc"
-              class="company"
-            >
-              Your company
-            </div>
+</div>
+</div>
 
-            <p
-              id="pb"
-              class="bio"
-            >
-              Your short bio will appear here.
-            </p>
-
-          </div>
-
-          <div class="contact">
-
-            <a
-              id="pp"
-              href="#"
-            >
-              Phone
-            </a>
-
-            <a
-              id="pe"
-              href="#"
-            >
-              Email
-            </a>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
+</section>
 </main>
 
 
-<!-- =====================================================
-     SHARED PROFILE
-     ONLY CARD IS SHOWN
-===================================================== -->
-
+<!-- SHARED CARD -->
 <section id="shared">
 
-  <div class="shared-wrap">
+<div class="shared">
 
-    <div class="tag">
-      ZETACARD
-    </div>
+<div class="tag">ZETACARD</div>
 
+<div class="card">
 
-    <article class="card">
+<div>
+<div class="brand">DIGITAL VISITING CARD</div>
 
-      <div>
+<h2 id="sn">Your Name</h2>
 
-        <div class="brand">
-          DIGITAL VISITING CARD
-        </div>
+<div id="st" class="role">Your job title</div>
 
-        <h2 id="sn">
-          Your Name
-        </h2>
+<div id="sc" class="company">Your company</div>
 
-        <div
-          id="st"
-          class="role"
-        >
-          Your job title
-        </div>
+<p id="sb" class="bio">Your short bio will appear here.</p>
+</div>
 
-        <div
-          id="sc"
-          class="company"
-        >
-          Your company
-        </div>
+<div class="contact">
+<a id="sp">Phone</a>
+<a id="se">Email</a>
+</div>
 
-        <p
-          id="sb"
-          class="bio"
-        >
-          Your short bio will appear here.
-        </p>
+<button id="own" class="own">
+Create your own card
+</button>
 
-      </div>
+</div>
 
+<p style="color:#68738b;font-size:13px">
+Shared ZetaCard profile
+</p>
 
-      <div class="contact">
-
-        <a
-          id="sp"
-          href="#"
-        >
-          Phone
-        </a>
-
-        <a
-          id="se"
-          href="#"
-        >
-          Email
-        </a>
-
-      </div>
-
-
-      <button
-        id="createOwn"
-        class="create-own"
-      >
-        Create your own card
-      </button>
-
-    </article>
-
-
-    <div class="note">
-      This is a shared ZetaCard profile.
-    </div>
-
-  </div>
+</div>
 
 </section>
 
 
-<!-- =====================================================
-     NEW CARD INTERFACE
-===================================================== -->
-
+<!-- NEW CARD SCREEN -->
 <section id="creator">
 
-  <div class="creator-wrap">
+<div class="creator">
 
-    <div class="top">
+<div class="top">
 
-      <button
-        id="back"
-        class="back"
-      >
-        ← Back to card
-      </button>
+<button id="back" class="back">
+← Back to card
+</button>
 
-      <div class="creator-label">
-        CREATE A NEW CARD
-      </div>
+<div class="label">
+CREATE A NEW CARD
+</div>
 
-    </div>
+</div>
 
 
-    <div class="creator-grid">
-
-      <div class="intro">
-
-        <span class="badge">
-          ZETACARD
-        </span>
-
-        <h1>
-          Create a new digital card.
-        </h1>
-
-        <p>
-          Start a completely new profile,
-          review your card, and generate
-          a fresh shareable link.
-        </p>
+<div class="creator-grid">
 
 
-        <div class="steps">
+<div class="intro">
 
-          <div class="step">
-            <span class="num">1</span>
-            <span>Enter your details</span>
-          </div>
+<span class="badge">
+ZETACARD
+</span>
 
-          <div class="step">
-            <span class="num">2</span>
-            <span>Review your card</span>
-          </div>
+<h1>
+Create a new digital card.
+</h1>
 
-          <div class="step">
-            <span class="num">3</span>
-            <span>Create your share link</span>
-          </div>
+<p>
+Create a completely new profile and
+generate a fresh shareable link.
+</p>
 
-        </div>
+<div class="steps">
 
-      </div>
+<div class="step">
+<span class="num">1</span>
+Enter your details
+</div>
+
+<div class="step">
+<span class="num">2</span>
+Review your card
+</div>
+
+<div class="step">
+<span class="num">3</span>
+Create your share link
+</div>
+
+</div>
+
+</div>
 
 
-      <div class="creator-form">
+<div class="box">
 
-        <h2>
-          New card
-        </h2>
+<h2>
+New card
+</h2>
+
+<div class="field">
+<label>Name</label>
+<input id="nn" placeholder="e.g. Alex Morgan">
+</div>
+
+<div class="field">
+<label>Job title</label>
+<input id="nt" placeholder="e.g. Founder">
+</div>
+
+<div class="field">
+<label>Company</label>
+<input id="nc" placeholder="e.g. Acme Studio">
+</div>
+
+<div class="field">
+<label>Phone</label>
+<input id="np" placeholder="e.g. +91 98765 43210">
+</div>
+
+<div class="field">
+<label>Email</label>
+<input id="ne" placeholder="e.g. hello@example.com">
+</div>
+
+<div class="field">
+<label>Short bio</label>
+<textarea id="nb" placeholder="A short introduction..."></textarea>
+</div>
 
 
-        <div class="field">
-          <
+<div class="label">
+LIVE PREVIEW
+</div>
+
+
+<div class="mini">
+
+<div class="brand">
+DIGITAL VISITING CARD
+</div>
+
+<h3 id="mn">
+Your Name
+</h3>
+
+<div id="mt" class="role">
+Your job title
+</div>
+
+<div id="mc" class="company">
+Your company
+</div>
+
+<p id="mb">
+Your short bio will appear here.
+</p>
+
+<div class="contact">
+<span id="mp">Phone</span>
+<span id="me">Email</span>
+</div>
+
+</div>
+
+
+<button
+id="newCreate"
+class="primary"
+style="width:100%;margin-top:16px"
+>
+Create card & get share link
+</button>
+
+<div id="newStatus" class="status"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<script>
+
+const $ = id =>
+document.getElementById(id);
+
+
+/* -------------------------
+   DATA
+-------------------------- */
+
+function mainData(){
+
+return {
+
+name:$("name").value.trim(),
+title:$("title").value.trim(),
+company:$("company").value.trim(),
+phone:$("phone").value.trim(),
+email:$("email").value.trim(),
+bio:$("bio").value.trim()
+
+};
+
+}
+
+
+function newData(){
+
+return {
+
+name:$("nn").value.trim(),
+title:$("nt").value.trim(),
+company:$("nc").value.trim(),
+phone:$("np").value.trim(),
+email:$("ne").value.trim(),
+bio:$("nb").value.trim()
+
+};
+
+}
+
+
+/* -------------------------
+   ENCODE / DECODE
+-------------------------- */
+
+function encode(data){
+
+return encodeURIComponent(
+JSON.stringify(data)
+);
+
+}
+
+
+function decode(value){
+
+return JSON.parse(
+decodeURIComponent(value)
+);
+
+}
+
+
+function base(){
+
+return new URL(
+"./",
+location.href
+).href;
+
+}
+
+
+/* -------------------------
+   PREVIEWS
+-------------------------- */
+
+function updateMain(){
+
+const d=mainData();
+
+$("pn").textContent=d.name||"Your Name";
+$("pt").textContent=d.title||"Your job title";
+$("pc").textContent=d.company||"Your company";
+$("pb").textContent=d.bio||"Your short bio will appear here";
+
+$("pp").textContent=d.phone||"Phone";
+$("pe").textContent=d.email||"Email";
+
+$("pp").href=
+d.phone
+?"tel:"+d.phone.replace(/[^\d+]/g,"")
+:"#";
+
+$("pe").href=
+d.email
+?"mailto:"+d.email
+:"#";
+
+}
+
+
+function updateNew(){
+
+const d=newData();
+
+$("mn").textContent=d.name||"Your Name";
+$("mt").textContent=d.title||"Your job title";
+$("mc").textContent=d.company||"Your company";
+$("mb").textContent=d.bio||"Your short bio will appear here";
+
+$("mp").textContent=d.phone||"Phone";
+$("me").textContent=d.email||"Email";
+
+}
+
+
+/* -------------------------
+   SCREENS
+-------------------------- */
+
+function builder(){
+
+$("builder").style.display="block";
+$("shared").style.display="none";
+$("creator").style.display="none";
+
+}
+
+
+function shared(){
+
+$("builder").style.display="none";
+$("shared").style.display="flex";
+$("creator").style.display="none";
+
+}
+
+
+function creator(){
+
+$("builder").style.display="none";
+$("shared").style.display="none";
+$("creator").style.display="block";
+
+}
+
+
+/* -------------------------
+   SHARED CARD
+-------------------------- */
+
+function showCard(d){
+
+$("sn").textContent=d.name||"Your Name";
+$("st").textContent=d.title||"Your job title";
+$("sc").textContent=d.company||"Your company";
+$("sb").textContent=d.bio||"Your short bio will appear here";
+
+$("sp").textContent=d.phone||"Phone";
+$("se").textContent=d.email||"Email";
+
+$("sp").href=
+d.phone
+?"tel:"+d.phone.replace(/[^\d+]/g,"")
+:"#";
+
+$("se").href=
+d.email
+?"mailto:"+d.email
+:"#";
+
+sessionStorage.setItem(
+"zetaProfile",
+JSON.stringify(d)
+);
+
+shared();
+
+}
+
+
+/* -------------------------
+   COPY
+-------------------------- */
+
+async function copy(url,id){
+
+try{
+
+await navigator.clipboard.writeText(url);
+
+$(id).textContent=
+"Share link copied to clipboard.";
+
+}catch{
+
+$(id).textContent=
+"Share link created. Copy it from the address bar.";
+
+}
+
+}
+
+
+/* -------------------------
+   MAIN CREATE
+-------------------------- */
+
+$("create").onclick=async()=>{
+
+const d=mainData();
+
+if(!d.name){
+
+$("status").textContent=
+"Please enter your name first.";
+
+return;
+
+}
+
+const url=
+base()+
+"#card="+
+encode(d);
+
+history.replaceState(
+null,
+"",
+"#card="+encode(d)
+);
+
+showCard(d);
+
+await copy(
+url,
+"status"
+);
+
+};
+
+
+/* -------------------------
+   CLEAR
+-------------------------- */
+
+$("clear").onclick=()=>{
+
+[
+"name",
+"title",
+"company",
+"phone",
+"email",
+"bio"
+].forEach(id=>{
+$(id).value="";
+});
+
+history.replaceState(
+null,
+"",
+base()
+);
+
+$("status").textContent="";
+
+updateMain();
+
+builder();
+
+};
+
+
+/* -------------------------
+   CREATE YOUR OWN
+-------------------------- */
+
+$("own").onclick=()=>{
+
+history.replaceState(
+null,
+"",
+base()+"#create"
+);
+
+creator();
+
+};
+
+
+/* -------------------------
+   NEW CARD
+-------------------------- */
+
+$("newCreate").onclick=async()=>{
+
+const d=newData();
+
+if(!d.name){
+
+$("newStatus").textContent=
+"Please enter your name first.";
+
+return;
+
+}
+
+const url=
+base()+
+"#card="+
+encode(d);
+
+history.replaceState(
+null,
+"",
+"#card="+encode(d)
+);
+
+showCard(d);
+
+await copy(
+url,
+"newStatus"
+);
+
+};
+
+
+/* -------------------------
+   BACK
+-------------------------- */
+
+$("back").onclick=()=>{
+
+const saved=
+sessionStorage.getItem(
+"zetaProfile"
+);
+
+if(saved){
+
+try{
+
+const d=
+JSON.parse(saved);
+
+const url=
+base()+
+"#card="+
+encode(d);
+
+history.replaceState(
+null,
+"",
+"#card="+encode(d)
+);
+
+showCard(d);
+
+return;
+
+}catch{}
+
+}
+
+history.replaceState(
+null,
+"",
+base()
+);
+
+builder();
+
+};
+
+
+/* -------------------------
+   LIVE PREVIEW
+-------------------------- */
+
+[
+"name",
+"title",
+"company",
+"phone",
+"email",
+"bio"
+].forEach(id=>{
+
+$(id).addEventListener(
+"input",
+updateMain
+);
+
+});
+
+
+[
+"nn",
+"nt",
+"nc",
+"np",
+"ne",
+"nb"
+].forEach(id=>{
+
+$(id).addEventListener(
+"input",
+updateNew
+);
+
+});
+
+
+/* -------------------------
+   START
+-------------------------- */
+
+function start(){
+
+updateMain();
+
+updateNew();
+
+const hash=
+location.hash;
+
+
+if(hash.indexOf("#card=")===0){
+
+try{
+
+const d=
+decode(
+hash.substring(6)
+);
+
+showCard(d);
+
+return;
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+
+if(hash==="#create"){
+
+creator();
+
+return;
+
+}
+
+
+builder();
+
+}
+
+
+start();
+
+</script>
+
+</body>
+</html>

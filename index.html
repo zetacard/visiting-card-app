@@ -5,8 +5,22 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ZetaCard</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#eef2f7;color:#172033}input,textarea,button{font:inherit}button{cursor:pointer}.container{width:min(1000px,94%);margin:auto;padding:30px 0}.header{text-align:center;margin-bottom:25px}.header h1{margin:0 0 8px;font-size:42px}.header p{color:#68738b}.grid,.creator-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.box{background:#fff;padding:22px;border:1px solid #dfe5ef;border-radius:20px;box-shadow:0 12px 35px #0001}.field{margin:13px 0}label{display:block;font-weight:bold;margin-bottom:6px}input,textarea{width:100%;padding:11px;border:1px solid #ccd5e2;border-radius:9px;outline:none}input:focus,textarea:focus{border-color:#536dfe}textarea{min-height:90px;resize:vertical}.help{margin-top:5px;color:#68738b;font-size:12px}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}.btn{padding:11px 15px;border:0;border-radius:9px;font-weight:bold}.primary{background:#536dfe;color:#fff}.secondary{background:#edf1ff;color:#3d51b5}.status{min-height:20px;margin-top:9px;color:#536dfe;font-size:14px}.card{min-height:300px;padding:28px;border-radius:24px;background:linear-gradient(145deg,#172554,#536dfe);color:#fff;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 20px 45px #17255433;overflow-wrap:anywhere}.brand{font-size:12px;letter-spacing:2px;opacity:.7}.card h2{font-size:34px;margin:10px 0 4px}.role{font-weight:bold}.company{opacity:.75}.bio{line-height:1.5}.contact{display:grid;gap:7px}.contact a{color:#fff;text-decoration:none}.contact a:hover{text-decoration:underline}#shared,#creator{display:none;min-height:100vh}#shared{align-items:center;justify-content:center;padding:22px}.shared{width:min(540px,100%);text-align:center}.shared .card{text-align:left}.shared-title{margin-bottom:15px;color:#68738b;font-weight:bold;letter-spacing:2px;font-size:12px}.own{display:block;margin:20px auto 0;padding:11px 15px;background:#ffffff18;border:1px solid #ffffff55;border-radius:9px;color:#fff;font-weight:bold}.note{color:#68738b;font-size:13px;margin-top:12px}#creator{padding:22px;background:#f3f6fc}.creator{width:min(1000px,100%);margin:auto}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;gap:12px}.back{background:#fff;border:1px solid #dfe5ef;color:#26335f;padding:11px 15px;border-radius:9px;font-weight:bold}.creator-label{color:#536dfe;font-size:12px;font-weight:bold;letter-spacing:2px}.intro{padding:25px 5px}.intro h1{font-size:42px;line-height:1.05}.intro p{color:#68738b;line-height:1.6}.badge{display:inline-block;background:#eef2ff;color:#3d51b5;padding:7px 10px;border-radius:20px;font-size:12px;font-weight:bold}.steps{display:grid;gap:10px;margin-top:22px}.step{display:flex;gap:9px;align-items:center}.num{width:28px;height:28px;display:grid;place-items:center;border-radius:50%;background:#536dfe;color:#fff;font-weight:bold}.mini{margin-top:14px;padding:18px;border-radius:16px;background:linear-gradient(145deg,#172554,#536dfe);color:#fff}.mini h3{font-size:24px;margin:8px 0 4px}.mini p{line-height:1.4}.error{color:#a33;font-size:14px;margin:10px 0;min-height:18px}@media(max-width:760px){.grid,.creator-grid{grid-template-columns:1fr}.header h1,.intro h1{font-size:32px}.top{align-items:flex-start;flex-direction:column-reverse}}
+*{box-sizing:border-box}
+:root{--ink:#14213d;--muted:#68738b;--line:#dde4ef;--soft:#f4f7fb;--brand:#536dfe;--brand2:#7c4dff}
+body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:linear-gradient(180deg,#f7f9fc 0,#eef2f8 100%);color:var(--ink)}
+input,textarea,button{font:inherit}button{cursor:pointer}
+.container{width:min(1080px,94%);margin:auto;padding:34px 0}
+.header{text-align:center;margin-bottom:28px}.logo{display:inline-flex;align-items:center;gap:8px;font-weight:900;letter-spacing:.6px;color:var(--brand);margin-bottom:12px}.logo-dot{width:11px;height:11px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand2))}.header h1{margin:0 0 8px;font-size:clamp(32px,5vw,50px);letter-spacing:-1.5px}.header p{margin:0;color:var(--muted)}
+.grid,.creator-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}.box{background:#fff;padding:24px;border:1px solid var(--line);border-radius:22px;box-shadow:0 16px 45px #27364d12}.box h2{margin-top:0}
+.field{margin:14px 0}label{display:block;font-weight:800;margin-bottom:7px;font-size:14px}input,textarea{width:100%;padding:12px 13px;border:1px solid #cfd8e6;border-radius:11px;outline:none;background:#fbfcfe;transition:.15s}input:focus,textarea:focus{border-color:var(--brand);box-shadow:0 0 0 4px #536dfe14;background:#fff}textarea{min-height:92px;resize:vertical}.help{margin-top:6px;color:var(--muted);font-size:12px}
+.actions,.card-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:17px}.btn{padding:11px 15px;border:0;border-radius:11px;font-weight:800}.primary{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff}.secondary{background:#edf1ff;color:#3d51b5}.ghost{background:#fff;border:1px solid var(--line);color:#26335f}.btn:disabled{opacity:.55;cursor:not-allowed}.status{min-height:20px;margin-top:10px;color:var(--brand);font-size:14px}
+.card{min-height:335px;padding:30px;border-radius:26px;background:radial-gradient(circle at 85% 12%,#ffffff20 0 9%,transparent 10%),linear-gradient(145deg,#101a36 0%,#263969 55%,#536dfe 100%);color:#fff;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 24px 55px #1d2d5433;overflow-wrap:anywhere;position:relative}.brand{font-size:11px;letter-spacing:2.2px;font-weight:800;opacity:.68}.card h2{font-size:36px;line-height:1.05;margin:11px 0 5px;letter-spacing:-.6px}.role{font-weight:800}.company{opacity:.75}.bio{line-height:1.55;max-width:48ch}.contact{display:grid;gap:8px}.contact a{color:#fff;text-decoration:none}.contact a:hover{text-decoration:underline}
+.preview-note{margin:12px 0 0;color:var(--muted);font-size:12px;text-align:center}
+#shared,#creator{display:none;min-height:100vh}#shared{align-items:center;justify-content:center;padding:26px}.shared{width:min(700px,100%);text-align:center}.shared-title{margin-bottom:14px;color:var(--brand);font-weight:900;letter-spacing:2.5px;font-size:12px}.shared .card{text-align:left}.shared-wrap{display:grid;grid-template-columns:1fr 170px;gap:16px;align-items:stretch}.qr-box{background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 16px 45px #27364d12}.qr-box strong{font-size:13px;margin-bottom:10px}.qr{background:#fff;padding:8px;border-radius:12px;min-height:140px;min-width:140px;display:grid;place-items:center}.qr img{max-width:140px}.own{display:block;margin:0 auto;padding:11px 15px;background:#ffffff18;border:1px solid #ffffff55;border-radius:10px;color:#fff;font-weight:800}.note{color:var(--muted);font-size:13px;margin-top:14px}
+#creator{padding:26px;background:transparent}.creator{width:min(1080px,100%);margin:auto}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;gap:12px}.back{background:#fff;border:1px solid var(--line);color:#26335f;padding:11px 15px;border-radius:10px;font-weight:800}.creator-label{color:var(--brand);font-size:12px;font-weight:900;letter-spacing:2px}.intro{padding:26px 5px}.intro h1{font-size:clamp(34px,5vw,52px);line-height:1.02;letter-spacing:-1.4px;margin:16px 0}.intro p{color:var(--muted);line-height:1.65;max-width:55ch}.badge{display:inline-block;background:#eef2ff;color:#3d51b5;padding:7px 10px;border-radius:20px;font-size:12px;font-weight:900}.steps{display:grid;gap:11px;margin-top:24px}.step{display:flex;gap:10px;align-items:center;font-weight:700}.num{width:29px;height:29px;display:grid;place-items:center;border-radius:50%;background:var(--brand);color:#fff;font-weight:900;flex:0 0 29px}.mini{margin-top:14px;padding:19px;border-radius:18px;background:linear-gradient(145deg,#101a36,#263969 55%,#536dfe);color:#fff;box-shadow:0 16px 35px #1d2d5422}.mini h3{font-size:26px;line-height:1.05;margin:8px 0 4px}.mini p{line-height:1.45}.error{color:#a33;font-size:14px;margin:10px 0;min-height:18px}
+@media(max-width:820px){.grid,.creator-grid,.shared-wrap{grid-template-columns:1fr}.header h1,.intro h1{font-size:34px}.top{align-items:flex-start;flex-direction:column-reverse}.qr-box{min-height:190px}.shared{width:min(560px,100%)}}
 </style>
 </head>
 <body>
@@ -25,11 +39,11 @@
 <div class="actions"><button id="create" class="btn primary" type="button">Create share link</button><button id="clear" class="btn secondary" type="button">Clear</button></div>
 <div id="status" class="status"></div>
 </div>
-<div class="box"><h2>Preview</h2><div class="card"><div><div class="brand">DIGITAL VISITING CARD</div><h2 id="pn">Your Name</h2><div id="pt" class="role">Your job title</div><div id="pc" class="company">Your company</div><p id="pb" class="bio">Your short bio will appear here.</p></div><div class="contact"><a id="pp" href="#">Phone</a><a id="pe" href="#">Email</a></div></div></div>
+<div class="box"><h2>Preview</h2><div class="card"><div><div class="brand">DIGITAL VISITING CARD</div><h2 id="pn">Your Name</h2><div id="pt" class="role">Your job title</div><div id="pc" class="company">Your company</div><p id="pb" class="bio">Your short bio will appear here.</p></div><div class="contact"><a id="pp" href="#">Phone</a><a id="pe" href="#">Email</a></div></div><div class="preview-note">Your card will use your clean profile link after creation.</div></div>
 </div>
 </main>
 
-<section id="shared"><div class="shared"><div class="shared-title">ZETACARD</div><div id="sharedError" class="error"></div><div class="card"><div><div class="brand">DIGITAL VISITING CARD</div><h2 id="sn">Your Name</h2><div id="st" class="role">Your job title</div><div id="sc" class="company">Your company</div><p id="sb" class="bio">Your short bio will appear here.</p></div><div class="contact"><a id="sp" href="#">Phone</a><a id="se" href="#">Email</a></div><button id="own" class="own" type="button">Create your own card</button></div><div class="note">Shared ZetaCard profile</div></div></section>
+<section id="shared"><div class="shared"><div class="shared-title">ZETACARD</div><div id="sharedError" class="error"></div><div class="shared-wrap"><div class="card"><div><div class="brand">DIGITAL VISITING CARD</div><h2 id="sn">Your Name</h2><div id="st" class="role">Your job title</div><div id="sc" class="company">Your company</div><p id="sb" class="bio">Your short bio will appear here.</p></div><div class="contact"><a id="sp" href="#">Phone</a><a id="se" href="#">Email</a></div></div><div class="qr-box"><strong>Scan to open</strong><div id="qr" class="qr"></div></div></div><div class="card-actions"><button id="copy" class="btn primary" type="button">Copy link</button><button id="share" class="btn ghost" type="button">Share</button><button id="contact" class="btn ghost" type="button">Save contact</button><button id="own" class="btn secondary" type="button">Create your own card</button></div><div id="shareStatus" class="status"></div><div class="note">Your digital card · Easy to share anywhere</div></div></section>
 
 <section id="creator"><div class="creator"><div class="top"><button id="back" class="back" type="button">← Back to card</button><div class="creator-label">CREATE A NEW CARD</div></div><div class="creator-grid"><div class="intro"><span class="badge">ZETACARD</span><h1>Create a new digital card.</h1><p>Create a completely new profile, choose a username, preview the card, and generate a new shareable link.</p><div class="steps"><div class="step"><span class="num">1</span>Enter your details</div><div class="step"><span class="num">2</span>Choose a username</div><div class="step"><span class="num">3</span>Create your share link</div></div></div>
 <div class="box"><h2>New card</h2><div class="field"><label for="nn">Name</label><input id="nn" placeholder="e.g. Alex Morgan"></div><div class="field"><label for="nu">Username</label><input id="nu" maxlength="30" placeholder="e.g. alex-morgan"><div class="help">This becomes part of your profile link.</div><div id="newUsernameStatus" class="status"></div></div><div class="field"><label for="nt">Job title</label><input id="nt" placeholder="e.g. Founder"></div><div class="field"><label for="nc">Company</label><input id="nc" placeholder="e.g. Acme Studio"></div><div class="field"><label for="np">Phone</label><input id="np" placeholder="e.g. +91 98765 43210"></div><div class="field"><label for="ne">Email</label><input id="ne" type="email" placeholder="e.g. hello@example.com"></div><div class="field"><label for="nb">Short bio</label><textarea id="nb" placeholder="A short introduction..."></textarea></div><div class="creator-label">LIVE PREVIEW</div><div class="mini"><div class="brand">DIGITAL VISITING CARD</div><h3 id="mn">Your Name</h3><div id="mt" class="role">Your job title</div><div id="mc" class="company">Your company</div><p id="mb">Your short bio will appear here.</p><div class="contact"><span id="mp">Phone</span><span id="me">Email</span></div></div><button id="newCreate" class="btn primary" type="button" style="width:100%;margin-top:16px">Create card &amp; get share link</button><div id="newStatus" class="status"></div></div></div></div></section>
@@ -41,6 +55,7 @@ const SUPABASE_URL="https://sojuhiuydumpouknkmat.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY="sb_publishable_--O6hnERwb8RwEa-VFHnUw_SRUE54C-";
 const SITE_BASE="/visiting-card-app/";
 let db=null;
+let currentProfile=null;
 
 const $=id=>document.getElementById(id);
 const msg=(id,t)=>{const e=$(id);if(e)e.textContent=t;};
@@ -68,7 +83,89 @@ function showShared(){ $("builder").style.display="none";$("shared").style.displ
 function showCreator(){ $("builder").style.display="none";$("shared").style.display="none";$("creator").style.display="block" }
 
 function fillCard(d){
-  $("sn").textContent=d.name||"Your Name";$("st").textContent=d.job_title||"Your job title";$("sc").textContent=d.company||"Your company";$("sb").textContent=d.bio||"Your short bio will appear here";$("sp").textContent=d.phone||"Phone";$("se").textContent=d.email||"Email";$("sp").href=d.phone?"tel:"+d.phone.replace(/[^\d+]/g,""):"#";$("se").href=d.email?"mailto:"+d.email:"#";try{sessionStorage.setItem("zetaProfile",JSON.stringify(d))}catch(e){}
+  currentProfile=d;
+  $("sn").textContent=d.name||"Your Name";
+  $("st").textContent=d.job_title||"Your job title";
+  $("sc").textContent=d.company||"Your company";
+  $("sb").textContent=d.bio||"Your short bio will appear here";
+  $("sp").textContent=d.phone||"Phone";
+  $("se").textContent=d.email||"Email";
+  $("sp").href=d.phone?"tel:"+d.phone.replace(/[^\d+]/g,""):"#";
+  $("se").href=d.email?"mailto:"+d.email:"#";
+
+  const url=profileUrl(d.username);
+  renderQr(url);
+
+  try{sessionStorage.setItem("zetaProfile",JSON.stringify(d))}catch(e){}
+}
+
+function renderQr(url){
+  const box=$("qr");
+  if(!box)return;
+  box.innerHTML="";
+  if(window.QRCode){
+    new QRCode(box,{text:url,width:140,height:140});
+  }else{
+    box.textContent="QR unavailable";
+  }
+}
+
+async function copyCurrentLink(){
+  if(!currentProfile)return;
+  const url=profileUrl(currentProfile.username);
+  try{
+    await navigator.clipboard.writeText(url);
+    msg("shareStatus","Link copied to clipboard.");
+  }catch(e){
+    msg("shareStatus","Copy failed. Your link is in the address bar.");
+  }
+}
+
+async function shareCurrentProfile(){
+  if(!currentProfile)return;
+  const url=profileUrl(currentProfile.username);
+  if(navigator.share){
+    try{
+      await navigator.share({
+        title:(currentProfile.name||"ZetaCard")+" · ZetaCard",
+        text:"View my digital visiting card",
+        url:url
+      });
+      msg("shareStatus","Share sheet opened.");
+      return;
+    }catch(e){
+      if(e&&e.name==="AbortError")return;
+    }
+  }
+  await copyCurrentLink();
+}
+
+function saveContact(){
+  if(!currentProfile)return;
+  const d=currentProfile;
+  const lines=[
+    "BEGIN:VCARD",
+    "VERSION:3.0",
+    "FN:"+(d.name||""),
+    "TITLE:"+(d.job_title||""),
+    "ORG:"+(d.company||""),
+    d.phone?"TEL;TYPE=CELL:"+d.phone:"",
+    d.email?"EMAIL;TYPE=INTERNET:"+d.email:"",
+    d.bio?"NOTE:"+d.bio.replace(/\r?\n/g," "):"",
+    "URL:"+profileUrl(d.username),
+    "END:VCARD"
+  ].filter(Boolean).join("\r\n");
+
+  const blob=new Blob([lines],{type:"text/vcard;charset=utf-8"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;
+  a.download=(d.username||"zetacard")+".vcf";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+  msg("shareStatus","Contact file created.");
 }
 
 async function checkUsername(u){if(!initDb())throw new Error("Database connection is unavailable.");const r=await db.from("profiles").select("username").eq("username",u).maybeSingle();if(r.error)throw r.error;return !r.data}
@@ -90,7 +187,7 @@ async function createProfile(data,statusId){
   }catch(e){console.error("Create failed",e);msg(statusId,e&&e.code==="23505"?"Username already taken. Choose another.":"Could not create profile: "+(e&&e.message?e.message:"Unknown error"))}
 }
 
-function clearMain(){["name","username","title","company","phone","email","bio"].forEach(id=>$(id).value="");msg("status","");msg("usernameStatus","");updateMain();showBuilder();history.replaceState(null,"",homeUrl())}
+function clearMain(){["name","username","title","company","phone","email","bio"].forEach(id=>$(id).value="");msg("status","");msg("usernameStatus","");currentProfile=null;updateMain();showBuilder();history.replaceState(null,"",homeUrl())}
 function resetNew(){["nn","nu","nt","nc","np","ne","nb"].forEach(id=>$(id).value="");msg("newStatus","");msg("newUsernameStatus","");updateNew()}
 function openCreator(){resetNew();history.replaceState(null,"",homeUrl()+"#create");showCreator()}
 function backToCard(){let s=null;try{s=sessionStorage.getItem("zetaProfile")}catch(e){}if(s){try{const d=JSON.parse(s);if(d&&d.username){fillCard(d);history.replaceState(null,"",profileUrl(d.username));showShared();return}}catch(e){}}history.replaceState(null,"",homeUrl());showBuilder()}
@@ -100,7 +197,7 @@ function setupUsernameCheck(inputId,statusId){let timer=null;$(inputId).addEvent
 async function openProfileFromQuery(){
   const u=uname(new URLSearchParams(window.location.search).get("u"));
   if(!u)return false;
-  showShared();msg("sharedError","");$("sn").textContent="Loading...";
+  showShared();msg("sharedError","");$("sn").textContent="Loading...";$("qr").innerHTML="";
   try{const p=await loadProfile(u);fillCard(p);showShared();history.replaceState(null,"",profileUrl(p.username))}
   catch(e){console.error("Load failed",e);$("sn").textContent="Profile not found";$("st").textContent="";$("sc").textContent="";$("sb").textContent=e&&e.message?e.message:"Could not load this profile.";$("sp").textContent="";$("se").textContent=""}
   return true;
@@ -111,6 +208,9 @@ async function start(){
   $("create").addEventListener("click",()=>createProfile(mainData(),"status"));
   $("clear").addEventListener("click",clearMain);
   $("own").addEventListener("click",openCreator);
+  $("copy").addEventListener("click",copyCurrentLink);
+  $("share").addEventListener("click",shareCurrentProfile);
+  $("contact").addEventListener("click",saveContact);
   $("newCreate").addEventListener("click",()=>createProfile(newData(),"newStatus"));
   $("back").addEventListener("click",backToCard);
   ["name","title","company","phone","email","bio"].forEach(id=>$(id).addEventListener("input",updateMain));

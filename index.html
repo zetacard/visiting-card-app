@@ -1267,11 +1267,7 @@ JSON.stringify(data)
 function profileUrl(username){
 
 return (
-new URL(
-"./",
-window.location.href
-).href +
-"?u=" +
+new URL("./",window.location.href).href +
 encodeURIComponent(username)
 );
 
@@ -1883,14 +1879,17 @@ $("sn").textContent =
 try{
 
 const profile =
-await loadProfile(
-username
+  await loadProfile(
+    username
+  );
+
+history.replaceState(
+  null,
+  "",
+  profileUrl(profile.username)
 );
 
-
-fillCard(profile);
-
-showShared();
+showShared(profile);
 
 }catch(error){
 

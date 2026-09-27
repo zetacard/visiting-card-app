@@ -1,74 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>ZetaCard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ZetaCard</title>
 </head>
-
 <body>
-
 <script>
-(function () {
-
-  const siteBase =
-    "/visiting-card-app/";
-
-  const currentPath =
-    window.location.pathname;
-
-  /*
-    Get the part after:
-
-    /visiting-card-app/
-  */
-
-  let username =
-    currentPath.startsWith(siteBase)
-      ? currentPath.slice(siteBase.length)
-      : "";
-
-  /*
-    Remove trailing slash.
-  */
-
-  username =
-    username.replace(/^\/+|\/+$/g, "");
-
-  /*
-    Only treat one path segment as a username.
-  */
-
-  if (
-    username &&
-    !username.includes("/") &&
-    /^[a-z0-9][a-z0-9-]{2,29}$/.test(username)
-  ) {
-
-    /*
-      Send the browser to the existing
-      Supabase profile loader.
-
-      The main app will then restore the
-      clean /username URL.
-    */
-
-    window.location.replace(
-      siteBase +
-      "?u=" +
-      encodeURIComponent(username)
-    );
-
+(function(){
+  const base="/visiting-card-app/";
+  let u=window.location.pathname.startsWith(base)
+    ? window.location.pathname.slice(base.length)
+    : "";
+  u=u.replace(/^\/+|\/+$/g,"");
+  if(u&&!u.includes("/")&&/^[a-z0-9][a-z0-9-]{2,29}$/.test(u)){
+    window.location.replace(base+"?u="+encodeURIComponent(u));
     return;
   }
-
-  /*
-    Anything else goes back to the homepage.
-  */
-
-  window.location.replace(siteBase);
-
+  window.location.replace(base);
 })();
 </script>
-
 </body>
 </html>

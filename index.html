@@ -17,9 +17,151 @@ input,textarea,button{font:inherit}button{cursor:pointer}
 .field{margin:14px 0}label{display:block;font-weight:800;margin-bottom:7px;font-size:14px}input,textarea{width:100%;padding:12px 13px;border:1px solid #cfd8e6;border-radius:11px;outline:none;background:#fbfcfe;transition:.15s}input:focus,textarea:focus{border-color:var(--brand);box-shadow:0 0 0 4px #536dfe14;background:#fff}textarea{min-height:92px;resize:vertical}.help{margin-top:6px;color:var(--muted);font-size:12px}
 .actions,.card-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:17px}.btn{padding:11px 15px;border:0;border-radius:11px;font-weight:800}.primary{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff}.secondary{background:#edf1ff;color:#3d51b5}.ghost{background:#fff;border:1px solid var(--line);color:#26335f}.btn:disabled{opacity:.55;cursor:not-allowed}.status{min-height:20px;margin-top:10px;color:var(--brand);font-size:14px}
 .card{min-height:335px;padding:30px;border-radius:26px;background:radial-gradient(circle at 85% 12%,#ffffff20 0 9%,transparent 10%),linear-gradient(145deg,#101a36 0%,#263969 55%,#536dfe 100%);color:#fff;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 24px 55px #1d2d5433;overflow-wrap:anywhere;position:relative}.brand{font-size:11px;letter-spacing:2.2px;font-weight:800;opacity:.68}.card h2{font-size:36px;line-height:1.05;margin:11px 0 5px;letter-spacing:-.6px}.role{font-weight:800}.company{opacity:.75}.bio{line-height:1.55;max-width:48ch}.contact{display:grid;gap:8px}.contact a{color:#fff;text-decoration:none}.contact a:hover{text-decoration:underline}
+
+/* Visual theme picker */
+.theme-picker{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  margin-top:10px;
+}
+.theme-option{
+  position:relative;
+  display:block;
+  width:100%;
+  padding:8px;
+  border:2px solid #dce3ee;
+  border-radius:16px;
+  background:#fff;
+  text-align:left;
+  color:var(--ink);
+  transition:.16s ease;
+}
+.theme-option:hover{
+  transform:translateY(-2px);
+  border-color:#aebbd0;
+  box-shadow:0 10px 24px #27364d14;
+}
+.theme-option.selected{
+  border-color:var(--brand);
+  box-shadow:0 0 0 3px #536dfe16,0 10px 24px #27364d14;
+}
+.theme-option:focus-visible{
+  outline:3px solid #536dfe33;
+  outline-offset:2px;
+}
+.theme-preview-card{
+  height:88px;
+  border-radius:12px;
+  padding:11px;
+  color:#fff;
+  position:relative;
+  overflow:hidden;
+}
+.theme-preview-card:after{
+  content:"";
+  position:absolute;
+  right:-18px;
+  top:-26px;
+  width:68px;
+  height:68px;
+  border-radius:50%;
+  background:#fff1;
+}
+.theme-preview-brand{
+  font-size:7px;
+  letter-spacing:1.2px;
+  font-weight:900;
+  opacity:.7;
+}
+.theme-preview-name{
+  font-size:16px;
+  font-weight:900;
+  margin-top:10px;
+}
+.theme-preview-line{
+  width:55%;
+  height:5px;
+  border-radius:10px;
+  background:#fff6;
+  margin-top:7px;
+}
+.theme-preview-line.small{width:38%}
+.theme-meta{
+  padding:9px 3px 2px;
+}
+.theme-meta strong{
+  display:block;
+  font-size:13px;
+}
+.theme-meta span{
+  display:block;
+  margin-top:3px;
+  color:var(--muted);
+  font-size:11px;
+}
+.theme-check{
+  position:absolute;
+  right:11px;
+  bottom:10px;
+  width:21px;
+  height:21px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:var(--brand);
+  color:#fff;
+  font-size:12px;
+  font-weight:900;
+  opacity:0;
+  transform:scale(.8);
+  transition:.16s ease;
+}
+.theme-option.selected .theme-check{
+  opacity:1;
+  transform:scale(1);
+}
+
+/* Theme colors used by the real card and live previews */
+.card[data-theme="midnight"],
+.mini[data-theme="midnight"]{
+  background:radial-gradient(circle at 85% 12%,#ffffff20 0 9%,transparent 10%),
+    linear-gradient(145deg,#101a36 0%,#263969 55%,#536dfe 100%);
+}
+.card[data-theme="ocean"],
+.mini[data-theme="ocean"]{
+  background:radial-gradient(circle at 84% 14%,#ffffff22 0 10%,transparent 11%),
+    linear-gradient(145deg,#062c3f 0%,#086f7a 52%,#16b8c8 100%);
+}
+.card[data-theme="forest"],
+.mini[data-theme="forest"]{
+  background:radial-gradient(circle at 84% 14%,#ffffff1f 0 10%,transparent 11%),
+    linear-gradient(145deg,#10291f 0%,#20563b 52%,#4eaa73 100%);
+}
+.card[data-theme="sunset"],
+.mini[data-theme="sunset"]{
+  background:radial-gradient(circle at 84% 14%,#ffffff25 0 10%,transparent 11%),
+    linear-gradient(145deg,#3a1736 0%,#7a294e 48%,#ed7a48 100%);
+}
+
+/* Mini theme samples */
+.theme-option[data-theme-value="midnight"] .theme-preview-card{
+  background:linear-gradient(145deg,#101a36,#263969 55%,#536dfe);
+}
+.theme-option[data-theme-value="ocean"] .theme-preview-card{
+  background:linear-gradient(145deg,#062c3f,#086f7a 55%,#16b8c8);
+}
+.theme-option[data-theme-value="forest"] .theme-preview-card{
+  background:linear-gradient(145deg,#10291f,#20563b 55%,#4eaa73);
+}
+.theme-option[data-theme-value="sunset"] .theme-preview-card{
+  background:linear-gradient(145deg,#3a1736,#7a294e 50%,#ed7a48);
+}
+
 .preview-note{margin:12px 0 0;color:var(--muted);font-size:12px;text-align:center}
 #shared,#creator{display:none;min-height:100vh}#shared{align-items:center;justify-content:center;padding:26px}.shared{width:min(700px,100%);text-align:center}.shared-title{margin-bottom:14px;color:var(--brand);font-weight:900;letter-spacing:2.5px;font-size:12px}.shared .card{text-align:left}.shared-wrap{display:grid;grid-template-columns:1fr 170px;gap:16px;align-items:stretch}.qr-box{background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 16px 45px #27364d12}.qr-box strong{font-size:13px;margin-bottom:10px}.qr{background:#fff;padding:8px;border-radius:12px;min-height:140px;min-width:140px;display:grid;place-items:center}.qr img{max-width:140px}.own{display:block;margin:0 auto;padding:11px 15px;background:#ffffff18;border:1px solid #ffffff55;border-radius:10px;color:#fff;font-weight:800}.note{color:var(--muted);font-size:13px;margin-top:14px}
-#creator{padding:26px;background:transparent}.creator{width:min(1080px,100%);margin:auto}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;gap:12px}.back{background:#fff;border:1px solid var(--line);color:#26335f;padding:11px 15px;border-radius:10px;font-weight:800}.creator-label{color:var(--brand);font-size:12px;font-weight:900;letter-spacing:2px}.intro{padding:26px 5px}.intro h1{font-size:clamp(34px,5vw,52px);line-height:1.02;letter-spacing:-1.4px;margin:16px 0}.intro p{color:var(--muted);line-height:1.65;max-width:55ch}.badge{display:inline-block;background:#eef2ff;color:#3d51b5;padding:7px 10px;border-radius:20px;font-size:12px;font-weight:900}.steps{display:grid;gap:11px;margin-top:24px}.step{display:flex;gap:10px;align-items:center;font-weight:700}.num{width:29px;height:29px;display:grid;place-items:center;border-radius:50%;background:var(--brand);color:#fff;font-weight:900;flex:0 0 29px}.mini{margin-top:14px;padding:19px;border-radius:18px;background:linear-gradient(145deg,#101a36,#263969 55%,#536dfe);color:#fff;box-shadow:0 16px 35px #1d2d5422}.mini h3{font-size:26px;line-height:1.05;margin:8px 0 4px}.mini p{line-height:1.45}.error{color:#a33;font-size:14px;margin:10px 0;min-height:18px}
+#creator{padding:26px;background:transparent}.creator{width:min(1080px,100%);margin:auto}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;gap:12px}.back{background:#fff;border:1px solid var(--line);color:#26335f;padding:11px 15px;border-radius:10px;font-weight:800}
+.profile-home{display:inline-flex;align-items:center;justify-content:center;background:#fff;border:1px solid var(--line);color:#26335f;padding:11px 15px;border-radius:10px;font-weight:800;text-decoration:none;box-shadow:0 8px 20px #27364d0a}.profile-home:hover{text-decoration:none;border-color:#bfc9da;transform:translateY(-1px)}.profile-home-row{display:flex;justify-content:flex-end;margin:0 0 14px}.creator-label{color:var(--brand);font-size:12px;font-weight:900;letter-spacing:2px}.intro{padding:26px 5px}.intro h1{font-size:clamp(34px,5vw,52px);line-height:1.02;letter-spacing:-1.4px;margin:16px 0}.intro p{color:var(--muted);line-height:1.65;max-width:55ch}.badge{display:inline-block;background:#eef2ff;color:#3d51b5;padding:7px 10px;border-radius:20px;font-size:12px;font-weight:900}.steps{display:grid;gap:11px;margin-top:24px}.step{display:flex;gap:10px;align-items:center;font-weight:700}.num{width:29px;height:29px;display:grid;place-items:center;border-radius:50%;background:var(--brand);color:#fff;font-weight:900;flex:0 0 29px}.mini{margin-top:14px;padding:19px;border-radius:18px;background:linear-gradient(145deg,#101a36,#263969 55%,#536dfe);color:#fff;box-shadow:0 16px 35px #1d2d5422}.mini h3{font-size:26px;line-height:1.05;margin:8px 0 4px}.mini p{line-height:1.45}.error{color:#a33;font-size:14px;margin:10px 0;min-height:18px}
 
 .landing{min-height:100vh;padding:0 4vw 35px;background:radial-gradient(circle at 80% 6%,#e5eaff 0 16%,transparent 42%),linear-gradient(180deg,#fbfcff 0,#eef2f8 100%)}
 .landing-nav{width:min(1180px,100%);margin:auto;padding:22px 0;display:flex;justify-content:space-between;align-items:center}.brandmark{display:flex;align-items:center;gap:9px;font-weight:950;font-size:19px;letter-spacing:.2px}.brandmark-dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand2));box-shadow:0 0 0 6px #536dfe10}.nav-cta{border:1px solid var(--line);background:#fff;color:#26335f;padding:10px 14px;border-radius:10px;font-weight:850}
@@ -109,17 +251,93 @@ input,textarea,button{font:inherit}button{cursor:pointer}
 <div class="field"><label for="phone">Phone</label><input id="phone" placeholder="e.g. +91 98765 43210"></div>
 <div class="field"><label for="email">Email</label><input id="email" type="email" placeholder="e.g. hello@example.com"></div>
 <div class="field"><label for="bio">Short bio</label><textarea id="bio" placeholder="A short introduction..."></textarea></div>
+<div class="field">
+<label>Card theme</label>
+<div id="themePicker" class="theme-picker" role="group" aria-label="Choose a card theme">
+  <button type="button" class="theme-option selected" data-theme-value="midnight" aria-pressed="true">
+    <div class="theme-preview-card">
+      <div class="theme-preview-brand">ZETACARD</div>
+      <div class="theme-preview-name">Midnight</div>
+      <div class="theme-preview-line"></div>
+      <div class="theme-preview-line small"></div>
+    </div>
+    <div class="theme-meta"><strong>Midnight</strong><span>Bold & modern</span></div>
+    <span class="theme-check">✓</span>
+  </button>
+
+  <button type="button" class="theme-option" data-theme-value="ocean" aria-pressed="false">
+    <div class="theme-preview-card">
+      <div class="theme-preview-brand">ZETACARD</div>
+      <div class="theme-preview-name">Ocean</div>
+      <div class="theme-preview-line"></div>
+      <div class="theme-preview-line small"></div>
+    </div>
+    <div class="theme-meta"><strong>Ocean</strong><span>Fresh & clean</span></div>
+    <span class="theme-check">✓</span>
+  </button>
+
+  <button type="button" class="theme-option" data-theme-value="forest" aria-pressed="false">
+    <div class="theme-preview-card">
+      <div class="theme-preview-brand">ZETACARD</div>
+      <div class="theme-preview-name">Forest</div>
+      <div class="theme-preview-line"></div>
+      <div class="theme-preview-line small"></div>
+    </div>
+    <div class="theme-meta"><strong>Forest</strong><span>Calm & natural</span></div>
+    <span class="theme-check">✓</span>
+  </button>
+
+  <button type="button" class="theme-option" data-theme-value="sunset" aria-pressed="false">
+    <div class="theme-preview-card">
+      <div class="theme-preview-brand">ZETACARD</div>
+      <div class="theme-preview-name">Sunset</div>
+      <div class="theme-preview-line"></div>
+      <div class="theme-preview-line small"></div>
+    </div>
+    <div class="theme-meta"><strong>Sunset</strong><span>Warm & creative</span></div>
+    <span class="theme-check">✓</span>
+  </button>
+</div>
+<input id="theme" type="hidden" value="midnight">
+<div class="help">Click a card preview to choose the style people will see on your profile.</div>
+</div>
 <div class="actions"><button id="create" class="btn primary" type="button">Create share link</button><button id="clear" class="btn secondary" type="button">Clear</button></div>
 <div id="status" class="status"></div>
 </div>
-<div class="box"><h2>Preview</h2><div class="card"><div><div class="brand">DIGITAL VISITING CARD</div><h2 id="pn">Your Name</h2><div id="pt" class="role">Your job title</div><div id="pc" class="company">Your company</div><p id="pb" class="bio">Your short bio will appear here.</p></div><div class="contact"><a id="pp" href="#">Phone</a><a id="pe" href="#">Email</a></div></div><div class="preview-note">Your card will use your clean profile link after creation.</div></div>
+<div class="box"><h2>Preview</h2><div id="mainCard" class="card" data-theme="midnight"><div><div class="brand">DIGITAL VISITING CARD</div><h2 id="pn">Your Name</h2><div id="pt" class="role">Your job title</div><div id="pc" class="company">Your company</div><p id="pb" class="bio">Your short bio will appear here.</p></div><div class="contact"><a id="pp" href="#">Phone</a><a id="pe" href="#">Email</a></div></div><div class="preview-note">Your card will use your clean profile link after creation.</div></div>
 </div>
 </main>
 
-<section id="shared"><div class="shared"><div class="shared-title">ZETACARD</div><div id="sharedError" class="error"></div><div class="shared-wrap"><div class="card"><div><div class="brand">DIGITAL VISITING CARD</div><h2 id="sn">Your Name</h2><div id="st" class="role">Your job title</div><div id="sc" class="company">Your company</div><p id="sb" class="bio">Your short bio will appear here.</p></div><div class="contact"><a id="sp" href="#">Phone</a><a id="se" href="#">Email</a></div></div><div class="qr-box"><strong>Scan to open</strong><div id="qr" class="qr"></div></div></div><div class="card-actions"><button id="copy" class="btn primary" type="button">Copy link</button><button id="share" class="btn ghost" type="button">Share</button><button id="contact" class="btn ghost" type="button">Save contact</button><button id="home" class="btn ghost" type="button">Home</button><button id="own" class="btn secondary" type="button">Create your own card</button></div><div id="shareStatus" class="status"></div><div class="note">Your digital card · Easy to share anywhere</div></div></section>
+<section id="shared"><div class="shared"><div class="profile-home-row"><a class="profile-home" href="https://zetacard.github.io/visiting-card-app/" onclick="window.location.assign('https://zetacard.github.io/visiting-card-app/'); return false;">← Home</a></div><div class="shared-title">ZETACARD</div><div id="sharedError" class="error"></div><div class="shared-wrap"><div id="sharedCard" class="card" data-theme="midnight"><div><div id="sharedAvatar" class="avatar" aria-hidden="true">Z</div><div class="brand">DIGITAL VISITING CARD</div><h2 id="sn">Your Name</h2><div id="st" class="role">Your job title</div><div id="sc" class="company">Your company</div><p id="sb" class="bio">Your short bio will appear here.</p></div><div class="contact"><a id="sp" href="#">Phone</a><a id="se" href="#">Email</a></div></div><div class="qr-box"><strong>Scan to open</strong><div id="qr" class="qr"></div></div></div><div class="card-actions"><button id="copy" class="btn primary" type="button">Copy link</button><button id="share" class="btn ghost" type="button">Share</button><button id="contact" class="btn ghost" type="button">Save contact</button><button id="own" class="btn secondary" type="button">Create your own card</button></div><div id="shareStatus" class="status"></div><div class="note">Your digital card · Easy to share anywhere</div></div></section>
 
-<section id="creator"><div class="creator"><div class="top"><div><button id="back" class="back" type="button">← Back to card</button><button id="creatorHome" class="back" type="button" style="margin-left:8px">Home</button></div><div class="creator-label">CREATE A NEW CARD</div></div><div class="creator-grid"><div class="intro"><span class="badge">ZETACARD</span><h1>Create a new digital card.</h1><p>Create a completely new profile, choose a username, preview the card, and generate a new shareable link.</p><div class="steps"><div class="step"><span class="num">1</span>Enter your details</div><div class="step"><span class="num">2</span>Choose a username</div><div class="step"><span class="num">3</span>Create your share link</div></div></div>
-<div class="box"><h2>New card</h2><div class="field"><label for="nn">Name</label><input id="nn" placeholder="e.g. Alex Morgan"></div><div class="field"><label for="nu">Username</label><input id="nu" maxlength="30" placeholder="e.g. alex-morgan"><div class="help">This becomes part of your profile link.</div><div id="newUsernameStatus" class="status"></div></div><div class="field"><label for="nt">Job title</label><input id="nt" placeholder="e.g. Founder"></div><div class="field"><label for="nc">Company</label><input id="nc" placeholder="e.g. Acme Studio"></div><div class="field"><label for="np">Phone</label><input id="np" placeholder="e.g. +91 98765 43210"></div><div class="field"><label for="ne">Email</label><input id="ne" type="email" placeholder="e.g. hello@example.com"></div><div class="field"><label for="nb">Short bio</label><textarea id="nb" placeholder="A short introduction..."></textarea></div><div class="creator-label">LIVE PREVIEW</div><div class="mini"><div class="brand">DIGITAL VISITING CARD</div><h3 id="mn">Your Name</h3><div id="mt" class="role">Your job title</div><div id="mc" class="company">Your company</div><p id="mb">Your short bio will appear here.</p><div class="contact"><span id="mp">Phone</span><span id="me">Email</span></div></div><button id="newCreate" class="btn primary" type="button" style="width:100%;margin-top:16px">Create card &amp; get share link</button><div id="newStatus" class="status"></div></div></div></div></section>
+<section id="creator"><div class="creator"><div class="top"><div style="display:flex;gap:8px;flex-wrap:wrap"><button id="back" class="back" type="button">← Back to card</button><a class="back" href="https://zetacard.github.io/visiting-card-app/" onclick="window.location.assign('https://zetacard.github.io/visiting-card-app/'); return false;" style="text-decoration:none">Home</a></div><div class="creator-label">CREATE A NEW CARD</div></div><div class="creator-grid"><div class="intro"><span class="badge">ZETACARD</span><h1>Create a new digital card.</h1><p>Create a completely new profile, choose a username, preview the card, and generate a new shareable link.</p><div class="steps"><div class="step"><span class="num">1</span>Enter your details</div><div class="step"><span class="num">2</span>Choose a username</div><div class="step"><span class="num">3</span>Create your share link</div></div></div>
+<div class="box"><h2>New card</h2><div class="field"><label for="nn">Name</label><input id="nn" placeholder="e.g. Alex Morgan"></div><div class="field"><label for="nu">Username</label><input id="nu" maxlength="30" placeholder="e.g. alex-morgan"><div class="help">This becomes part of your profile link.</div><div id="newUsernameStatus" class="status"></div></div><div class="field"><label for="nt">Job title</label><input id="nt" placeholder="e.g. Founder"></div><div class="field"><label for="nc">Company</label><input id="nc" placeholder="e.g. Acme Studio"></div><div class="field"><label for="np">Phone</label><input id="np" placeholder="e.g. +91 98765 43210"></div><div class="field"><label for="ne">Email</label><input id="ne" type="email" placeholder="e.g. hello@example.com"></div><div class="field"><label for="nb">Short bio</label><textarea id="nb" placeholder="A short introduction..."></textarea></div>
+<div class="field">
+<label>Card theme</label>
+<div id="nthemePicker" class="theme-picker" role="group" aria-label="Choose a card theme">
+  <button type="button" class="theme-option selected" data-theme-value="midnight" aria-pressed="true">
+    <div class="theme-preview-card"><div class="theme-preview-brand">ZETACARD</div><div class="theme-preview-name">Midnight</div><div class="theme-preview-line"></div><div class="theme-preview-line small"></div></div>
+    <div class="theme-meta"><strong>Midnight</strong><span>Bold & modern</span></div><span class="theme-check">✓</span>
+  </button>
+
+  <button type="button" class="theme-option" data-theme-value="ocean" aria-pressed="false">
+    <div class="theme-preview-card"><div class="theme-preview-brand">ZETACARD</div><div class="theme-preview-name">Ocean</div><div class="theme-preview-line"></div><div class="theme-preview-line small"></div></div>
+    <div class="theme-meta"><strong>Ocean</strong><span>Fresh & clean</span></div><span class="theme-check">✓</span>
+  </button>
+
+  <button type="button" class="theme-option" data-theme-value="forest" aria-pressed="false">
+    <div class="theme-preview-card"><div class="theme-preview-brand">ZETACARD</div><div class="theme-preview-name">Forest</div><div class="theme-preview-line"></div><div class="theme-preview-line small"></div></div>
+    <div class="theme-meta"><strong>Forest</strong><span>Calm & natural</span></div><span class="theme-check">✓</span>
+  </button>
+
+  <button type="button" class="theme-option" data-theme-value="sunset" aria-pressed="false">
+    <div class="theme-preview-card"><div class="theme-preview-brand">ZETACARD</div><div class="theme-preview-name">Sunset</div><div class="theme-preview-line"></div><div class="theme-preview-line small"></div></div>
+    <div class="theme-meta"><strong>Sunset</strong><span>Warm & creative</span></div><span class="theme-check">✓</span>
+  </button>
+</div>
+<input id="ntheme" type="hidden" value="midnight">
+<div class="help">Click a card preview to choose the style you want.</div>
+</div><div class="creator-label">LIVE PREVIEW</div><div id="newMini" class="mini" data-theme="midnight"><div class="brand">DIGITAL VISITING CARD</div><h3 id="mn">Your Name</h3><div id="mt" class="role">Your job title</div><div id="mc" class="company">Your company</div><p id="mb">Your short bio will appear here.</p><div class="contact"><span id="mp">Phone</span><span id="me">Email</span></div></div><button id="newCreate" class="btn primary" type="button" style="width:100%;margin-top:16px">Create card &amp; get share link</button><div id="newStatus" class="status"></div></div></div></div></section>
 
 <script>
 "use strict";
@@ -145,11 +363,15 @@ function initDb(){
 function homeUrl(){return new URL(SITE_BASE,window.location.origin).href}
 function profileUrl(username){return new URL(SITE_BASE+encodeURIComponent(username),window.location.origin).href}
 
-function mainData(){return{username:uname($("username").value),name:$("name").value.trim(),job_title:$("title").value.trim(),company:$("company").value.trim(),phone:$("phone").value.trim(),email:$("email").value.trim(),bio:$("bio").value.trim()}}
-function newData(){return{username:uname($("nu").value),name:$("nn").value.trim(),job_title:$("nt").value.trim(),company:$("nc").value.trim(),phone:$("np").value.trim(),email:$("ne").value.trim(),bio:$("nb").value.trim()}}
+function safeTheme(t){return ["midnight","ocean","forest","sunset"].includes(t)?t:"midnight"}
+function applyTheme(el,theme){if(el)el.dataset.theme=safeTheme(theme)}
+function initials(name){const parts=String(name||"ZetaCard").trim().split(/\s+/).filter(Boolean);return ((parts[0]?.[0]||"Z")+(parts[1]?.[0]||"")).toUpperCase().slice(0,2)}
 
-function updateMain(){const d=mainData();$("pn").textContent=d.name||"Your Name";$("pt").textContent=d.job_title||"Your job title";$("pc").textContent=d.company||"Your company";$("pb").textContent=d.bio||"Your short bio will appear here";$("pp").textContent=d.phone||"Phone";$("pe").textContent=d.email||"Email";$("pp").href=d.phone?"tel:"+d.phone.replace(/[^\d+]/g,""):"#";$("pe").href=d.email?"mailto:"+d.email:"#"}
-function updateNew(){const d=newData();$("mn").textContent=d.name||"Your Name";$("mt").textContent=d.job_title||"Your job title";$("mc").textContent=d.company||"Your company";$("mb").textContent=d.bio||"Your short bio will appear here";$("mp").textContent=d.phone||"Phone";$("me").textContent=d.email||"Email"}
+function mainData(){return{username:uname($("username").value),name:$("name").value.trim(),job_title:$("title").value.trim(),company:$("company").value.trim(),phone:$("phone").value.trim(),email:$("email").value.trim(),bio:$("bio").value.trim(),theme:$("theme").value||"midnight"}}
+function newData(){return{username:uname($("nu").value),name:$("nn").value.trim(),job_title:$("nt").value.trim(),company:$("nc").value.trim(),phone:$("np").value.trim(),email:$("ne").value.trim(),bio:$("nb").value.trim(),theme:$("ntheme").value||"midnight"}}
+
+function updateMain(){setThemeSelection("theme","themePicker",$( "theme").value||"midnight");const d=mainData();$("pn").textContent=d.name||"Your Name";$("pt").textContent=d.job_title||"Your job title";$("pc").textContent=d.company||"Your company";$("pb").textContent=d.bio||"Your short bio will appear here";$("pp").textContent=d.phone||"Phone";$("pe").textContent=d.email||"Email";$("pp").href=d.phone?"tel:"+d.phone.replace(/[^\d+]/g,""):"#";$("pe").href=d.email?"mailto:"+d.email:"#";applyTheme($("mainCard"),d.theme);}
+function updateNew(){setThemeSelection("ntheme","nthemePicker",$("ntheme").value||"midnight");const d=newData();$("mn").textContent=d.name||"Your Name";$("mt").textContent=d.job_title||"Your job title";$("mc").textContent=d.company||"Your company";$("mb").textContent=d.bio||"Your short bio will appear here";$("mp").textContent=d.phone||"Phone";$("me").textContent=d.email||"Email";applyTheme($("newMini"),d.theme);}
 
 function showLanding(){ $("landing").style.display="block";$("builder").style.display="none";$("shared").style.display="none";$("creator").style.display="none" }
 function showBuilder(){ $("landing").style.display="none";$("builder").style.display="block";$("shared").style.display="none";$("creator").style.display="none" }
@@ -159,6 +381,8 @@ function showCreator(){ $("landing").style.display="none";$("builder").style.dis
 function fillCard(d){
   currentProfile=d;
   $("sn").textContent=d.name||"Your Name";
+  $("sharedAvatar").textContent=initials(d.name);
+  applyTheme($("sharedCard"),d.theme);
   $("st").textContent=d.job_title||"Your job title";
   $("sc").textContent=d.company||"Your company";
   $("sb").textContent=d.bio||"Your short bio will appear here";
@@ -243,7 +467,7 @@ function saveContact(){
 }
 
 async function checkUsername(u){if(!initDb())throw new Error("Database connection is unavailable.");const r=await db.from("profiles").select("username").eq("username",u).maybeSingle();if(r.error)throw r.error;return !r.data}
-async function loadProfile(u){if(!initDb())throw new Error("Database connection is unavailable.");const r=await db.from("profiles").select("username,name,job_title,company,phone,email,bio").eq("username",u).maybeSingle();if(r.error)throw r.error;if(!r.data)throw new Error("Profile not found.");return r.data}
+async function loadProfile(u){if(!initDb())throw new Error("Database connection is unavailable.");const r=await db.from("profiles").select("username,name,job_title,company,phone,email,bio,theme").eq("username",u).maybeSingle();if(r.error)throw r.error;if(!r.data)throw new Error("Profile not found.");return r.data}
 async function copyLink(url,statusId){try{await navigator.clipboard.writeText(url);msg(statusId,"Profile created. Share link copied.")}catch(e){msg(statusId,"Profile created. Copy the link from the address bar.")}}
 
 async function createProfile(data,statusId){
@@ -261,12 +485,42 @@ async function createProfile(data,statusId){
   }catch(e){console.error("Create failed",e);msg(statusId,e&&e.code==="23505"?"Username already taken. Choose another.":"Could not create profile: "+(e&&e.message?e.message:"Unknown error"))}
 }
 
-function clearMain(){["name","username","title","company","phone","email","bio"].forEach(id=>$(id).value="");msg("status","");msg("usernameStatus","");currentProfile=null;updateMain();showBuilder();history.replaceState(null,"",homeUrl())}
-function resetNew(){["nn","nu","nt","nc","np","ne","nb"].forEach(id=>$(id).value="");msg("newStatus","");msg("newUsernameStatus","");updateNew()}
+function clearMain(){["name","username","title","company","phone","email","bio"].forEach(id=>$(id).value="");setThemeSelection("theme","themePicker","midnight");msg("status","");msg("usernameStatus","");currentProfile=null;updateMain();showBuilder();history.replaceState(null,"",homeUrl())}
+function resetNew(){["nn","nu","nt","nc","np","ne","nb"].forEach(id=>$(id).value="");setThemeSelection("ntheme","nthemePicker","midnight");msg("newStatus","");msg("newUsernameStatus","");updateNew()}
 function openCreator(){resetNew();history.replaceState(null,"",homeUrl()+"#create");showCreator()}
 function openBuilder(){showBuilder();history.replaceState(null,"",homeUrl()+"#create-card");window.scrollTo({top:0,behavior:"smooth"})}
-function goHome(){currentProfile=null;history.replaceState(null,"",homeUrl());showLanding();window.scrollTo({top:0,behavior:"smooth"})}
 function backToCard(){let s=null;try{s=sessionStorage.getItem("zetaProfile")}catch(e){}if(s){try{const d=JSON.parse(s);if(d&&d.username){fillCard(d);history.replaceState(null,"",profileUrl(d.username));showShared();return}}catch(e){}}history.replaceState(null,"",homeUrl());showBuilder()}
+
+
+function setThemeSelection(inputId,pickerId,theme){
+  const value=safeTheme(theme);
+  const input=$(inputId);
+  if(input)input.value=value;
+
+  const picker=$(pickerId);
+  if(!picker)return;
+
+  picker.querySelectorAll(".theme-option").forEach(btn=>{
+    const selected=btn.dataset.themeValue===value;
+    btn.classList.toggle("selected",selected);
+    btn.setAttribute("aria-pressed",selected?"true":"false");
+  });
+}
+
+function setupThemePicker(inputId,pickerId,onChange){
+  const picker=$(pickerId);
+  if(!picker)return;
+
+  picker.addEventListener("click",event=>{
+    const button=event.target.closest(".theme-option");
+    if(!button || !picker.contains(button))return;
+
+    setThemeSelection(inputId,pickerId,button.dataset.themeValue);
+    onChange();
+  });
+
+  setThemeSelection(inputId,pickerId,$(inputId).value||"midnight");
+}
 
 function setupUsernameCheck(inputId,statusId){let timer=null;$(inputId).addEventListener("input",()=>{clearTimeout(timer);const u=uname($(inputId).value);$(inputId).value=u;msg(statusId,"");if(!u)return;if(!validUsername(u)){msg(statusId,"Use 3–30 lowercase letters, numbers or hyphens.");return}msg(statusId,"Checking...");timer=setTimeout(async()=>{try{msg(statusId,(await checkUsername(u))?"✅ Username available":"❌ Username already taken")}catch(e){console.error(e);msg(statusId,"Could not check username.")}},400)})}
 
@@ -284,15 +538,13 @@ async function start(){
   $("landingCreate").addEventListener("click",openBuilder);$("landingCreateTop").addEventListener("click",openBuilder);$("landingCreateBottom").addEventListener("click",openBuilder);$("landingLearn").addEventListener("click",()=>$("landingFeatures").scrollIntoView({behavior:"smooth"}));$("create").addEventListener("click",()=>createProfile(mainData(),"status"));
   $("clear").addEventListener("click",clearMain);
   $("own").addEventListener("click",openCreator);
-  $("home").addEventListener("click",goHome);
-  $("creatorHome").addEventListener("click",goHome);
   $("copy").addEventListener("click",copyCurrentLink);
   $("share").addEventListener("click",shareCurrentProfile);
   $("contact").addEventListener("click",saveContact);
   $("newCreate").addEventListener("click",()=>createProfile(newData(),"newStatus"));
   $("back").addEventListener("click",backToCard);
-  ["name","title","company","phone","email","bio"].forEach(id=>$(id).addEventListener("input",updateMain));
-  ["nn","nt","nc","np","ne","nb"].forEach(id=>$(id).addEventListener("input",updateNew));
+  ["name","title","company","phone","email","bio"].forEach(id=>$(id).addEventListener("input",updateMain));setupThemePicker("theme","themePicker",updateMain);
+  ["nn","nt","nc","np","ne","nb"].forEach(id=>$(id).addEventListener("input",updateNew));setupThemePicker("ntheme","nthemePicker",updateNew);
   setupUsernameCheck("username","usernameStatus");setupUsernameCheck("nu","newUsernameStatus");
   if(await openProfileFromQuery())return;
   if(window.location.hash==="#create"){showCreator();return}

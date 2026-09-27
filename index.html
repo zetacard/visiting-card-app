@@ -1,1230 +1,1684 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ZetaCard</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZetaCard</title>
 
-<style>
-*{box-sizing:border-box}
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#eef2f7;
-  color:#172033;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-input,textarea,button{
-  font:inherit;
-}
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #eef2f7;
+      color: #172033;
+    }
 
-button{
-  cursor:pointer;
-}
+    input,
+    textarea,
+    button {
+      font: inherit;
+    }
 
-.container{
-  max-width:1000px;
-  margin:auto;
-  padding:30px 18px;
-}
+    button {
+      cursor: pointer;
+    }
 
-.header{
-  text-align:center;
-  margin-bottom:25px;
-}
+    .container {
+      width: min(1000px, 94%);
+      margin: auto;
+      padding: 30px 0;
+    }
 
-.header h1{
-  margin:0 0 8px;
-}
+    .header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
 
-.header p{
-  color:#68738b;
-}
+    .header h1 {
+      margin: 0 0 8px;
+      font-size: 42px;
+    }
 
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:22px;
-}
+    .header p {
+      color: #68738b;
+    }
 
-.box{
-  background:#fff;
-  border:1px solid #dfe5ef;
-  border-radius:20px;
-  padding:22px;
-  box-shadow:0 12px 35px #0001;
-}
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
 
-.field{
-  margin:13px 0;
-}
+    .box {
+      background: white;
+      padding: 22px;
+      border: 1px solid #dfe5ef;
+      border-radius: 20px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, .06);
+    }
 
-label{
-  display:block;
-  font-weight:bold;
-  margin-bottom:6px;
-}
+    .field {
+      margin: 13px 0;
+    }
 
-input,textarea{
-  width:100%;
-  padding:11px;
-  border:1px solid #ccd5e2;
-  border-radius:9px;
-}
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
 
-textarea{
-  min-height:85px;
-  resize:vertical;
-}
+    input,
+    textarea {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #ccd5e2;
+      border-radius: 9px;
+      outline: none;
+      background: white;
+    }
 
-.actions{
-  display:flex;
-  gap:9px;
-  margin-top:15px;
-}
+    input:focus,
+    textarea:focus {
+      border-color: #536dfe;
+    }
 
-.btn{
-  padding:11px 15px;
-  border:0;
-  border-radius:9px;
-  font-weight:bold;
-}
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
 
-.primary{
-  background:#536dfe;
-  color:#fff;
-}
+    .help {
+      margin-top: 5px;
+      color: #68738b;
+      font-size: 12px;
+    }
 
-.secondary{
-  background:#edf1ff;
-  color:#3d51b5;
-}
+    .actions {
+      display: flex;
+      gap: 9px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
 
-.status{
-  color:#536dfe;
-  font-size:14px;
-  margin-top:9px;
-  min-height:20px;
-}
+    .btn {
+      padding: 11px 15px;
+      border: 0;
+      border-radius: 9px;
+      font-weight: bold;
+    }
 
-.card{
-  min-height:300px;
-  padding:28px;
-  border-radius:24px;
-  background:linear-gradient(145deg,#172554,#536dfe);
-  color:#fff;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  box-shadow:0 20px 45px #17255433;
-  overflow-wrap:anywhere;
-}
+    .primary {
+      background: #536dfe;
+      color: white;
+    }
 
-.brand{
-  font-size:12px;
-  letter-spacing:2px;
-  opacity:.7;
-}
+    .secondary {
+      background: #edf1ff;
+      color: #3d51b5;
+    }
 
-.card h2{
-  font-size:34px;
-  margin:10px 0 4px;
-}
+    .status {
+      color: #536dfe;
+      font-size: 14px;
+      margin-top: 10px;
+      min-height: 20px;
+    }
 
-.role{
-  font-weight:bold;
-}
+    .card {
+      min-height: 300px;
+      padding: 28px;
+      border-radius: 24px;
+      background: linear-gradient(145deg, #172554, #536dfe);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 20px 45px rgba(23, 37, 84, .25);
+      overflow-wrap: anywhere;
+    }
 
-.company{
-  opacity:.75;
-}
+    .brand {
+      font-size: 12px;
+      letter-spacing: 2px;
+      opacity: .7;
+    }
 
-.bio{
-  line-height:1.5;
-}
+    .card h2 {
+      font-size: 34px;
+      margin: 10px 0 4px;
+    }
 
-.contact{
-  display:grid;
-  gap:7px;
-}
+    .role {
+      font-weight: bold;
+    }
 
-.contact a{
-  color:#fff;
-  text-decoration:none;
-}
+    .company {
+      opacity: .75;
+      margin-top: 4px;
+    }
 
-#shared,
-#creator{
-  display:none;
-  min-height:100vh;
-}
+    .bio {
+      line-height: 1.5;
+    }
 
-#shared{
-  align-items:center;
-  justify-content:center;
-  padding:22px;
-}
+    .contact {
+      display: grid;
+      gap: 7px;
+    }
 
-.shared{
-  width:min(540px,100%);
-  text-align:center;
-}
+    .contact a {
+      color: white;
+      text-decoration: none;
+    }
 
-.shared .card{
-  text-align:left;
-}
+    .contact a:hover {
+      text-decoration: underline;
+    }
 
-.own{
-  display:block;
-  margin:20px auto 0;
-  padding:11px 15px;
-  background:#ffffff18;
-  border:1px solid #ffffff55;
-  border-radius:9px;
-  color:#fff;
-  font-weight:bold;
-}
+    /* Shared profile */
 
-.note{
-  color:#68738b;
-  font-size:13px;
-  margin-top:12px;
-}
+    #shared {
+      display: none;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+    }
 
-#creator{
-  padding:22px;
-  background:#f3f6fc;
-}
+    .shared {
+      width: min(540px, 100%);
+      text-align: center;
+    }
 
-.creator{
-  max-width:1000px;
-  margin:auto;
-}
+    .shared .card {
+      text-align: left;
+    }
 
-.top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
-}
+    .shared-label {
+      margin-bottom: 15px;
+      color: #68738b;
+      font-weight: bold;
+      letter-spacing: 2px;
+      font-size: 12px;
+    }
 
-.back{
-  background:#fff;
-  border:1px solid #dfe5ef;
-  color:#26335f;
-  padding:11px 15px;
-  border-radius:9px;
-  font-weight:bold;
-}
+    .own-button {
+      display: block;
+      margin: 20px auto 0;
+      padding: 11px 15px;
+      background: rgba(255, 255, 255, .12);
+      border: 1px solid rgba(255, 255, 255, .35);
+      border-radius: 9px;
+      color: white;
+      font-weight: bold;
+    }
 
-.label{
-  color:#536dfe;
-  font-size:12px;
-  font-weight:bold;
-  letter-spacing:2px;
-}
+    .shared-note {
+      color: #68738b;
+      font-size: 13px;
+      margin-top: 12px;
+    }
 
-.creator-grid{
-  display:grid;
-  grid-template-columns:.8fr 1.2fr;
-  gap:22px;
-}
+    /* New card screen */
 
-.intro{
-  padding:25px 5px;
-}
+    #creator {
+      display: none;
+      min-height: 100vh;
+      padding: 22px;
+      background: #f3f6fc;
+    }
 
-.intro p{
-  color:#68738b;
-  line-height:1.6;
-}
+    .creator {
+      width: min(1000px, 100%);
+      margin: auto;
+    }
 
-.badge{
-  display:inline-block;
-  background:#eef2ff;
-  color:#3d51b5;
-  padding:7px 10px;
-  border-radius:20px;
-  font-size:12px;
-  font-weight:bold;
-}
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
 
-.steps{
-  display:grid;
-  gap:10px;
-  margin-top:22px;
-}
+    .back {
+      background: white;
+      border: 1px solid #dfe5ef;
+      color: #26335f;
+      padding: 11px 15px;
+      border-radius: 9px;
+      font-weight: bold;
+    }
 
-.step{
-  display:flex;
-  gap:9px;
-  align-items:center;
-}
+    .creator-label {
+      color: #536dfe;
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
 
-.num{
-  width:28px;
-  height:28px;
-  display:grid;
-  place-items:center;
-  border-radius:50%;
-  background:#536dfe;
-  color:#fff;
-  font-weight:bold;
-}
+    .creator-grid {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 22px;
+    }
 
-.mini{
-  margin-top:14px;
-  padding:18px;
-  border-radius:16px;
-  background:linear-gradient(145deg,#172554,#536dfe);
-  color:white;
-}
+    .intro {
+      padding: 25px 5px;
+    }
 
-.mini h3{
-  font-size:24px;
-  margin:8px 0 4px;
-}
+    .intro h1 {
+      font-size: 42px;
+      line-height: 1.05;
+    }
 
-.mini p{
-  line-height:1.4;
-}
+    .intro p {
+      color: #68738b;
+      line-height: 1.6;
+    }
 
-@media(max-width:760px){
-  .grid,
-  .creator-grid{
-    grid-template-columns:1fr;
-  }
-}
-</style>
+    .badge {
+      display: inline-block;
+      background: #eef2ff;
+      color: #3d51b5;
+      padding: 7px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .steps {
+      display: grid;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .step {
+      display: flex;
+      gap: 9px;
+      align-items: center;
+    }
+
+    .num {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #536dfe;
+      color: white;
+      font-weight: bold;
+    }
+
+    .mini {
+      margin-top: 14px;
+      padding: 18px;
+      border-radius: 16px;
+      background: linear-gradient(145deg, #172554, #536dfe);
+      color: white;
+    }
+
+    .mini h3 {
+      font-size: 24px;
+      margin: 8px 0 4px;
+    }
+
+    .mini p {
+      line-height: 1.4;
+    }
+
+    @media (max-width: 760px) {
+      .grid,
+      .creator-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .header h1,
+      .intro h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- MAIN FORM -->
+<!-- =================================================
+     MAIN FORM
+================================================== -->
 
 <main id="builder" class="container">
 
-<div class="header">
-<h1>Create your digital visiting card</h1>
-<p>Enter your details and create a profile you can share.</p>
-</div>
+  <div class="header">
+    <h1>Create your digital visiting card</h1>
+    <p>Enter your details and create a profile you can share.</p>
+  </div>
 
-<div class="grid">
+  <div class="grid">
 
-<div class="box">
+    <div class="box">
 
-<h2>Your details</h2>
+      <h2>Your details</h2>
 
-<div class="field">
-<label>Name</label>
-<input id="name" placeholder="e.g. Alex Morgan">
-</div>
+      <div class="field">
+        <label for="name">Name</label>
+        <input id="name" placeholder="e.g. Alex Morgan">
+      </div>
 
-<div class="field">
-<label>Job title</label>
-<input id="title" placeholder="e.g. Founder">
-</div>
+      <div class="field">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          placeholder="e.g. alex-morgan"
+          maxlength="30"
+        >
+        <div class="help">
+          3–30 characters. Use lowercase letters, numbers and hyphens.
+        </div>
+      </div>
 
-<div class="field">
-<label>Company</label>
-<input id="company" placeholder="e.g. Acme Studio">
-</div>
+      <div class="field">
+        <label for="title">Job title</label>
+        <input id="title" placeholder="e.g. Founder">
+      </div>
 
-<div class="field">
-<label>Phone</label>
-<input id="phone" placeholder="e.g. +91 98765 43210">
-</div>
+      <div class="field">
+        <label for="company">Company</label>
+        <input id="company" placeholder="e.g. Acme Studio">
+      </div>
 
-<div class="field">
-<label>Email</label>
-<input id="email" placeholder="e.g. hello@example.com">
-</div>
+      <div class="field">
+        <label for="phone">Phone</label>
+        <input id="phone" placeholder="e.g. +91 98765 43210">
+      </div>
 
-<div class="field">
-<label>Short bio</label>
-<textarea id="bio" placeholder="A short introduction..."></textarea>
-</div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" placeholder="e.g. hello@example.com">
+      </div>
 
-<div class="actions">
-<button id="create" class="btn primary">
-Create share link
-</button>
+      <div class="field">
+        <label for="bio">Short bio</label>
+        <textarea id="bio" placeholder="A short introduction..."></textarea>
+      </div>
 
-<button id="clear" class="btn secondary">
-Clear
-</button>
-</div>
+      <div class="actions">
 
-<div id="status" class="status"></div>
+        <button
+          id="create"
+          class="btn primary"
+        >
+          Create share link
+        </button>
 
-</div>
+        <button
+          id="clear"
+          class="btn secondary"
+        >
+          Clear
+        </button>
+
+      </div>
+
+      <div id="status" class="status"></div>
+
+    </div>
 
 
-<div class="box">
+    <!-- Preview -->
 
-<h2>Preview</h2>
+    <div class="box">
 
-<div class="card">
+      <h2>Preview</h2>
 
-<div>
+      <div class="card">
 
-<div class="brand">
-DIGITAL VISITING CARD
-</div>
+        <div>
 
-<h2 id="pn">
-Your Name
-</h2>
+          <div class="brand">
+            DIGITAL VISITING CARD
+          </div>
 
-<div id="pt" class="role">
-Your job title
-</div>
+          <h2 id="pn">
+            Your Name
+          </h2>
 
-<div id="pc" class="company">
-Your company
-</div>
+          <div
+            id="pt"
+            class="role"
+          >
+            Your job title
+          </div>
 
-<p id="pb" class="bio">
-Your short bio will appear here.
-</p>
+          <div
+            id="pc"
+            class="company"
+          >
+            Your company
+          </div>
 
-</div>
+          <p
+            id="pb"
+            class="bio"
+          >
+            Your short bio will appear here.
+          </p>
 
-<div class="contact">
+        </div>
 
-<a id="pp">
-Phone
-</a>
+        <div class="contact">
 
-<a id="pe">
-Email
-</a>
+          <a id="pp">
+            Phone
+          </a>
 
-</div>
+          <a id="pe">
+            Email
+          </a>
 
-</div>
+        </div>
 
-</div>
+      </div>
 
-</div>
+    </div>
+
+  </div>
 
 </main>
 
 
-<!-- SHARED PROFILE -->
+<!-- =================================================
+     SHARED PROFILE
+================================================== -->
 
 <section id="shared">
 
-<div class="shared">
+  <div class="shared">
 
-<div class="brand" style="color:#68738b;text-align:center">
-ZETACARD
-</div>
+    <div class="shared-label">
+      ZETACARD
+    </div>
 
-<div class="card">
+    <article class="card">
 
-<div>
+      <div>
 
-<div class="brand">
-DIGITAL VISITING CARD
-</div>
+        <div class="brand">
+          DIGITAL VISITING CARD
+        </div>
 
-<h2 id="sn"></h2>
+        <h2 id="sn">
+          Your Name
+        </h2>
 
-<div id="st" class="role"></div>
+        <div
+          id="st"
+          class="role"
+        >
+          Your job title
+        </div>
 
-<div id="sc" class="company"></div>
+        <div
+          id="sc"
+          class="company"
+        >
+          Your company
+        </div>
 
-<p id="sb" class="bio"></p>
+        <p
+          id="sb"
+          class="bio"
+        >
+          Your short bio will appear here.
+        </p>
 
-</div>
+      </div>
 
-<div class="contact">
+      <div class="contact">
 
-<a id="sp"></a>
+        <a id="sp">
+          Phone
+        </a>
 
-<a id="se"></a>
+        <a id="se">
+          Email
+        </a>
 
-</div>
+      </div>
 
-<button id="own" class="own">
-Create your own card
-</button>
+      <button
+        id="own"
+        class="own-button"
+      >
+        Create your own card
+      </button>
 
-</div>
+    </article>
 
-<div class="note">
-Shared ZetaCard profile
-</div>
+    <div class="shared-note">
+      Shared ZetaCard profile
+    </div>
 
-</div>
+  </div>
 
 </section>
 
 
-<!-- NEW CARD CREATOR -->
+<!-- =================================================
+     NEW CARD CREATOR
+================================================== -->
 
 <section id="creator">
 
-<div class="creator">
+  <div class="creator">
 
-<div class="top">
+    <div class="top">
 
-<button id="back" class="back">
-← Back to card
-</button>
+      <button
+        id="back"
+        class="back"
+      >
+        ← Back to card
+      </button>
 
-<div class="label">
-CREATE A NEW CARD
-</div>
+      <div class="creator-label">
+        CREATE A NEW CARD
+      </div>
 
-</div>
-
-
-<div class="creator-grid">
-
-
-<div class="intro">
-
-<span class="badge">
-ZETACARD
-</span>
-
-<h1>
-Create a new digital card.
-</h1>
-
-<p>
-Create a completely new profile,
-preview it, and generate a fresh
-shareable link.
-</p>
-
-<div class="steps">
-
-<div class="step">
-<span class="num">1</span>
-Enter your details
-</div>
-
-<div class="step">
-<span class="num">2</span>
-Review your card
-</div>
-
-<div class="step">
-<span class="num">3</span>
-Create your share link
-</div>
-
-</div>
-
-</div>
+    </div>
 
 
-<div class="box">
+    <div class="creator-grid">
 
-<h2>
-New card
-</h2>
 
-<div class="field">
-<label>Name</label>
-<input id="nn" placeholder="e.g. Alex Morgan">
-</div>
+      <div class="intro">
 
-<div class="field">
-<label>Job title</label>
-<input id="nt" placeholder="e.g. Founder">
-</div>
+        <span class="badge">
+          ZETACARD
+        </span>
 
-<div class="field">
-<label>Company</label>
-<input id="nc" placeholder="e.g. Acme Studio">
-</div>
+        <h1>
+          Create a new digital card.
+        </h1>
 
-<div class="field">
-<label>Phone</label>
-<input id="np" placeholder="e.g. +91 98765 43210">
-</div>
+        <p>
+          Create a fresh profile,
+          choose a username,
+          preview your card,
+          and generate a new shareable link.
+        </p>
 
-<div class="field">
-<label>Email</label>
-<input id="ne" placeholder="e.g. hello@example.com">
-</div>
+        <div class="steps">
 
-<div class="field">
-<label>Short bio</label>
-<textarea id="nb" placeholder="A short introduction..."></textarea>
-</div>
+          <div class="step">
+            <span class="num">1</span>
+            Enter your details
+          </div>
 
-<div class="label">
-LIVE PREVIEW
-</div>
+          <div class="step">
+            <span class="num">2</span>
+            Choose your username
+          </div>
 
-<div class="mini">
+          <div class="step">
+            <span class="num">3</span>
+            Create your share link
+          </div>
 
-<div class="brand">
-DIGITAL VISITING CARD
-</div>
+        </div>
 
-<h3 id="mn">
-Your Name
-</h3>
+      </div>
 
-<div id="mt" class="role">
-Your job title
-</div>
 
-<div id="mc" class="company">
-Your company
-</div>
+      <div class="box">
 
-<p id="mb">
-Your short bio will appear here.
-</p>
+        <h2>
+          New card
+        </h2>
 
-<div class="contact">
+        <div class="field">
+          <label for="nn">
+            Name
+          </label>
 
-<span id="mp">
-Phone
-</span>
+          <input
+            id="nn"
+            placeholder="e.g. Alex Morgan"
+          >
+        </div>
 
-<span id="me">
-Email
-</span>
+        <div class="field">
+          <label for="nu">
+            Username
+          </label>
 
-</div>
+          <input
+            id="nu"
+            maxlength="30"
+            placeholder="e.g. alex-morgan"
+          >
 
-</div>
+          <div class="help">
+            This becomes part of your public profile link.
+          </div>
+        </div>
 
-<button
-id="newCreate"
-class="btn primary"
-style="width:100%;margin-top:16px"
->
-Create card & get share link
-</button>
+        <div class="field">
+          <label for="nt">
+            Job title
+          </label>
 
-<div id="newStatus" class="status"></div>
+          <input
+            id="nt"
+            placeholder="e.g. Founder"
+          >
+        </div>
 
-</div>
+        <div class="field">
+          <label for="nc">
+            Company
+          </label>
 
-</div>
+          <input
+            id="nc"
+            placeholder="e.g. Acme Studio"
+          >
+        </div>
 
-</div>
+        <div class="field">
+          <label for="np">
+            Phone
+          </label>
+
+          <input
+            id="np"
+            placeholder="e.g. +91 98765 43210"
+          >
+        </div>
+
+        <div class="field">
+          <label for="ne">
+            Email
+          </label>
+
+          <input
+            id="ne"
+            placeholder="e.g. hello@example.com"
+          >
+        </div>
+
+        <div class="field">
+          <label for="nb">
+            Short bio
+          </label>
+
+          <textarea
+            id="nb"
+            placeholder="A short introduction..."
+          ></textarea>
+        </div>
+
+
+        <div class="creator-label">
+          LIVE PREVIEW
+        </div>
+
+
+        <div class="mini">
+
+          <div class="brand">
+            DIGITAL VISITING CARD
+          </div>
+
+          <h3 id="mn">
+            Your Name
+          </h3>
+
+          <div
+            id="mt"
+            class="role"
+          >
+            Your job title
+          </div>
+
+          <div
+            id="mc"
+            class="company"
+          >
+            Your company
+          </div>
+
+          <p id="mb">
+            Your short bio will appear here.
+          </p>
+
+          <div class="contact">
+
+            <span id="mp">
+              Phone
+            </span>
+
+            <span id="me">
+              Email
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <button
+          id="newCreate"
+          class="btn primary"
+          style="width:100%;margin-top:16px"
+        >
+          Create card & get share link
+        </button>
+
+
+        <div
+          id="newStatus"
+          class="status"
+        ></div>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </section>
 
 
 <script>
 
-const $ =
-id => document.getElementById(id);
+/* =================================================
+   SUPABASE
+================================================== */
+
+const SUPABASE_URL =
+  "https://sojuhiuydumpouknkmat.supabase.co";
 
 
-/* GET MAIN DATA */
-
-function mainData(){
-
-return {
-
-name:$("name").value.trim(),
-
-title:$("title").value.trim(),
-
-company:$("company").value.trim(),
-
-phone:$("phone").value.trim(),
-
-email:$("email").value.trim(),
-
-bio:$("bio").value.trim()
-
-};
-
-}
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_--O6hnERwb8RwEa-VFHnUw_SRUE54C-";
 
 
-/* GET NEW CARD DATA */
-
-function newData(){
-
-return {
-
-name:$("nn").value.trim(),
-
-title:$("nt").value.trim(),
-
-company:$("nc").value.trim(),
-
-phone:$("np").value.trim(),
-
-email:$("ne").value.trim(),
-
-bio:$("nb").value.trim()
-
-};
-
-}
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
 
 
-/* ENCODE */
+const $ = id =>
+  document.getElementById(id);
 
-function encode(data){
 
-return encodeURIComponent(
-JSON.stringify(data)
-);
+/* =================================================
+   MAIN DATA
+================================================== */
+
+function getMainData(){
+
+  return {
+
+    username:
+      $("username").value.trim().toLowerCase(),
+
+    name:
+      $("name").value.trim(),
+
+    job_title:
+      $("title").value.trim(),
+
+    company:
+      $("company").value.trim(),
+
+    phone:
+      $("phone").value.trim(),
+
+    email:
+      $("email").value.trim(),
+
+    bio:
+      $("bio").value.trim()
+
+  };
 
 }
 
 
-/* DECODE */
+/* =================================================
+   NEW DATA
+================================================== */
 
-function decode(value){
+function getNewData(){
 
-return JSON.parse(
-decodeURIComponent(value)
-);
+  return {
 
-}
+    username:
+      $("nu").value.trim().toLowerCase(),
 
+    name:
+      $("nn").value.trim(),
 
-/* SITE URL */
+    job_title:
+      $("nt").value.trim(),
 
-function base(){
+    company:
+      $("nc").value.trim(),
 
-return new URL(
-"./",
-location.href
-).href;
+    phone:
+      $("np").value.trim(),
 
-}
+    email:
+      $("ne").value.trim(),
 
+    bio:
+      $("nb").value.trim()
 
-/* SHOW BUILDER */
-
-function showBuilder(){
-
-$("builder").style.display =
-"block";
-
-$("shared").style.display =
-"none";
-
-$("creator").style.display =
-"none";
+  };
 
 }
 
 
-/* SHOW SHARED CARD */
+/* =================================================
+   VALIDATE USERNAME
+================================================== */
 
-function showShared(data){
+function validUsername(username){
 
-$("sn").textContent =
-data.name ||
-"Your Name";
-
-$("st").textContent =
-data.title ||
-"Your job title";
-
-$("sc").textContent =
-data.company ||
-"Your company";
-
-$("sb").textContent =
-data.bio ||
-"Your short bio will appear here";
-
-$("sp").textContent =
-data.phone ||
-"Phone";
-
-$("se").textContent =
-data.email ||
-"Email";
-
-$("sp").href =
-data.phone
-? "tel:" +
-  data.phone.replace(/[^\d+]/g,"")
-: "#";
-
-$("se").href =
-data.email
-? "mailto:" +
-  data.email
-: "#";
-
-
-sessionStorage.setItem(
-"zetaProfile",
-JSON.stringify(data)
-);
-
-
-$("builder").style.display =
-"none";
-
-$("shared").style.display =
-"flex";
-
-$("creator").style.display =
-"none";
+  return /^[a-z0-9][a-z0-9-]{2,29}$/.test(
+    username
+  );
 
 }
 
 
-/* SHOW NEW CARD CREATOR */
-
-function showCreator(){
-
-$("builder").style.display =
-"none";
-
-$("shared").style.display =
-"none";
-
-$("creator").style.display =
-"block";
-
-
-[
-"nn",
-"nt",
-"nc",
-"np",
-"ne",
-"nb"
-].forEach(id => {
-
-$(id).value = "";
-
-});
-
-
-$("newStatus").textContent =
-"";
-
-updateNew();
-
-}
-
-
-/* MAIN PREVIEW */
+/* =================================================
+   MAIN PREVIEW
+================================================== */
 
 function updateMain(){
 
-const d =
-mainData();
+  const d =
+    getMainData();
 
 
-$("pn").textContent =
-d.name ||
-"Your Name";
-
-$("pt").textContent =
-d.title ||
-"Your job title";
-
-$("pc").textContent =
-d.company ||
-"Your company";
-
-$("pb").textContent =
-d.bio ||
-"Your short bio will appear here.";
-
-$("pp").textContent =
-d.phone ||
-"Phone";
-
-$("pe").textContent =
-d.email ||
-"Email";
+  $("pn").textContent =
+    d.name ||
+    "Your Name";
 
 
-$("pp").href =
-d.phone
-? "tel:" +
-  d.phone.replace(/[^\d+]/g,"")
-: "#";
+  $("pt").textContent =
+    d.job_title ||
+    "Your job title";
 
 
-$("pe").href =
-d.email
-? "mailto:" +
-  d.email
-: "#";
+  $("pc").textContent =
+    d.company ||
+    "Your company";
+
+
+  $("pb").textContent =
+    d.bio ||
+    "Your short bio will appear here";
+
+
+  $("pp").textContent =
+    d.phone ||
+    "Phone";
+
+
+  $("pe").textContent =
+    d.email ||
+    "Email";
+
+
+  $("pp").href =
+    d.phone
+      ? "tel:" +
+        d.phone.replace(/[^\d+]/g,"")
+      : "#";
+
+
+  $("pe").href =
+    d.email
+      ? "mailto:" +
+        d.email
+      : "#";
 
 }
 
 
-/* NEW PREVIEW */
+/* =================================================
+   NEW CARD PREVIEW
+================================================== */
 
 function updateNew(){
 
-const d =
-newData();
+  const d =
+    getNewData();
 
 
-$("mn").textContent =
-d.name ||
-"Your Name";
+  $("mn").textContent =
+    d.name ||
+    "Your Name";
 
-$("mt").textContent =
-d.title ||
-"Your job title";
 
-$("mc").textContent =
-d.company ||
-"Your company";
+  $("mt").textContent =
+    d.job_title ||
+    "Your job title";
 
-$("mb").textContent =
-d.bio ||
-"Your short bio will appear here";
 
-$("mp").textContent =
-d.phone ||
-"Phone";
+  $("mc").textContent =
+    d.company ||
+    "Your company";
 
-$("me").textContent =
-d.email ||
-"Email";
+
+  $("mb").textContent =
+    d.bio ||
+    "Your short bio will appear here";
+
+
+  $("mp").textContent =
+    d.phone ||
+    "Phone";
+
+
+  $("me").textContent =
+    d.email ||
+    "Email";
 
 }
 
 
-/* COPY LINK */
+/* =================================================
+   SHOW BUILDER
+================================================== */
+
+function showBuilder(){
+
+  $("builder").style.display =
+    "block";
+
+  $("shared").style.display =
+    "none";
+
+  $("creator").style.display =
+    "none";
+
+}
+
+
+/* =================================================
+   SHOW CREATOR
+================================================== */
+
+function showCreator(){
+
+  $("builder").style.display =
+    "none";
+
+  $("shared").style.display =
+    "none";
+
+  $("creator").style.display =
+    "block";
+
+
+  [
+    "nn",
+    "nu",
+    "nt",
+    "nc",
+    "np",
+    "ne",
+    "nb"
+  ].forEach(id => {
+
+    $(id).value = "";
+
+  });
+
+
+  $("newStatus").textContent =
+    "";
+
+
+  updateNew();
+
+}
+
+
+/* =================================================
+   FILL SHARED CARD
+================================================== */
+
+function fillCard(data){
+
+  $("sn").textContent =
+    data.name ||
+    "Your Name";
+
+
+  $("st").textContent =
+    data.job_title ||
+    "Your job title";
+
+
+  $("sc").textContent =
+    data.company ||
+    "Your company";
+
+
+  $("sb").textContent =
+    data.bio ||
+    "Your short bio will appear here";
+
+
+  $("sp").textContent =
+    data.phone ||
+    "Phone";
+
+
+  $("se").textContent =
+    data.email ||
+    "Email";
+
+
+  $("sp").href =
+    data.phone
+      ? "tel:" +
+        data.phone.replace(/[^\d+]/g,"")
+      : "#";
+
+
+  $("se").href =
+    data.email
+      ? "mailto:" +
+        data.email
+      : "#";
+
+
+  sessionStorage.setItem(
+    "zetaCardProfile",
+    JSON.stringify(data)
+  );
+
+}
+
+
+/* =================================================
+   SHOW SHARED CARD
+================================================== */
+
+function showShared(data){
+
+  fillCard(data);
+
+
+  $("builder").style.display =
+    "none";
+
+
+  $("shared").style.display =
+    "flex";
+
+
+  $("creator").style.display =
+    "none";
+
+}
+
+
+/* =================================================
+   CREATE PROFILE IN SUPABASE
+================================================== */
+
+async function saveProfile(data){
+
+  const {
+    data: inserted,
+    error
+  } = await supabaseClient
+    .from("profiles")
+    .insert(data)
+    .select()
+    .single();
+
+
+  if(error){
+
+    throw error;
+
+  }
+
+
+  return inserted;
+
+}
+
+
+/* =================================================
+   CREATE PROFILE LINK
+================================================== */
+
+function profileUrl(username){
+
+  return (
+    new URL("./",window.location.href).href +
+    "?u=" +
+    encodeURIComponent(username)
+  );
+
+}
+
+
+/* =================================================
+   LOAD PROFILE
+================================================== */
+
+async function loadProfile(username){
+
+  const {
+    data,
+    error
+  } = await supabaseClient
+    .from("profiles")
+    .select(
+      "username,name,job_title,company,phone,email,bio"
+    )
+    .eq(
+      "username",
+      username
+    )
+    .maybeSingle();
+
+
+  if(error){
+
+    throw error;
+
+  }
+
+
+  if(!data){
+
+    throw new Error(
+      "Profile not found."
+    );
+
+  }
+
+
+  return data;
+
+}
+
+
+/* =================================================
+   COPY LINK
+================================================== */
 
 async function copyLink(
-url,
-id
+  url,
+  statusId
 ){
 
-try{
+  try{
 
-await navigator.clipboard.writeText(
-url
-);
+    await navigator.clipboard.writeText(
+      url
+    );
 
-$(id).textContent =
-"Share link copied to clipboard.";
 
-}catch{
+    $(statusId).textContent =
+      "Profile created. Share link copied.";
 
-$(id).textContent =
-"Share link created. Copy it from the address bar.";
+  }catch{
+
+    $(statusId).textContent =
+      "Profile created. Copy the URL from your address bar.";
+
+  }
 
 }
 
-}
 
-
-/* MAIN LIVE PREVIEW */
-
-[
-"name",
-"title",
-"company",
-"phone",
-"email",
-"bio"
-].forEach(id => {
-
-$(id).addEventListener(
-"input",
-updateMain
-);
-
-});
-
-
-/* NEW LIVE PREVIEW */
-
-[
-"nn",
-"nt",
-"nc",
-"np",
-"ne",
-"nb"
-].forEach(id => {
-
-$(id).addEventListener(
-"input",
-updateNew
-);
-
-});
-
-
-/* CREATE SHARE LINK */
+/* =================================================
+   MAIN CREATE
+================================================== */
 
 $("create").onclick =
-async function(){
+  async function(){
 
-const d =
-mainData();
-
-
-if(!d.name){
-
-$("status").textContent =
-"Please enter your name first.";
-
-return;
-
-}
+    const data =
+      getMainData();
 
 
-const e =
-encode(d);
+    if(!data.name){
+
+      $("status").textContent =
+        "Please enter your name.";
+
+      return;
+
+    }
 
 
-const url =
-base() +
-"#card=" +
-e;
+    if(!validUsername(data.username)){
+
+      $("status").textContent =
+        "Username must be 3–30 lowercase letters, numbers or hyphens.";
+
+      $("username").focus();
+
+      return;
+
+    }
 
 
-history.replaceState(
-null,
-"",
-"#card=" +
-e
-);
+    $("status").textContent =
+      "Creating profile...";
 
 
-showShared(d);
+    try{
+
+      const saved =
+        await saveProfile(data);
 
 
-await copyLink(
-url,
-"status"
-);
-
-};
+      const url =
+        profileUrl(
+          saved.username
+        );
 
 
-/* CLEAR */
+      history.replaceState(
+        null,
+        "",
+        "?u=" +
+        encodeURIComponent(
+          saved.username
+        )
+      );
+
+
+      showShared(saved);
+
+
+      await copyLink(
+        url,
+        "status"
+      );
+
+
+    }catch(error){
+
+      console.error(error);
+
+
+      if(
+        error.code === "23505"
+      ){
+
+        $("status").textContent =
+          "That username is already taken. Choose another.";
+
+      }else{
+
+        $("status").textContent =
+          "Could not create the profile: " +
+          error.message;
+
+      }
+
+    }
+
+  };
+
+
+/* =================================================
+   CLEAR
+================================================== */
 
 $("clear").onclick =
-function(){
+  function(){
 
-[
-"name",
-"title",
-"company",
-"phone",
-"email",
-"bio"
-].forEach(id => {
+    [
+      "name",
+      "username",
+      "title",
+      "company",
+      "phone",
+      "email",
+      "bio"
+    ].forEach(id => {
 
-$(id).value = "";
+      $(id).value = "";
 
-});
-
-
-history.replaceState(
-null,
-"",
-base()
-);
+    });
 
 
-$("status").textContent =
-"";
+    history.replaceState(
+      null,
+      "",
+      new URL("./",window.location.href).href
+    );
 
 
-updateMain();
-
-showBuilder();
-
-};
+    $("status").textContent =
+      "";
 
 
-/* CREATE YOUR OWN CARD */
+    updateMain();
+
+    showBuilder();
+
+  };
+
+
+/* =================================================
+   CREATE YOUR OWN CARD
+================================================== */
 
 $("own").onclick =
-function(){
+  function(){
 
-history.replaceState(
-null,
-"",
-base() +
-"#create"
-);
-
-showCreator();
-
-};
+    history.replaceState(
+      null,
+      "",
+      new URL("./",window.location.href).href +
+      "#create"
+    );
 
 
-/* CREATE NEW PROFILE */
+    showCreator();
+
+  };
+
+
+/* =================================================
+   CREATE NEW CARD
+================================================== */
 
 $("newCreate").onclick =
-async function(){
+  async function(){
 
-const d =
-newData();
-
-
-if(!d.name){
-
-$("newStatus").textContent =
-"Please enter your name first.";
-
-return;
-
-}
+    const data =
+      getNewData();
 
 
-const e =
-encode(d);
+    if(!data.name){
+
+      $("newStatus").textContent =
+        "Please enter your name.";
+
+      return;
+
+    }
 
 
-const url =
-base() +
-"#card=" +
-e;
+    if(!validUsername(data.username)){
+
+      $("newStatus").textContent =
+        "Username must be 3–30 lowercase letters, numbers or hyphens.";
+
+      $("nu").focus();
+
+      return;
+
+    }
 
 
-history.replaceState(
-null,
-"",
-"#card=" +
-e
-);
+    $("newStatus").textContent =
+      "Creating profile...";
 
 
-showShared(d);
+    try{
+
+      const saved =
+        await saveProfile(data);
 
 
-await copyLink(
-url,
-"newStatus"
-);
-
-};
+      const url =
+        profileUrl(
+          saved.username
+        );
 
 
-/* BACK TO CARD */
+      history.replaceState(
+        null,
+        "",
+        "?u=" +
+        encodeURIComponent(
+          saved.username
+        )
+      );
+
+
+      showShared(saved);
+
+
+      await copyLink(
+        url,
+        "newStatus"
+      );
+
+
+    }catch(error){
+
+      console.error(error);
+
+
+      if(
+        error.code === "23505"
+      ){
+
+        $("newStatus").textContent =
+          "That username is already taken. Choose another.";
+
+      }else{
+
+        $("newStatus").textContent =
+          "Could not create the profile: " +
+          error.message;
+
+      }
+
+    }
+
+  };
+
+
+/* =================================================
+   BACK
+================================================== */
 
 $("back").onclick =
-function(){
+  function(){
 
-const saved =
-sessionStorage.getItem(
-"zetaProfile"
-);
-
-
-if(saved){
-
-try{
-
-const d =
-JSON.parse(saved);
+    const saved =
+      sessionStorage.getItem(
+        "zetaCardProfile"
+      );
 
 
-const e =
-encode(d);
+    if(saved){
+
+      try{
+
+        const data =
+          JSON.parse(saved);
 
 
-history.replaceState(
-null,
-"",
-"#card=" +
-e
-);
+        history.replaceState(
+          null,
+          "",
+          "?u=" +
+          encodeURIComponent(
+            data.username
+          )
+        );
 
 
-showShared(d);
+        showShared(data);
+
+        return;
+
+      }catch{}
+
+    }
 
 
-return;
+    history.replaceState(
+      null,
+      "",
+      new URL("./",window.location.href).href
+    );
 
-}catch{}
+
+    showBuilder();
+
+  };
+
+
+/* =================================================
+   START APPLICATION
+================================================== */
+
+async function start(){
+
+  updateMain();
+
+  updateNew();
+
+
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
+
+
+  const username =
+    params.get("u");
+
+
+  /*
+    Open saved profile
+  */
+
+  if(username){
+
+    $("builder").style.display =
+      "none";
+
+    $("shared").style.display =
+      "flex";
+
+    $("creator").style.display =
+      "none";
+
+
+    try{
+
+      $("sharedNote") &&
+        ($("sharedNote").textContent =
+          "Loading profile...");
+
+
+      const profile =
+        await loadProfile(
+          username
+            .trim()
+            .toLowerCase()
+        );
+
+
+      showShared(profile);
+
+    }catch(error){
+
+      console.error(error);
+
+
+      $("builder").style.display =
+        "none";
+
+      $("shared").style.display =
+        "flex";
+
+      $("creator").style.display =
+        "none";
+
+
+      $("sn").textContent =
+        "Profile not found";
+
+
+      $("st").textContent =
+        "";
+
+
+      $("sc").textContent =
+        "";
+
+
+      $("sb").textContent =
+        error.message;
+
+
+      $("sp").textContent =
+        "";
+
+
+      $("se").textContent =
+        "";
+
+
+      $("own").style.display =
+        "block";
+
+    }
+
+
+    return;
+
+  }
+
+
+  /*
+    Open new-card interface
+  */
+
+  if(
+    window.location.hash === "#create"
+  ){
+
+    showCreator();
+
+    return;
+
+  }
+
+
+  /*
+    Normal builder
+  */
+
+  showBuilder();
 
 }
 
 
-history.replaceState(
-null,
-"",
-base()
-);
-
-
-showBuilder();
-
-};
-
-
-/* START */
-
-function start(){
-
-updateMain();
-
-updateNew();
-
-
-const hash =
-location.hash;
-
-
-/* SHARED PROFILE */
-
-if(
-hash.indexOf("#card=") === 0
-){
-
-try{
-
-const d =
-decode(
-hash.substring(6)
-);
-
-
-showShared(d);
-
-return;
-
-}catch(error){
-
-console.error(error);
-
-}
-
-}
-
-
-/* CREATE SCREEN */
-
-if(
-hash === "#create"
-){
-
-showCreator();
-
-return;
-
-}
-
-
-/* NORMAL FORM */
-
-showBuilder();
-
-}
-
+/* Start */
 
 start();
 

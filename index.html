@@ -19,6 +19,14 @@ input,textarea,button{font:inherit}button{cursor:pointer}
 .card{min-height:335px;padding:30px;border-radius:26px;background:radial-gradient(circle at 85% 12%,#ffffff20 0 9%,transparent 10%),linear-gradient(145deg,#101a36 0%,#263969 55%,#536dfe 100%);color:#fff;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 24px 55px #1d2d5433;overflow-wrap:anywhere;position:relative}.brand{font-size:11px;letter-spacing:2.2px;font-weight:800;opacity:.68}.card h2{font-size:36px;line-height:1.05;margin:11px 0 5px;letter-spacing:-.6px}.role{font-weight:800}.company{opacity:.75}.bio{line-height:1.55;max-width:48ch}.contact{display:grid;gap:8px}.contact a{color:#fff;text-decoration:none}.contact a:hover{text-decoration:underline}
 
 
+/* Profile editing */
+.owner-actions{display:none;gap:9px;flex-wrap:wrap;justify-content:center;margin-top:10px}
+.owner-note{display:none;margin:7px auto 0;color:var(--muted);font-size:11px;line-height:1.4;text-align:center;max-width:460px}
+.editor-mode{display:none;margin:0 auto 15px;padding:10px 12px;border:1px solid #cbd7ff;border-radius:12px;background:#eef2ff;color:#3d51b5;font-size:12px;font-weight:800}
+.editor-mode.show{display:block}
+input[disabled].locked-input{background:#f0f3f8;color:#67728a;cursor:not-allowed}
+@media(max-width:520px){.owner-actions{display:grid;grid-template-columns:1fr 1fr}.owner-actions .btn{width:100%}}
+
 /* Profile photo upload and avatar display */
 .avatar{position:relative;overflow:hidden;width:58px;height:58px;border-radius:18px;background:#ffffff18;display:grid;place-items:center;font-size:21px;font-weight:900;border:1px solid #ffffff30;flex:0 0 58px}
 .avatar img{width:100%;height:100%;object-fit:cover;display:block}
@@ -627,12 +635,12 @@ input,textarea,button{font:inherit}button{cursor:pointer}
 </section>
 
 <main id="builder" class="container">
-<div class="header"><h1>Create your digital visiting card</h1><p>Enter your details and create a saved profile.</p></div>
+<div class="header"><div id="editorModeNotice" class="editor-mode">You are editing your existing ZetaCard profile.</div><h1 id="builderTitle">Create your digital visiting card</h1><p id="builderSubtitle">Enter your details and create a saved profile.</p></div>
 <div class="grid">
 <div class="box">
 <h2>Your details</h2>
 <div class="field"><label for="name">Name</label><input id="name" placeholder="e.g. Alex Morgan"></div>
-<div class="field"><label for="username">Username</label><input id="username" maxlength="30" placeholder="e.g. alex-morgan"><div class="help">3–30 lowercase letters, numbers and hyphens.</div><div id="usernameStatus" class="status"></div></div>
+<div class="field"><label for="username">Username</label><input id="username" maxlength="30" placeholder="e.g. alex-morgan"><div id="usernameHelp" class="help">3–30 lowercase letters, numbers and hyphens.</div><div id="usernameStatus" class="status"></div></div>
 <div class="field"><label for="title">Job title</label><input id="title" placeholder="e.g. Founder"></div>
 <div class="field"><label for="company">Company</label><input id="company" placeholder="e.g. Acme Studio"></div>
 <div class="field"><label for="phone">Phone</label><input id="phone" placeholder="e.g. +91 98765 43210"></div>
@@ -770,7 +778,7 @@ input,textarea,button{font:inherit}button{cursor:pointer}
 </div>
 </main>
 
-<section id="shared"><div class="shared"><div class="profile-home-row"><a class="profile-home" href="https://zetacard.github.io/visiting-card-app/" onclick="window.location.assign('https://zetacard.github.io/visiting-card-app/'); return false;">← Home</a></div><div class="shared-title">ZETACARD</div><div id="sharedError" class="error"></div><div class="shared-wrap"><div id="sharedCard" class="card" data-theme="midnight"><div><div class="card-topline"><div id="sharedAvatar" class="avatar" aria-hidden="true">Z</div><div class="brand">DIGITAL VISITING CARD</div></div><h2 id="sn">Your Name</h2><div id="st" class="role">Your job title</div><div id="sc" class="company">Your company</div><p id="sb" class="bio">Your short bio will appear here.</p></div><div class="contact"><a id="sp" href="#">Phone</a><a id="se" href="#">Email</a></div></div><div class="qr-box"><strong>Scan to open</strong><div id="qr" class="qr"></div></div></div><div class="card-actions"><button id="copy" class="btn primary" type="button">Copy link</button><button id="share" class="btn ghost" type="button">Share</button><button id="contact" class="btn ghost" type="button">Save contact</button><button id="own" class="btn secondary" type="button">Create your own card</button></div><div id="shareStatus" class="status"></div><div class="note">Your digital card · Easy to share anywhere</div></div></section>
+<section id="shared"><div class="shared"><div class="profile-home-row"><a class="profile-home" href="https://zetacard.github.io/visiting-card-app/" onclick="window.location.assign('https://zetacard.github.io/visiting-card-app/'); return false;">← Home</a></div><div class="shared-title">ZETACARD</div><div id="sharedError" class="error"></div><div class="shared-wrap"><div id="sharedCard" class="card" data-theme="midnight"><div><div class="card-topline"><div id="sharedAvatar" class="avatar" aria-hidden="true">Z</div><div class="brand">DIGITAL VISITING CARD</div></div><h2 id="sn">Your Name</h2><div id="st" class="role">Your job title</div><div id="sc" class="company">Your company</div><p id="sb" class="bio">Your short bio will appear here.</p></div><div class="contact"><a id="sp" href="#">Phone</a><a id="se" href="#">Email</a></div></div><div class="qr-box"><strong>Scan to open</strong><div id="qr" class="qr"></div></div></div><div class="card-actions"><button id="copy" class="btn primary" type="button">Copy link</button><button id="share" class="btn ghost" type="button">Share</button><button id="contact" class="btn ghost" type="button">Save contact</button><button id="own" class="btn secondary" type="button">Create your own card</button></div><div id="shareStatus" class="status"></div><div id="ownerActions" class="owner-actions"><button id="edit" class="btn ghost" type="button">Edit card</button><button id="copyEdit" class="btn ghost" type="button">Copy edit link</button></div><div id="ownerNote" class="owner-note">You have edit access for this card on this browser. Keep your edit link private if you use it on another device.</div><div class="note">Your digital card · Easy to share anywhere</div></div></section>
 
 <section id="creator"><div class="creator"><div class="top"><div style="display:flex;gap:8px;flex-wrap:wrap"><button id="back" class="back" type="button">← Back to card</button><a class="back" href="https://zetacard.github.io/visiting-card-app/" onclick="window.location.assign('https://zetacard.github.io/visiting-card-app/'); return false;" style="text-decoration:none">Home</a></div><div class="creator-label">CREATE A NEW CARD</div></div><div class="creator-grid"><div class="intro"><span class="badge">ZETACARD</span><h1>Create a new digital card.</h1><p>Create a completely new profile, choose a username, preview the card, and generate a new shareable link.</p><div class="steps"><div class="step"><span class="num">1</span>Enter your details</div><div class="step"><span class="num">2</span>Choose a username</div><div class="step"><span class="num">3</span>Create your share link</div></div></div>
 <div class="box"><h2>New card</h2><div class="field"><label for="nn">Name</label><input id="nn" placeholder="e.g. Alex Morgan"></div><div class="field"><label for="nu">Username</label><input id="nu" maxlength="30" placeholder="e.g. alex-morgan"><div class="help">This becomes part of your profile link.</div><div id="newUsernameStatus" class="status"></div></div><div class="field"><label for="nt">Job title</label><input id="nt" placeholder="e.g. Founder"></div><div class="field"><label for="nc">Company</label><input id="nc" placeholder="e.g. Acme Studio"></div><div class="field"><label for="np">Phone</label><input id="np" placeholder="e.g. +91 98765 43210"></div><div class="field"><label for="ne">Email</label><input id="ne" type="email" placeholder="e.g. hello@example.com"></div><div class="field"><label for="nb">Short bio</label><textarea id="nb" placeholder="A short introduction..."></textarea></div>
@@ -890,6 +898,10 @@ let mainAvatarObjectUrl=null;
 let newAvatarObjectUrl=null;
 let mainAvatarChoice="avatar:initials";
 let newAvatarChoice="avatar:initials";
+let mainExistingAvatarUrl=null;
+let editMode=false;
+let editingProfile=null;
+let editingToken=null;
 
 const $=id=>document.getElementById(id);
 const msg=(id,t)=>{const e=$(id);if(e)e.textContent=t;};
@@ -906,11 +918,25 @@ function initDb(){
 function homeUrl(){return new URL(SITE_BASE,window.location.origin).href}
 function profileUrl(username){return new URL(SITE_BASE+encodeURIComponent(username),window.location.origin).href}
 
+function createEditToken(){
+  if(window.crypto&&typeof window.crypto.getRandomValues==="function"){
+    const bytes=new Uint8Array(24);
+    window.crypto.getRandomValues(bytes);
+    return Array.from(bytes,b=>b.toString(16).padStart(2,"0")).join("");
+  }
+  return (Date.now().toString(36)+Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2)).replace(/[^a-z0-9]/gi,"").slice(0,48);
+}
+
+function editStorageKey(username){return "zetaEditToken:"+uname(username)}
+function storeEditToken(username,token){if(username&&token){try{localStorage.setItem(editStorageKey(username),token)}catch(e){}}}
+function getEditToken(username){try{return localStorage.getItem(editStorageKey(username))||""}catch(e){return ""}}
+function editLink(username,token){const u=new URL(SITE_BASE,window.location.origin);u.searchParams.set("u",username);u.searchParams.set("edit","1");u.searchParams.set("key",token);return u.href}
+
 function safeTheme(t){return ["midnight","ocean","forest","sunset"].includes(t)?t:"midnight"}
 function applyTheme(el,theme){if(el)el.dataset.theme=safeTheme(theme)}
 function initials(name){const parts=String(name||"ZetaCard").trim().split(/\s+/).filter(Boolean);return ((parts[0]?.[0]||"Z")+(parts[1]?.[0]||"")).toUpperCase().slice(0,2)}
 
-function mainData(){return{username:uname($("username").value),name:$("name").value.trim(),job_title:$("title").value.trim(),company:$("company").value.trim(),phone:$("phone").value.trim(),email:$("email").value.trim(),bio:$("bio").value.trim(),theme:$("theme").value||"midnight",avatar_file:mainAvatarFile,avatar_choice:mainAvatarChoice}}
+function mainData(){return{username:uname($("username").value),name:$("name").value.trim(),job_title:$("title").value.trim(),company:$("company").value.trim(),phone:$("phone").value.trim(),email:$("email").value.trim(),bio:$("bio").value.trim(),theme:$("theme").value||"midnight",avatar_file:mainAvatarFile,avatar_choice:mainAvatarChoice,existing_avatar_url:mainExistingAvatarUrl}}
 function newData(){return{username:uname($("nu").value),name:$("nn").value.trim(),job_title:$("nt").value.trim(),company:$("nc").value.trim(),phone:$("np").value.trim(),email:$("ne").value.trim(),bio:$("nb").value.trim(),theme:$("ntheme").value||"midnight",avatar_file:newAvatarFile,avatar_choice:newAvatarChoice}}
 
 
@@ -1015,7 +1041,7 @@ async function uploadAvatar(file,username){
 
 function clearMainPhoto(){
   if(mainAvatarObjectUrl)URL.revokeObjectURL(mainAvatarObjectUrl);
-  mainAvatarObjectUrl=null;mainAvatarFile=null;
+  mainAvatarObjectUrl=null;mainAvatarFile=null;mainExistingAvatarUrl=null;
   const input=$("mainPhoto");if(input)input.value="";
   setPhotoFileName("main","No photo selected");
   setIdentityMode("main","avatar");
@@ -1053,6 +1079,7 @@ function handlePhotoFile(file,type,input){
     }
     if(type==="main"){
       if(mainAvatarObjectUrl)URL.revokeObjectURL(mainAvatarObjectUrl);
+      mainExistingAvatarUrl=null;
       mainAvatarFile=file;
       mainAvatarChoice="avatar:initials";
       setIdentityMode("main","photo");
@@ -1117,6 +1144,9 @@ function setupPhotoInput(inputId,type){
 function updateMain(){setThemeSelection("theme","themePicker",$("theme").value||"midnight");const d=mainData();$("pn").textContent=d.name||"Your Name";$("pt").textContent=d.job_title||"Your job title";$("pc").textContent=d.company||"Your company";$("pb").textContent=d.bio||"Your short bio will appear here";$("pp").textContent=d.phone||"Phone";$("pe").textContent=d.email||"Email";$("pp").href=d.phone?"tel:"+d.phone.replace(/[^\d+]/g,""):"#";$("pe").href=d.email?"mailto:"+d.email:"#";applyTheme($("mainCard"),d.theme);if(mainAvatarFile||mainAvatarObjectUrl){
     renderAvatar("mainAvatar",d.name,null,mainAvatarObjectUrl);
     renderAvatar("mainPhotoPreview",d.name,null,mainAvatarObjectUrl);
+  }else if(mainExistingAvatarUrl){
+    renderAvatar("mainAvatar",d.name,mainExistingAvatarUrl,null);
+    renderAvatar("mainPhotoPreview",d.name,mainExistingAvatarUrl,null);
   }else{
     renderAvatar("mainAvatar",d.name,mainAvatarChoice,null);
     renderAvatar("mainPhotoPreview",d.name,mainAvatarChoice,null);
@@ -1135,22 +1165,25 @@ function showShared(){ $("landing").style.display="none";$("builder").style.disp
 function showCreator(){ $("landing").style.display="none";$("builder").style.display="none";$("shared").style.display="none";$("creator").style.display="block" }
 
 function fillCard(d){
-  currentProfile=d;
-  $("sn").textContent=d.name||"Your Name";
-  renderAvatar("sharedAvatar",d.name,d.avatar_url||null,null);
-  applyTheme($("sharedCard"),d.theme);
-  $("st").textContent=d.job_title||"Your job title";
-  $("sc").textContent=d.company||"Your company";
-  $("sb").textContent=d.bio||"Your short bio will appear here";
-  $("sp").textContent=d.phone||"Phone";
-  $("se").textContent=d.email||"Email";
-  $("sp").href=d.phone?"tel:"+d.phone.replace(/[^\d+]/g,""):"#";
-  $("se").href=d.email?"mailto:"+d.email:"#";
+  const publicProfile={...d};
+  delete publicProfile.edit_token;
+  currentProfile=publicProfile;
+  $("sn").textContent=publicProfile.name||"Your Name";
+  renderAvatar("sharedAvatar",publicProfile.name,publicProfile.avatar_url||null,null);
+  applyTheme($("sharedCard"),publicProfile.theme);
+  $("st").textContent=publicProfile.job_title||"Your job title";
+  $("sc").textContent=publicProfile.company||"Your company";
+  $("sb").textContent=publicProfile.bio||"Your short bio will appear here";
+  $("sp").textContent=publicProfile.phone||"Phone";
+  $("se").textContent=publicProfile.email||"Email";
+  $("sp").href=publicProfile.phone?"tel:"+publicProfile.phone.replace(/[^\d+]/g,""):"#";
+  $("se").href=publicProfile.email?"mailto:"+publicProfile.email:"#";
 
-  const url=profileUrl(d.username);
+  const url=profileUrl(publicProfile.username);
   renderQr(url);
 
-  try{sessionStorage.setItem("zetaProfile",JSON.stringify(d))}catch(e){}
+  try{sessionStorage.setItem("zetaProfile",JSON.stringify(publicProfile))}catch(e){}
+  syncEditActions();
 }
 
 function renderQr(url){
@@ -1161,6 +1194,27 @@ function renderQr(url){
     new QRCode(box,{text:url,width:140,height:140});
   }else{
     box.textContent="QR unavailable";
+  }
+}
+
+function syncEditActions(){
+  const wrap=$("ownerActions"),note=$("ownerNote");
+  const username=currentProfile&&currentProfile.username;
+  const owned=!!(username&&getEditToken(username));
+  if(wrap)wrap.style.display=owned?"flex":"none";
+  if(note)note.style.display=owned?"block":"none";
+}
+
+async function copyEditLink(){
+  if(!currentProfile)return;
+  const token=getEditToken(currentProfile.username);
+  if(!token){msg("shareStatus","Edit access is not available on this browser.");return}
+  const url=editLink(currentProfile.username,token);
+  try{
+    await navigator.clipboard.writeText(url);
+    msg("shareStatus","Edit link copied. Keep it private because it grants edit access.");
+  }catch(e){
+    msg("shareStatus","Could not copy the edit link.");
   }
 }
 
@@ -1226,6 +1280,48 @@ async function checkUsername(u){if(!initDb())throw new Error("Database connectio
 async function loadProfile(u){if(!initDb())throw new Error("Database connection is unavailable.");const r=await db.from("profiles").select("username,name,job_title,company,phone,email,bio,theme,avatar_url").eq("username",u).maybeSingle();if(r.error)throw r.error;if(!r.data)throw new Error("Profile not found.");return r.data}
 async function copyLink(url,statusId){try{await navigator.clipboard.writeText(url);msg(statusId,"Profile created. Share link copied.")}catch(e){msg(statusId,"Profile created. Copy the link from the address bar.")}}
 
+async function saveProfileEdits(data,statusId){
+  if(!editingProfile||!editingToken){msg(statusId,"Edit access is missing. Open your saved edit link again.");return}
+  if(!data.name){msg(statusId,"Please enter your name.");return}
+  if(!initDb()){msg(statusId,"Database connection is unavailable. Refresh and try again.");return}
+
+  msg(statusId,"Saving changes...");
+  try{
+    let avatarUrl=data.existing_avatar_url||editingProfile.avatar_url||"avatar:initials";
+    if(data.avatar_file){
+      msg(statusId,"Uploading new photo...");
+      avatarUrl=await uploadAvatar(data.avatar_file,data.username);
+    }else if(data.avatar_choice && data.avatar_choice!=="avatar:initials"){
+      avatarUrl=data.avatar_choice;
+    }else if(data.avatar_choice==="avatar:initials" && !data.existing_avatar_url){
+      avatarUrl="avatar:initials";
+    }
+
+    const r=await db.rpc("update_profile_with_token",{
+      p_edit_token:editingToken,
+      p_username:data.username,
+      p_name:data.name,
+      p_job_title:data.job_title,
+      p_company:data.company,
+      p_phone:data.phone,
+      p_email:data.email,
+      p_bio:data.bio,
+      p_theme:safeTheme(data.theme),
+      p_avatar_url:avatarUrl
+    });
+    if(r.error)throw r.error;
+
+    const saved=r.data;
+    storeEditToken(saved.username,editingToken);
+    currentProfile=saved;editingProfile=saved;
+    fillCard(saved);showShared();history.replaceState(null,"",profileUrl(saved.username));
+    msg("shareStatus","Profile updated successfully.");
+  }catch(e){
+    console.error("Save edit failed",e);
+    msg(statusId,e&&e.message?e.message:"Could not save your changes.");
+  }
+}
+
 async function createProfile(data,statusId){
   if(!data.name){msg(statusId,"Please enter your name.");return}
   if(!validUsername(data.username)){msg(statusId,"Username must be 3–30 lowercase letters, numbers or hyphens.");return}
@@ -1234,6 +1330,7 @@ async function createProfile(data,statusId){
   try{
     if(!(await checkUsername(data.username))){msg(statusId,"Username already taken. Choose another.");return}
 
+    const editToken=createEditToken();
     const payload={
       username:data.username,
       name:data.name,
@@ -1242,7 +1339,8 @@ async function createProfile(data,statusId){
       phone:data.phone,
       email:data.email,
       bio:data.bio,
-      theme:safeTheme(data.theme)
+      theme:safeTheme(data.theme),
+      edit_token:editToken
     };
 
     if(data.avatar_file){
@@ -1256,6 +1354,7 @@ async function createProfile(data,statusId){
     const r=await db.from("profiles").insert(payload).select().single();
     if(r.error)throw r.error;
     const saved=r.data;const url=profileUrl(saved.username);
+    storeEditToken(saved.username,editToken);
     fillCard(saved);showShared();history.replaceState(null,"",url);await copyLink(url,statusId);
   }catch(e){
     console.error("Create failed",e);
@@ -1263,12 +1362,90 @@ async function createProfile(data,statusId){
   }
 }
 
-function clearMain(){mainAvatarChoice="avatar:initials";["name","username","title","company","phone","email","bio"].forEach(id=>$(id).value="");setIdentityMode("main","avatar");selectAvatar("mainAvatarGrid","avatar:initials");setThemeSelection("theme","themePicker","midnight");clearMainPhoto();msg("status","");msg("usernameStatus","");currentProfile=null;updateMain();showBuilder();history.replaceState(null,"",homeUrl())}
+function clearMain(){
+  if(editMode){cancelEdit();return}
+  mainAvatarChoice="avatar:initials";mainExistingAvatarUrl=null;
+  ["name","username","title","company","phone","email","bio"].forEach(id=>$(id).value="");
+  setIdentityMode("main","avatar");selectAvatar("mainAvatarGrid","avatar:initials");setThemeSelection("theme","themePicker","midnight");clearMainPhoto();msg("status","");msg("usernameStatus","");currentProfile=null;setBuilderMode("create",null);updateMain();showBuilder();history.replaceState(null,"",homeUrl())
+}
 function resetNew(){newAvatarChoice="avatar:initials";["nn","nu","nt","nc","np","ne","nb"].forEach(id=>$(id).value="");setIdentityMode("new","avatar");selectAvatar("newAvatarGrid","avatar:initials");setThemeSelection("ntheme","nthemePicker","midnight");clearNewPhoto();msg("newStatus","");msg("newUsernameStatus","");updateNew()}
-function openCreator(){resetNew();history.replaceState(null,"",homeUrl()+"#create");showCreator()}
-function openBuilder(){showBuilder();history.replaceState(null,"",homeUrl()+"#create-card");window.scrollTo({top:0,behavior:"smooth"})}
-function backToCard(){let s=null;try{s=sessionStorage.getItem("zetaProfile")}catch(e){}if(s){try{const d=JSON.parse(s);if(d&&d.username){fillCard(d);history.replaceState(null,"",profileUrl(d.username));showShared();return}}catch(e){}}history.replaceState(null,"",homeUrl());showBuilder()}
+function openCreator(){
+  editMode=false;editingProfile=null;editingToken=null;
+  setBuilderMode("create",null);
+  resetNew();history.replaceState(null,"",homeUrl()+"#create");showCreator()
+}
+function openBuilder(){
+  editMode=false;editingProfile=null;editingToken=null;
+  setBuilderMode("create",null);
+  showBuilder();history.replaceState(null,"",homeUrl()+"#create-card");window.scrollTo({top:0,behavior:"smooth"})
+}
+function backToCard(){
+  let s=null;try{s=sessionStorage.getItem("zetaProfile")}catch(e){}
+  if(s){try{const d=JSON.parse(s);if(d&&d.username){editMode=false;editingProfile=null;editingToken=null;setBuilderMode("create",null);fillCard(d);history.replaceState(null,"",profileUrl(d.username));showShared();return}}catch(e){}}
+  editMode=false;editingProfile=null;editingToken=null;setBuilderMode("create",null);history.replaceState(null,"",homeUrl());showLanding()
+}
 
+
+function setBuilderMode(mode,profile){
+  editMode=mode==="edit";
+  editingProfile=editMode?profile:null;
+  const title=$("builderTitle"),subtitle=$("builderSubtitle"),notice=$("editorModeNotice"),button=$("create"),clear=$("clear"),user=$("username"),help=$("usernameHelp");
+  if(editMode){
+    title.textContent="Edit your digital visiting card";
+    subtitle.textContent="Update your details and save changes to the same profile link.";
+    notice.classList.add("show");
+    button.textContent="Save changes";
+    clear.textContent="Cancel";
+    user.disabled=true;
+    user.classList.add("locked-input");
+    help.textContent="Your username is locked so your public profile link stays the same.";
+  }else{
+    title.textContent="Create your digital visiting card";
+    subtitle.textContent="Enter your details and create a saved profile.";
+    notice.classList.remove("show");
+    button.textContent="Create share link";
+    clear.textContent="Clear";
+    user.disabled=false;
+    user.classList.remove("locked-input");
+    help.textContent="3–30 lowercase letters, numbers and hyphens.";
+  }
+}
+
+function populateEditor(profile){
+  [["name",profile.name||""],["username",profile.username||""],["title",profile.job_title||""],["company",profile.company||""],["phone",profile.phone||""],["email",profile.email||""],["bio",profile.bio||""]].forEach(([id,value])=>{$(id).value=value});
+  setThemeSelection("theme","themePicker",safeTheme(profile.theme));
+  mainAvatarFile=null;
+  if(mainAvatarObjectUrl){URL.revokeObjectURL(mainAvatarObjectUrl);mainAvatarObjectUrl=null}
+  const input=$("mainPhoto");if(input)input.value="";
+  setPhotoFileName("main","No new photo selected");
+  const avatar=String(profile.avatar_url||"");
+  if(avatar.startsWith("avatar:")){
+    mainAvatarChoice=avatar;mainExistingAvatarUrl=null;setIdentityMode("main","avatar");selectAvatar("mainAvatarGrid",avatar);
+  }else if(avatar){
+    mainExistingAvatarUrl=avatar;mainAvatarChoice="avatar:initials";setIdentityMode("main","photo");selectAvatar("mainAvatarGrid","avatar:initials");
+  }else{
+    mainExistingAvatarUrl=null;mainAvatarChoice="avatar:initials";setIdentityMode("main","avatar");selectAvatar("mainAvatarGrid","avatar:initials");
+  }
+  updateMain();msg("status","");msg("usernameStatus","Username locked while editing.");
+}
+
+function openEditor(profile){
+  const token=getEditToken(profile.username);
+  if(!token){msg("shareStatus","Edit access is not available on this browser.");return}
+  editingToken=token;
+  setBuilderMode("edit",profile);
+  populateEditor(profile);
+  showBuilder();
+  history.replaceState(null,"",homeUrl()+"#edit");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function cancelEdit(){
+  const p=editingProfile||currentProfile;
+  editMode=false;editingProfile=null;editingToken=null;setBuilderMode("create",null);
+  if(p&&p.username){fillCard(p);showShared();history.replaceState(null,"",profileUrl(p.username));}
+  else{showLanding();history.replaceState(null,"",homeUrl());}
+}
 
 function setThemeSelection(inputId,pickerId,theme){
   const value=safeTheme(theme);
@@ -1353,6 +1530,7 @@ function setupIdentityPicker(prefix){
 
       if(prefix==="main"){
         mainAvatarChoice=value;
+        mainExistingAvatarUrl=null;
         mainAvatarFile=null;
         const input=$("mainPhoto");
         if(input)input.value="";
@@ -1385,11 +1563,22 @@ function setupIdentityPicker(prefix){
 function setupUsernameCheck(inputId,statusId){let timer=null;$(inputId).addEventListener("input",()=>{clearTimeout(timer);const u=uname($(inputId).value);$(inputId).value=u;msg(statusId,"");if(!u)return;if(!validUsername(u)){msg(statusId,"Use 3–30 lowercase letters, numbers or hyphens.");return}msg(statusId,"Checking...");timer=setTimeout(async()=>{try{msg(statusId,(await checkUsername(u))?"✅ Username available":"❌ Username already taken")}catch(e){console.error(e);msg(statusId,"Could not check username.")}},400)})}
 
 async function openProfileFromQuery(){
-  const u=uname(new URLSearchParams(window.location.search).get("u"));
+  const params=new URLSearchParams(window.location.search);
+  const u=uname(params.get("u"));
   if(!u)return false;
+  const incomingEdit=params.get("edit")==="1";
+  const incomingKey=params.get("key")||"";
+  if(incomingEdit&&incomingKey)storeEditToken(u,incomingKey);
+
   showShared();msg("sharedError","");$("sn").textContent="Loading...";$("qr").innerHTML="";
-  try{const p=await loadProfile(u);fillCard(p);showShared();history.replaceState(null,"",profileUrl(p.username))}
-  catch(e){console.error("Load failed",e);$("sn").textContent="Profile not found";$("st").textContent="";$("sc").textContent="";$("sb").textContent=e&&e.message?e.message:"Could not load this profile.";$("sp").textContent="";$("se").textContent=""}
+  try{
+    const p=await loadProfile(u);
+    fillCard(p);showShared();syncEditActions();history.replaceState(null,"",profileUrl(p.username));
+    if(incomingEdit&&getEditToken(p.username))setTimeout(()=>openEditor(p),0);
+  }catch(e){
+    console.error("Load failed",e);
+    $("sn").textContent="Profile not found";$("st").textContent="";$("sc").textContent="";$("sb").textContent=e&&e.message?e.message:"Could not load this profile.";$("sp").textContent="";$("se").textContent="";
+  }
   return true;
 }
 
@@ -1405,9 +1594,10 @@ async function start(){
   updateMain();
   updateNew();
   initDb();
-  $("landingCreate").addEventListener("click",openBuilder);$("landingCreateTop").addEventListener("click",openBuilder);$("landingCreateBottom").addEventListener("click",openBuilder);$("landingLearn").addEventListener("click",()=>$("landingFeatures").scrollIntoView({behavior:"smooth"}));$("create").addEventListener("click",()=>createProfile(mainData(),"status"));
+  syncEditActions();
+  $("landingCreate").addEventListener("click",openBuilder);$("landingCreateTop").addEventListener("click",openBuilder);$("landingCreateBottom").addEventListener("click",openBuilder);$("landingLearn").addEventListener("click",()=>$("landingFeatures").scrollIntoView({behavior:"smooth"}));$("create").addEventListener("click",()=>{if(editMode)saveProfileEdits(mainData(),"status");else createProfile(mainData(),"status")});
   $("clear").addEventListener("click",clearMain);
-  $("own").addEventListener("click",openCreator);
+  $("own").addEventListener("click",openCreator);$("edit").addEventListener("click",()=>{if(currentProfile)openEditor(currentProfile)});$("copyEdit").addEventListener("click",copyEditLink);
   $("copy").addEventListener("click",copyCurrentLink);
   $("share").addEventListener("click",shareCurrentProfile);
   $("contact").addEventListener("click",saveContact);
@@ -1418,7 +1608,7 @@ async function start(){
   setupUsernameCheck("username","usernameStatus");setupUsernameCheck("nu","newUsernameStatus");setupPhotoInput("mainPhoto","main");setupPhotoInput("newPhoto","new");setupPhotoDropzone("mainPhotoDrop","mainPhoto","main");setupPhotoDropzone("newPhotoDrop","newPhoto","new");$("removeMainPhoto").addEventListener("click",clearMainPhoto);$("removeNewPhoto").addEventListener("click",clearNewPhoto);
   if(await openProfileFromQuery())return;
   if(window.location.hash==="#create"){showCreator();return}
-  if(window.location.hash==="#create-card"){showBuilder();return}
+  if(window.location.hash==="#create-card"){setBuilderMode("create",null);showBuilder();return}
   showLanding();
 }
 

@@ -6,6 +6,7 @@
 <title>ZetaCard</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js"></script>
 <style>
 *{box-sizing:border-box}
 :root{--ink:#14213d;--muted:#68738b;--line:#dde4ef;--soft:#f4f7fb;--brand:#536dfe;--brand2:#7c4dff}
@@ -566,6 +567,41 @@ input[disabled].locked-input{background:#f0f3f8;color:#67728a;cursor:not-allowed
 .landing-features{width:min(1180px,100%);margin:0 auto 90px;text-align:center}.landing-features h2,.landing-bottom-cta h2{font-size:clamp(32px,4vw,46px);letter-spacing:-1.5px;margin:9px 0 24px}.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px;text-align:left}.feature{background:#ffffffcc;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 15px 35px #27364d0c}.feature-icon{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;background:#eef2ff;color:#536dfe;font-size:18px;font-weight:900}.feature h3{margin:17px 0 7px}.feature p{margin:0;color:var(--muted);line-height:1.55}.landing-bottom-cta{width:min(1180px,100%);margin:0 auto;padding:28px 30px;border:1px solid var(--line);border-radius:24px;background:#fff;display:flex;align-items:center;justify-content:space-between;gap:18px;box-shadow:0 16px 40px #27364d10}.landing-bottom-cta h2{margin-bottom:0}.landing-footer{width:min(1180px,100%);margin:25px auto 0;color:#7a849a;text-align:center;font-size:12px}
 
 @media(max-width:820px){.grid,.creator-grid,.shared-wrap,.landing-wrap,.feature-grid{grid-template-columns:1fr}.header h1,.intro h1{font-size:34px}.top{align-items:flex-start;flex-direction:column-reverse}.qr-box{min-height:190px}.shared{width:min(560px,100%)}.landing-wrap{margin-top:28px;gap:30px}.hero-copy h1{font-size:50px;letter-spacing:-2.2px}.hero-visual{min-height:390px}.landing-card{width:92%;min-height:325px}.float-card{width:82%}.qr-float{right:1%}.landing-bottom-cta{align-items:flex-start;flex-direction:column}.landing-bottom-cta h2{font-size:34px}}
+
+#builder.type-selection-mode #builderPreviewBox{display:none}
+#builder.type-selection-mode .grid{grid-template-columns:1fr}
+#builder.type-selection-mode #cardTypeStep{max-width:900px;margin:0 auto}
+
+/* Card-type-specific builder previews */
+.form-step-bar{position:relative;padding-top:4px;padding-right:180px;min-height:46px}
+.change-type{position:absolute;top:0;right:0;display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 14px;border:1px solid #cfd8e6;border-radius:11px;background:#fff;color:#26335f;font-weight:850;cursor:pointer;box-shadow:0 5px 16px #27364d10}
+.change-type:hover{border-color:#9eacd0;transform:translateY(-1px)}
+.type-preview-card{min-height:430px!important;padding:0!important;overflow:hidden!important;background:#fff!important;color:#172033!important;box-shadow:0 24px 55px #1d2d5422!important}
+.type-preview-inner{min-height:430px;padding:28px;display:flex;flex-direction:column;position:relative}
+.type-preview-kicker{font-size:11px;letter-spacing:2px;font-weight:900;text-transform:uppercase;opacity:.7}
+.type-preview-title{font-size:32px;font-weight:950;line-height:1.05;margin-top:10px;letter-spacing:-1px}
+.type-preview-sub{color:#637087;margin-top:7px;line-height:1.45}
+.type-preview-list{display:grid;gap:9px;margin-top:22px}
+.type-preview-row{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid #e7ebf2;font-size:13px}
+.type-preview-row b{font-weight:850}
+.type-preview-row span{color:#68758c;text-align:right}
+.type-preview-footer{margin-top:auto;padding-top:18px;font-size:12px;color:#68758c}
+.preview-menu{background:linear-gradient(180deg,#fffaf1,#fff)!important}.preview-menu .type-preview-inner{font-family:Georgia,serif}.preview-menu .type-preview-kicker{color:#a16b25}.preview-menu .type-preview-title{text-align:center;font-family:Georgia,serif}.preview-menu .type-preview-sub{text-align:center}.preview-menu .type-preview-list{border-top:2px solid #222}.preview-menu .type-preview-row{border-bottom:1px dotted #cfc5b5}.preview-wedding{background:linear-gradient(145deg,#fff7fa,#fff)!important}.preview-wedding .type-preview-inner{text-align:center}.preview-wedding .type-preview-kicker{color:#b15c78}.preview-wedding .type-preview-title{font-family:Georgia,serif}.preview-wedding .type-preview-list{max-width:360px;width:100%;margin-left:auto;margin-right:auto}.preview-wedding .type-preview-row{display:block;border:0;padding:7px}.preview-wedding .type-preview-row span{display:block;text-align:center;margin-top:3px}.preview-identity{background:linear-gradient(135deg,#eef3ff,#fff)!important}.preview-identity .type-preview-inner{border-left:8px solid #536dfe}.preview-identity .type-preview-list{margin-top:18px}.preview-catalog{background:#f7f8fb!important}.preview-catalog .type-preview-inner{padding:20px}.preview-catalog .type-preview-list{grid-template-columns:1fr 1fr}.preview-catalog .type-preview-row{display:block;background:#fff;border:1px solid #e4e8ef;border-radius:14px;padding:14px;box-shadow:0 8px 20px #27364d0a}.preview-catalog .type-preview-row span{display:block;text-align:left;margin-top:6px}.preview-event{background:linear-gradient(145deg,#111827,#334155)!important;color:#fff!important}.preview-event .type-preview-sub,.preview-event .type-preview-row span,.preview-event .type-preview-footer{color:#d7deea}.preview-event .type-preview-row{border-color:#ffffff25}.preview-product{background:linear-gradient(145deg,#f7fbff,#fff)!important}.preview-product .type-preview-inner{border-top:7px solid #536dfe}.preview-property{background:linear-gradient(145deg,#eef8f4,#fff)!important}.preview-property .type-preview-inner{border-top:7px solid #2d8a65}.preview-property .type-preview-list{grid-template-columns:1fr 1fr}.preview-property .type-preview-row{display:block;background:#fff;border:1px solid #dce9e2;border-radius:13px;padding:13px}.preview-property .type-preview-row span{display:block;text-align:left;margin-top:4px}.preview-visiting{background:radial-gradient(circle at 85% 12%,#ffffff20 0 9%,transparent 10%),linear-gradient(145deg,#101a36,#263969 55%,#536dfe)!important;color:#fff!important}.preview-visiting .type-preview-sub,.preview-visiting .type-preview-row span,.preview-visiting .type-preview-footer{color:#e4e9ff}.preview-visiting .type-preview-row{border-color:#ffffff30}.preview-visiting .type-preview-inner{background:transparent}.preview-ar{margin-top:16px;padding:11px 12px;border-radius:12px;background:#edf1ff;color:#3d51b5;font-size:12px;font-weight:800}
+@media(max-width:620px){.form-step-bar{padding-right:0;padding-top:48px}.change-type{top:0;right:auto;left:0}.preview-catalog .type-preview-list,.preview-property .type-preview-list{grid-template-columns:1fr}}
+</style>
+
+<style>
+/* ZetaCard Experience Studio */
+.type-picker{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
+.type-option{position:relative;text-align:left;border:1px solid var(--line);background:#fff;border-radius:15px;padding:13px;transition:.16s ease;color:var(--ink)}
+.type-option:hover{transform:translateY(-1px);border-color:#b8c5dc}
+.type-option.selected{border-color:var(--brand);border-width:2px;box-shadow:0 0 0 4px #536dfe20;background:#eef2ff;transform:translateY(-1px)}
+.type-icon{font-size:22px;display:block;margin-bottom:7px}.type-option strong{display:block;font-size:14px}.type-option span{display:block;color:var(--muted);font-size:11px;margin-top:3px}.type-check{position:absolute;right:9px;top:9px;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:var(--brand);color:#fff;font-size:11px;opacity:0}.type-option.selected .type-check{opacity:1}
+.experience-fields{margin-top:12px;padding:15px;border:1px solid var(--line);border-radius:16px;background:#fafcff}.experience-group{display:none}.experience-group.show{display:block}.experience-fields h3{margin:0 0 4px;font-size:14px}.experience-fields .help{margin-bottom:10px}
+.ar-studio{margin-top:14px;padding:16px;border-radius:17px;border:1px solid #cbd7ff;background:linear-gradient(180deg,#f7f9ff,#eef2ff)}.ar-studio h3{margin:0 0 4px}.ar-badge{display:inline-block;background:#e0e7ff;color:#3d51b5;padding:5px 8px;border-radius:99px;font-size:10px;font-weight:900;letter-spacing:.6px;margin-bottom:8px}.ar-model-url{font-size:13px}
+.experience-panel{margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 12px 30px #27364d0d}.experience-panel:empty{display:none}.experience-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.experience-type{display:inline-flex;padding:6px 9px;border-radius:99px;background:#eef2ff;color:#3d51b5;font-size:10px;font-weight:900;letter-spacing:.6px;text-transform:uppercase}.experience-title{font-size:22px;font-weight:900;margin:3px 0}.experience-subtitle{color:var(--muted);line-height:1.55}.experience-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}.experience-item{padding:12px;border:1px solid var(--line);border-radius:13px;background:#f8faff}.experience-item b{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}.experience-item div{font-weight:800}.experience-list{white-space:pre-line;line-height:1.65;color:#33405b;margin-top:12px}.ar-viewer-wrap{margin-top:15px;padding:12px;border-radius:17px;background:#f5f7fb;border:1px solid var(--line)}.ar-viewer-wrap h3{margin:0 0 8px;font-size:14px}.ar-hint{color:var(--muted);font-size:11px;margin:7px 0 0}.ar-viewer{display:block;width:100%;height:360px;background:linear-gradient(145deg,#eef2f8,#dfe6f4);border-radius:15px;overflow:hidden}.ar-button{border:0;border-radius:11px;background:#536dfe;color:#fff;font-weight:900;padding:10px 13px;box-shadow:0 8px 20px #536dfe25}.ar-button:hover{background:#435ce8}
+.card-step{display:none}.card-step.active{display:block}.type-step-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;margin-bottom:16px}.type-step-head h2{margin:0 0 5px}.type-step-head p{margin:0;color:var(--muted);line-height:1.5}.selected-type-pill{display:inline-flex;align-items:center;gap:7px;padding:8px 11px;border-radius:999px;background:#eef2ff;color:#3d51b5;font-size:12px;font-weight:900;white-space:nowrap}.form-step-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px;padding:11px 13px;border:1px solid #dfe5ef;border-radius:14px;background:#f8faff}.form-step-bar strong{font-size:13px}.change-type{border:1px solid #cbd5e5;background:#fff;color:#3d51b5;border-radius:10px;padding:8px 11px;font-weight:900;font-size:12px}.form-back-row{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);display:flex;justify-content:flex-start}.form-back-row .btn{font-weight:900}.dynamic-form{padding:2px 0}.dynamic-form .field:first-child{margin-top:0}.dynamic-section{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}.dynamic-section h3{margin:0 0 5px;font-size:15px}.dynamic-section>p{margin:0 0 10px;color:var(--muted);font-size:12px;line-height:1.5}.field-help{margin-top:5px;color:var(--muted);font-size:11px;line-height:1.4}.required-mark{color:#536dfe}.type-option.large{min-height:118px;padding:16px}.type-option.large .type-icon{font-size:28px}.type-option.large strong{font-size:15px}.type-option.large span:not(.type-icon):not(.type-check){font-size:12px}.type-picker.single-column{grid-template-columns:1fr 1fr 1fr 1fr}.ar-studio.hidden{display:none}@media(max-width:820px){.type-picker.single-column{grid-template-columns:1fr 1fr}}@media(max-width:520px){.type-picker.single-column{grid-template-columns:1fr}.type-step-head{flex-direction:column}.form-step-bar{align-items:flex-start;flex-direction:column}.type-option.large{min-height:105px}}
+@media(max-width:620px){.type-picker{grid-template-columns:1fr 1fr}.experience-grid{grid-template-columns:1fr}.ar-viewer{height:300px}}.dynamic-form .field{margin:13px 0}.dynamic-form .field-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}.dynamic-form .field-grid .field{margin:10px 0}.dynamic-form .field.full{grid-column:1/-1}.dynamic-form .form-intro{padding:14px 15px;margin-bottom:14px;border-radius:15px;background:linear-gradient(135deg,#f4f7ff,#fbfcff);border:1px solid #dfe6f5}.dynamic-form .form-intro strong{display:block;font-size:16px}.dynamic-form .form-intro span{display:block;margin-top:4px;color:var(--muted);font-size:12px;line-height:1.45}.dynamic-form .field-label-row{display:flex;justify-content:space-between;gap:10px;align-items:center}.dynamic-form .required-mark{font-size:11px}.dynamic-form textarea{min-height:105px}@media(max-width:620px){.dynamic-form .field-grid{grid-template-columns:1fr}.dynamic-form .field.full{grid-column:auto}}
 </style>
 </head>
 <body>
@@ -635,151 +671,82 @@ input[disabled].locked-input{background:#f0f3f8;color:#67728a;cursor:not-allowed
   <footer class="landing-footer">ZetaCard · Digital visiting cards</footer>
 </section>
 
-<main id="builder" class="container">
-<div class="header"><div id="editorModeNotice" class="editor-mode">You are editing your existing ZetaCard profile.</div><h1 id="builderTitle">Create your digital visiting card</h1><p id="builderSubtitle">Enter your details and create a saved profile.</p></div>
+<main id="builder" class="container type-selection-mode">
+<div class="header"><div id="editorModeNotice" class="editor-mode">You are editing your existing ZetaCard profile.</div><h1 id="builderTitle">Create your ZetaCard experience</h1><p id="builderSubtitle">First choose the kind of card you want to create. Then ZetaCard will build the right form for it.</p></div>
+
 <div class="grid">
 <div class="box">
-<h2>Your details</h2>
-<div class="field"><label for="name">Name</label><input id="name" placeholder="e.g. Alex Morgan"></div>
-<div class="field"><label for="username">Username</label><input id="username" maxlength="30" placeholder="e.g. alex-morgan"><div id="usernameHelp" class="help">3–30 lowercase letters, numbers and hyphens.</div><div id="usernameStatus" class="status"></div></div>
-<div class="field"><label for="title">Job title</label><input id="title" placeholder="e.g. Founder"></div>
-<div class="field"><label for="company">Company</label><input id="company" placeholder="e.g. Acme Studio"></div>
-<div class="field"><label for="phone">Phone</label><input id="phone" placeholder="e.g. +91 98765 43210"></div>
-<div class="field"><label for="email">Email</label><input id="email" type="email" placeholder="e.g. hello@example.com"></div>
-<div class="field"><label for="bio">Short bio</label><textarea id="bio" placeholder="A short introduction..."></textarea></div>
-<div class="field">
-<label>Photo or avatar</label>
-
-<div class="identity-picker">
-  <div class="identity-tabs">
-    <button type="button" class="identity-tab active" id="mainPhotoTab" aria-selected="true">Upload photo</button>
-    <button type="button" class="identity-tab" id="mainAvatarTab" aria-selected="false">Choose avatar</button>
+  <div id="cardTypeStep" class="card-step active">
+    <div class="type-step-head">
+      <div><h2>1. Choose your card type</h2><p>This choice controls the fields, experience and tools you will get next.</p></div>
+      <span id="selectedTypePill" class="selected-type-pill">Choose a card type</span>
+    </div>
+    <div id="cardTypePicker" class="type-picker single-column" role="group" aria-label="Choose your ZetaCard type">
+      <button type="button" class="type-option large" data-card-type="visiting" aria-pressed="false" onclick="setCardType('visiting'); return false;"><span class="type-icon">💼</span><strong>Visiting Card</strong><span>Professional identity, contact and business details</span><span class="type-check">✓</span></button>
+      <button type="button" class="type-option large" data-card-type="menu" aria-pressed="false" onclick="setCardType('menu'); return false;"><span class="type-icon">🍽️</span><strong>Menu Card</strong><span>Restaurant menu, dishes, prices and ordering</span><span class="type-check">✓</span></button>
+      <button type="button" class="type-option large" data-card-type="wedding" aria-pressed="false" onclick="setCardType('wedding'); return false;"><span class="type-icon">💍</span><strong>Wedding Card</strong><span>Couple, date, venue, RSVP and invitation message</span><span class="type-check">✓</span></button>
+      <button type="button" class="type-option large" data-card-type="identity" aria-pressed="false" onclick="setCardType('identity'); return false;"><span class="type-icon">🪪</span><strong>Identity Card</strong><span>Person, organization, designation and ID details</span><span class="type-check">✓</span></button>
+      <button type="button" class="type-option large" data-card-type="catalog" aria-pressed="false" onclick="setCardType('catalog'); return false;"><span class="type-icon">🛍️</span><strong>Catalog</strong><span>Collections, products, prices and enquiry links</span><span class="type-check">✓</span></button>
+      <button type="button" class="type-option large" data-card-type="event" aria-pressed="false" onclick="setCardType('event'); return false;"><span class="type-icon">🎟️</span><strong>Event Pass</strong><span>Event schedule, venue, organizer and registration</span><span class="type-check">✓</span></button>
+      <button type="button" class="type-option large" data-card-type="product" aria-pressed="false" onclick="setCardType('product'); return false;"><span class="type-icon">📦</span><strong>Product Card</strong><span>Product details, price, buying and AR experience</span><span class="type-check">✓</span></button>
+      <button type="button" class="type-option large" data-card-type="property" aria-pressed="false" onclick="setCardType('property'); return false;"><span class="type-icon">🏠</span><strong>Property Showcase</strong><span>Property details, location, pricing and AR-ready media</span><span class="type-check">✓</span></button>
+    </div>
+    <div class="actions"><button id="continueCardType" class="btn primary" type="button" disabled onclick="goToSelectedCardForm(); return false;">Continue →</button></div>
   </div>
 
-  <div id="mainPhotoPanel" class="identity-panel active">
-    <div id="mainPhotoDrop" class="upload-stage">
-      <div id="mainPhotoPreview" class="upload-stage-preview">Z</div>
-      <div>
-        <div class="identity-title">Add your photo or logo</div>
-        <div class="identity-sub">Use a clear portrait, company logo, or brand image. The preview updates instantly.</div>
-        <div class="identity-actions">
-          <label class="identity-upload" for="mainPhoto">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M12 16V4"></path><path d="m7 9 5-5 5 5"></path><path d="M5 20h14"></path>
-            </svg>
-            Choose image
-          </label>
-          <button id="removeMainPhoto" class="identity-remove" type="button">Remove</button>
-          <input id="mainPhoto" class="photo-input" type="file" accept="image/jpeg,image/png,image/webp">
+  <div id="cardFormStep" class="card-step">
+    <div class="form-step-bar"><div><strong id="formStepTitle">2. Build your card</strong><div id="formStepHint" class="help">Only the fields relevant to your selected card type are shown.</div></div><button id="changeCardType" class="change-type" type="button">← Back to card types</button></div>
+    <input id="cardType" type="hidden" value="visiting">
+    <div id="dynamicCardForm" class="dynamic-form"></div>
+
+    <div class="dynamic-section">
+      <h3>Visual identity</h3>
+      <p>Add a photo, logo or avatar for the card.</p>
+      <div class="field">
+        <label>Photo or avatar</label>
+        <div class="identity-picker">
+          <div class="identity-tabs">
+            <button type="button" class="identity-tab active" id="mainPhotoTab" aria-selected="true">Upload photo</button>
+            <button type="button" class="identity-tab" id="mainAvatarTab" aria-selected="false">Choose avatar</button>
+          </div>
+          <div id="mainPhotoPanel" class="identity-panel active">
+            <div id="mainPhotoDrop" class="upload-stage">
+              <div id="mainPhotoPreview" class="upload-stage-preview">Z</div>
+              <div><div class="identity-title">Add your photo or logo</div><div class="identity-sub">Use a portrait, company logo, product image or brand image.</div><div class="identity-actions"><label class="identity-upload" for="mainPhoto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4"></path><path d="m7 9 5-5 5 5"></path><path d="M5 20h14"></path></svg>Choose image</label><button id="removeMainPhoto" class="identity-remove" type="button">Remove</button><input id="mainPhoto" class="photo-input" type="file" accept="image/jpeg,image/png,image/webp"></div><div class="identity-file"><span class="identity-file-dot"></span><span id="mainPhotoFileName">No photo selected</span></div></div>
+            </div><div class="avatar-note">JPG, PNG or WebP · max 5 MB · drag and drop also works</div>
+          </div>
+          <div id="mainAvatarPanel" class="identity-panel"><div id="mainAvatarGrid" class="avatar-grid" role="group" aria-label="Choose an avatar">
+            <button type="button" class="avatar-choice selected" data-avatar-value="avatar:initials" aria-pressed="true"><div class="avatar-art initials">AZ</div><span class="avatar-choice-name">Initials</span><span class="avatar-choice-sub">Uses your name</span><span class="avatar-check">✓</span></button>
+            <button type="button" class="avatar-choice" data-avatar-value="avatar:sun" aria-pressed="false"><div class="avatar-art sun">☀</div><span class="avatar-choice-name">Sunset</span><span class="avatar-choice-sub">Warm & bright</span><span class="avatar-check">✓</span></button>
+            <button type="button" class="avatar-choice" data-avatar-value="avatar:ocean" aria-pressed="false"><div class="avatar-art ocean">≈</div><span class="avatar-choice-name">Ocean</span><span class="avatar-choice-sub">Fresh & cool</span><span class="avatar-check">✓</span></button>
+            <button type="button" class="avatar-choice" data-avatar-value="avatar:forest" aria-pressed="false"><div class="avatar-art forest">✦</div><span class="avatar-choice-name">Forest</span><span class="avatar-choice-sub">Natural & calm</span><span class="avatar-check">✓</span></button>
+            <button type="button" class="avatar-choice" data-avatar-value="avatar:night" aria-pressed="false"><div class="avatar-art night">★</div><span class="avatar-choice-name">Night</span><span class="avatar-choice-sub">Deep & bold</span><span class="avatar-check">✓</span></button>
+            <button type="button" class="avatar-choice" data-avatar-value="avatar:spark" aria-pressed="false"><div class="avatar-art spark">✦</div><span class="avatar-choice-name">Spark</span><span class="avatar-choice-sub">Creative & fun</span><span class="avatar-check">✓</span></button>
+          </div><div class="avatar-note">Choose an avatar when you do not want to upload a photo.</div></div>
         </div>
-        <div class="identity-file"><span class="identity-file-dot"></span><span id="mainPhotoFileName">No photo selected</span></div>
       </div>
     </div>
-    <div class="avatar-note">JPG, PNG or WebP · max 5 MB · drag and drop also works</div>
-  </div>
 
-  <div id="mainAvatarPanel" class="identity-panel">
-    <div id="mainAvatarGrid" class="avatar-grid" role="group" aria-label="Choose an avatar">
-      <button type="button" class="avatar-choice selected" data-avatar-value="avatar:initials" aria-pressed="true">
-        <div class="avatar-art initials">AZ</div>
-        <span class="avatar-choice-name">Initials</span>
-        <span class="avatar-choice-sub">Uses your name</span>
-        <span class="avatar-check">✓</span>
-      </button>
-      <button type="button" class="avatar-choice" data-avatar-value="avatar:sun" aria-pressed="false">
-        <div class="avatar-art sun">☀</div>
-        <span class="avatar-choice-name">Sunset</span>
-        <span class="avatar-choice-sub">Warm & bright</span>
-        <span class="avatar-check">✓</span>
-      </button>
-      <button type="button" class="avatar-choice" data-avatar-value="avatar:ocean" aria-pressed="false">
-        <div class="avatar-art ocean">≈</div>
-        <span class="avatar-choice-name">Ocean</span>
-        <span class="avatar-choice-sub">Fresh & cool</span>
-        <span class="avatar-check">✓</span>
-      </button>
-      <button type="button" class="avatar-choice" data-avatar-value="avatar:forest" aria-pressed="false">
-        <div class="avatar-art forest">✦</div>
-        <span class="avatar-choice-name">Forest</span>
-        <span class="avatar-choice-sub">Natural & calm</span>
-        <span class="avatar-check">✓</span>
-      </button>
-      <button type="button" class="avatar-choice" data-avatar-value="avatar:night" aria-pressed="false">
-        <div class="avatar-art night">★</div>
-        <span class="avatar-choice-name">Night</span>
-        <span class="avatar-choice-sub">Deep & bold</span>
-        <span class="avatar-check">✓</span>
-      </button>
-      <button type="button" class="avatar-choice" data-avatar-value="avatar:spark" aria-pressed="false">
-        <div class="avatar-art spark">✦</div>
-        <span class="avatar-choice-name">Spark</span>
-        <span class="avatar-choice-sub">Creative & fun</span>
-        <span class="avatar-check">✓</span>
-      </button>
+    <div class="dynamic-section">
+      <h3>Card style</h3><p>Choose the visual theme people will see.</p>
+      <div class="field"><div id="themePicker" class="theme-picker" role="group" aria-label="Choose a card theme">
+        <button type="button" class="theme-option selected" data-theme-value="midnight" aria-pressed="true"><div class="theme-preview-card"><div class="theme-preview-brand">ZETACARD</div><div class="theme-preview-name">Midnight</div><div class="theme-preview-line"></div><div class="theme-preview-line small"></div></div><div class="theme-meta"><strong>Midnight</strong><span>Bold & modern</span></div><span class="theme-check">✓</span></button>
+        <button type="button" class="theme-option" data-theme-value="ocean" aria-pressed="false"><div class="theme-preview-card"><div class="theme-preview-brand">ZETACARD</div><div class="theme-preview-name">Ocean</div><div class="theme-preview-line"></div><div class="theme-preview-line small"></div></div><div class="theme-meta"><strong>Ocean</strong><span>Fresh & clean</span></div><span class="theme-check">✓</span></button>
+        <button type="button" class="theme-option" data-theme-value="forest" aria-pressed="false"><div class="theme-preview-card"><div class="theme-preview-brand">ZETACARD</div><div class="theme-preview-name">Forest</div><div class="theme-preview-line"></div><div class="theme-preview-line small"></div></div><div class="theme-meta"><strong>Forest</strong><span>Calm & natural</span></div><span class="theme-check">✓</span></button>
+        <button type="button" class="theme-option" data-theme-value="sunset" aria-pressed="false"><div class="theme-preview-card"><div class="theme-preview-brand">ZETACARD</div><div class="theme-preview-name">Sunset</div><div class="theme-meta"><strong>Sunset</strong><span>Warm & creative</span></div><span class="theme-check">✓</span></button>
+      </div><input id="theme" type="hidden" value="midnight"></div>
     </div>
-    <div class="avatar-note">Choose an avatar when you do not want to upload a photo.</div>
+
+    <div class="actions"><button id="create" class="btn primary" type="button">Create share link</button><button id="clear" class="btn secondary" type="button">Clear</button></div>
+    <div id="status" class="status"></div>
   </div>
 </div>
-</div>
 
-<div class="field">
-<label>Card theme</label>
-<div id="themePicker" class="theme-picker" role="group" aria-label="Choose a card theme">
-  <button type="button" class="theme-option selected" data-theme-value="midnight" aria-pressed="true">
-    <div class="theme-preview-card">
-      <div class="theme-preview-brand">ZETACARD</div>
-      <div class="theme-preview-name">Midnight</div>
-      <div class="theme-preview-line"></div>
-      <div class="theme-preview-line small"></div>
-    </div>
-    <div class="theme-meta"><strong>Midnight</strong><span>Bold & modern</span></div>
-    <span class="theme-check">✓</span>
-  </button>
-
-  <button type="button" class="theme-option" data-theme-value="ocean" aria-pressed="false">
-    <div class="theme-preview-card">
-      <div class="theme-preview-brand">ZETACARD</div>
-      <div class="theme-preview-name">Ocean</div>
-      <div class="theme-preview-line"></div>
-      <div class="theme-preview-line small"></div>
-    </div>
-    <div class="theme-meta"><strong>Ocean</strong><span>Fresh & clean</span></div>
-    <span class="theme-check">✓</span>
-  </button>
-
-  <button type="button" class="theme-option" data-theme-value="forest" aria-pressed="false">
-    <div class="theme-preview-card">
-      <div class="theme-preview-brand">ZETACARD</div>
-      <div class="theme-preview-name">Forest</div>
-      <div class="theme-preview-line"></div>
-      <div class="theme-preview-line small"></div>
-    </div>
-    <div class="theme-meta"><strong>Forest</strong><span>Calm & natural</span></div>
-    <span class="theme-check">✓</span>
-  </button>
-
-  <button type="button" class="theme-option" data-theme-value="sunset" aria-pressed="false">
-    <div class="theme-preview-card">
-      <div class="theme-preview-brand">ZETACARD</div>
-      <div class="theme-preview-name">Sunset</div>
-      <div class="theme-preview-line"></div>
-      <div class="theme-preview-line small"></div>
-    </div>
-    <div class="theme-meta"><strong>Sunset</strong><span>Warm & creative</span></div>
-    <span class="theme-check">✓</span>
-  </button>
-</div>
-<input id="theme" type="hidden" value="midnight">
-<div class="help">Click a card preview to choose the style people will see on your profile.</div>
-</div>
-<div class="actions"><button id="create" class="btn primary" type="button">Create share link</button><button id="clear" class="btn secondary" type="button">Clear</button></div>
-<div id="status" class="status"></div>
-</div>
-<div class="box"><h2>Preview</h2><div id="mainCard" class="card" data-theme="midnight"><div><div class="card-topline"><div id="mainAvatar" class="avatar">Z</div><div class="brand">DIGITAL VISITING CARD</div></div><h2 id="pn">Your Name</h2><div id="pt" class="role">Your job title</div><div id="pc" class="company">Your company</div><p id="pb" class="bio">Your short bio will appear here.</p></div><div class="contact"><a id="pp" href="#">Phone</a><a id="pe" href="#">Email</a></div></div><div class="preview-note">Your card will use your clean profile link after creation.</div></div>
+<div id="builderPreviewBox" class="box"><h2>Live preview</h2><div id="mainCard" class="card type-preview-card preview-visiting" data-theme="midnight"></div><div class="preview-note">The preview changes its layout automatically for the selected card type.</div></div>
 </div>
 </main>
 
-<section id="shared"><div class="shared"><div class="profile-home-row"><a class="profile-home" href="https://zetacard.github.io/visiting-card-app/" onclick="window.location.assign('https://zetacard.github.io/visiting-card-app/'); return false;">← Home</a></div><div class="shared-title">ZETACARD</div><div id="sharedError" class="error"></div><div class="shared-wrap"><div id="sharedCard" class="card" data-theme="midnight"><div><div class="card-topline"><div id="sharedAvatar" class="avatar" aria-hidden="true">Z</div><div class="brand">DIGITAL VISITING CARD</div></div><h2 id="sn">Your Name</h2><div id="st" class="role">Your job title</div><div id="sc" class="company">Your company</div><p id="sb" class="bio">Your short bio will appear here.</p></div><div class="contact"><a id="sp" href="#">Phone</a><a id="se" href="#">Email</a></div></div><div class="qr-box"><strong>Scan to open</strong><div id="qr" class="qr"></div></div></div><div class="card-actions"><button id="copy" class="btn primary" type="button">Copy link</button><button id="share" class="btn ghost" type="button">Share</button><button id="contact" class="btn ghost" type="button">Save contact</button><button id="own" class="btn secondary" type="button">Create your own card</button></div><div id="shareStatus" class="status"></div><div id="ownerActions" class="owner-actions"><button id="edit" class="btn ghost" type="button">Edit card</button><button id="copyEdit" class="btn ghost" type="button">Copy edit link</button></div><div id="ownerNote" class="owner-note">You have edit access for this card on this browser. Keep your edit link private if you use it on another device.</div><div id="analyticsBox" class="analytics-box"><div class="analytics-head"><strong>Analytics</strong><button id="refreshAnalytics" class="btn ghost" type="button">Refresh</button></div><div class="analytics-grid"><div class="metric"><b id="metricViews">—</b><span>Profile views</span></div><div class="metric"><b id="metricPhone">—</b><span>Phone clicks</span></div><div class="metric"><b id="metricEmail">—</b><span>Email clicks</span></div><div class="metric"><b id="metricShare">—</b><span>Shares</span></div></div><div id="analyticsStatus" class="status"></div></div><div class="note">Your digital card · Easy to share anywhere</div></div></section>
+<section id="shared"><div class="shared"><div class="profile-home-row"><a class="profile-home" href="https://zetacard.github.io/visiting-card-app/" onclick="window.location.assign('https://zetacard.github.io/visiting-card-app/'); return false;">← Home</a></div><div class="shared-title">ZETACARD</div><div id="sharedError" class="error"></div><div class="shared-wrap"><div id="sharedCard" class="card" data-theme="midnight"><div><div class="card-topline"><div id="sharedAvatar" class="avatar" aria-hidden="true">Z</div><div class="brand">DIGITAL VISITING CARD</div></div><h2 id="sn">Your Name</h2><div id="st" class="role">Your job title</div><div id="sc" class="company">Your company</div><p id="sb" class="bio">Your short bio will appear here.</p></div><div class="contact"><a id="sp" href="#">Phone</a><a id="se" href="#">Email</a></div></div><div class="qr-box"><strong>Scan to open</strong><div id="qr" class="qr"></div></div></div><div class="card-actions"><button id="copy" class="btn primary" type="button">Copy link</button><button id="share" class="btn ghost" type="button">Share</button><button id="contact" class="btn ghost" type="button">Save contact</button><button id="own" class="btn secondary" type="button">Create your own card</button></div><div id="shareStatus" class="status"></div><div id="experiencePanel" class="experience-panel"></div><div id="ownerActions" class="owner-actions"><button id="edit" class="btn ghost" type="button">Edit card</button><button id="copyEdit" class="btn ghost" type="button">Copy edit link</button></div><div id="ownerNote" class="owner-note">You have edit access for this card on this browser. Keep your edit link private if you use it on another device.</div><div id="analyticsBox" class="analytics-box"><div class="analytics-head"><strong>Analytics</strong><button id="refreshAnalytics" class="btn ghost" type="button">Refresh</button></div><div class="analytics-grid"><div class="metric"><b id="metricViews">—</b><span>Profile views</span></div><div class="metric"><b id="metricPhone">—</b><span>Phone clicks</span></div><div class="metric"><b id="metricEmail">—</b><span>Email clicks</span></div><div class="metric"><b id="metricShare">—</b><span>Shares</span></div></div><div id="analyticsStatus" class="status"></div></div><div class="note">Your digital card · Easy to share anywhere</div></div></section>
 
 <section id="creator"><div class="creator"><div class="top"><div style="display:flex;gap:8px;flex-wrap:wrap"><button id="back" class="back" type="button">← Back to card</button><a class="back" href="https://zetacard.github.io/visiting-card-app/" onclick="window.location.assign('https://zetacard.github.io/visiting-card-app/'); return false;" style="text-decoration:none">Home</a></div><div class="creator-label">CREATE A NEW CARD</div></div><div class="creator-grid"><div class="intro"><span class="badge">ZETACARD</span><h1>Create a new digital card.</h1><p>Create a completely new profile, choose a username, preview the card, and generate a new shareable link.</p><div class="steps"><div class="step"><span class="num">1</span>Enter your details</div><div class="step"><span class="num">2</span>Choose a username</div><div class="step"><span class="num">3</span>Create your share link</div></div></div>
 <div class="box"><h2>New card</h2><div class="field"><label for="nn">Name</label><input id="nn" placeholder="e.g. Alex Morgan"></div><div class="field"><label for="nu">Username</label><input id="nu" maxlength="30" placeholder="e.g. alex-morgan"><div class="help">This becomes part of your profile link.</div><div id="newUsernameStatus" class="status"></div></div><div class="field"><label for="nt">Job title</label><input id="nt" placeholder="e.g. Founder"></div><div class="field"><label for="nc">Company</label><input id="nc" placeholder="e.g. Acme Studio"></div><div class="field"><label for="np">Phone</label><input id="np" placeholder="e.g. +91 98765 43210"></div><div class="field"><label for="ne">Email</label><input id="ne" type="email" placeholder="e.g. hello@example.com"></div><div class="field"><label for="nb">Short bio</label><textarea id="nb" placeholder="A short introduction..."></textarea></div>
@@ -904,6 +871,7 @@ let editMode=false;
 let editingProfile=null;
 let editingToken=null;
 let ownerSession=false;
+let mainCardType="visiting";
 
 const $=id=>document.getElementById(id);
 const msg=(id,t)=>{const e=$(id);if(e)e.textContent=t;};
@@ -943,9 +911,39 @@ function safeTheme(t){return ["midnight","ocean","forest","sunset"].includes(t)?
 function applyTheme(el,theme){if(el)el.dataset.theme=safeTheme(theme)}
 function initials(name){const parts=String(name||"ZetaCard").trim().split(/\s+/).filter(Boolean);return ((parts[0]?.[0]||"Z")+(parts[1]?.[0]||"")).toUpperCase().slice(0,2)}
 
-function mainData(){return{username:uname($("username").value),name:$("name").value.trim(),job_title:$("title").value.trim(),company:$("company").value.trim(),phone:$("phone").value.trim(),email:$("email").value.trim(),bio:$("bio").value.trim(),theme:$("theme").value||"midnight",avatar_file:mainAvatarFile,avatar_choice:mainAvatarChoice,existing_avatar_url:mainExistingAvatarUrl}}
-function newData(){return{username:uname($("nu").value),name:$("nn").value.trim(),job_title:$("nt").value.trim(),company:$("nc").value.trim(),phone:$("np").value.trim(),email:$("ne").value.trim(),bio:$("nb").value.trim(),theme:$("ntheme").value||"midnight",avatar_file:newAvatarFile,avatar_choice:newAvatarChoice}}
+function dynamicValue(key){const el=document.querySelector('[data-field="'+CSS.escape(key)+'"]');return el?String(el.value||"").trim():""}
+function dynamicContent(){const schema=CARD_SCHEMAS[mainCardType]||[];const out={};schema.forEach(f=>out[f.key]=dynamicValue(f.key));return out}
+function deriveBaseProfile(content){const c=content||{};const pick=(...keys)=>{for(const k of keys)if(c[k])return c[k];return ""};return{name:pick("name","bride_name","business_name","restaurant_name","event_name","product_name","property_title"),job_title:pick("job_title","designation","organizer"),company:pick("company","organization","business_name","restaurant_name","brand","organizer"),phone:pick("phone","contact_phone","rsvp_phone"),email:pick("email","contact_email"),bio:pick("bio","description","tagline","message")}}
+function mainData(){const type=safeCardType(mainCardType||$("cardType")?.value||"");const content=dynamicContent();const base=deriveBaseProfile(content);return{username:uname(content.username||""),name:String(base.name||"").trim(),job_title:String(base.job_title||"").trim(),company:String(base.company||"").trim(),phone:String(base.phone||"").trim(),email:String(base.email||"").trim(),bio:String(base.bio||"").trim(),theme:$("theme")?.value||"midnight",avatar_file:mainAvatarFile,avatar_choice:mainAvatarChoice,existing_avatar_url:mainExistingAvatarUrl,card_type:type||"visiting",experience:content,ar_model_url:content.ar_model_url||"",ar_usdz_url:content.ar_usdz_url||""}}
 
+function safeCardType(t){return ["visiting","menu","wedding","identity","catalog","event","product","property"].includes(t)?t:"visiting"}
+const cardTypeLabels={visiting:"Visiting Card",menu:"Menu Card",wedding:"Wedding Card",identity:"Identity Card",catalog:"Catalog",event:"Event Pass",product:"Product Card",property:"Property Showcase"};
+const CARD_SCHEMAS={
+visiting:[{key:"name",label:"Full name",placeholder:"e.g. Alex Morgan",required:true},{key:"username",label:"Username",placeholder:"e.g. alex-morgan",required:true,help:"This becomes your public ZetaCard link."},{key:"job_title",label:"Job title",placeholder:"e.g. Founder"},{key:"company",label:"Company / brand",placeholder:"e.g. Zeta Studio"},{key:"phone",label:"Phone",placeholder:"+91 98765 43210"},{key:"email",label:"Email",placeholder:"e.g. hello@example.com",type:"email"},{key:"website",label:"Website",placeholder:"https://example.com"},{key:"address",label:"Address",placeholder:"City, state or business address"},{key:"bio",label:"About you",placeholder:"What do you do?",type:"textarea",full:true}],
+menu:[{key:"restaurant_name",label:"Restaurant / business name",placeholder:"e.g. The Zeta Kitchen",required:true},{key:"username",label:"Username",placeholder:"e.g. zeta-kitchen",required:true},{key:"tagline",label:"Tagline",placeholder:"Fresh food. Great moments."},{key:"phone",label:"Phone",placeholder:"+91 98765 43210"},{key:"email",label:"Email",placeholder:"hello@restaurant.com",type:"email"},{key:"address",label:"Address",placeholder:"Restaurant address"},{key:"opening_hours",label:"Opening hours",placeholder:"Mon–Sun · 11 AM–11 PM"},{key:"currency",label:"Currency",placeholder:"₹"},{key:"menu_items",label:"Menu items",placeholder:"Paneer Tikka — ₹280\nButter Chicken — ₹360\nVeg Biryani — ₹260",type:"textarea",full:true,help:"One item per line."},{key:"order_url",label:"Order online URL",placeholder:"https://..."},{key:"reservation_url",label:"Reservation URL",placeholder:"https://..."},{key:"description",label:"About the restaurant",placeholder:"Tell guests about your food and experience.",type:"textarea",full:true}],
+wedding:[{key:"bride_name",label:"Bride name",placeholder:"e.g. Ananya",required:true},{key:"groom_name",label:"Groom name",placeholder:"e.g. Arjun",required:true},{key:"username",label:"Username",placeholder:"e.g. ananya-arjun",required:true},{key:"date",label:"Wedding date",placeholder:"e.g. 18 December 2026"},{key:"time",label:"Time",placeholder:"e.g. 7:00 PM"},{key:"venue",label:"Venue",placeholder:"e.g. The Grand Palace"},{key:"address",label:"Venue address",placeholder:"Full venue address"},{key:"rsvp_name",label:"RSVP contact",placeholder:"e.g. Priya"},{key:"rsvp_phone",label:"RSVP phone",placeholder:"+91 98765 43210"},{key:"rsvp_url",label:"RSVP / response URL",placeholder:"https://..."},{key:"map_url",label:"Google Maps URL",placeholder:"https://maps.google.com/..."},{key:"dress_code",label:"Dress code",placeholder:"Traditional / Formal"},{key:"message",label:"Invitation message",placeholder:"We would love to celebrate this special day with you...",type:"textarea",full:true}],
+identity:[{key:"name",label:"Full name",placeholder:"e.g. Alex Morgan",required:true},{key:"username",label:"Username",placeholder:"e.g. alex-morgan",required:true},{key:"organization",label:"Organization",placeholder:"e.g. Zeta Corporation"},{key:"designation",label:"Designation",placeholder:"e.g. Product Manager"},{key:"id_number",label:"ID number",placeholder:"e.g. ZC-2026-0042"},{key:"department",label:"Department",placeholder:"e.g. Operations"},{key:"issue_date",label:"Issue date",placeholder:"e.g. 01 Jan 2026"},{key:"expiry_date",label:"Expiry date",placeholder:"e.g. 31 Dec 2027"},{key:"phone",label:"Phone",placeholder:"+91 98765 43210"},{key:"email",label:"Email",placeholder:"name@organization.com",type:"email"},{key:"emergency_contact",label:"Emergency contact",placeholder:"Name · phone"},{key:"bio",label:"Additional information",placeholder:"Any useful identity or role information.",type:"textarea",full:true}],
+catalog:[{key:"business_name",label:"Business / brand name",placeholder:"e.g. Zeta Home",required:true},{key:"username",label:"Username",placeholder:"e.g. zeta-home",required:true},{key:"tagline",label:"Tagline",placeholder:"Modern products for modern living"},{key:"phone",label:"Phone",placeholder:"+91 98765 43210"},{key:"email",label:"Email",placeholder:"sales@example.com",type:"email"},{key:"website",label:"Website",placeholder:"https://example.com"},{key:"catalog_items",label:"Catalog items",placeholder:"Product A — ₹1,999\nProduct B — ₹2,499\nProduct C — ₹3,299",type:"textarea",full:true,help:"One product or service per line."},{key:"enquiry_url",label:"Enquiry / WhatsApp URL",placeholder:"https://..."},{key:"ar_model_url",label:"3D model URL (.glb/.gltf)",placeholder:"https://.../model.glb",help:"Optional. Enables interactive 3D/AR."},{key:"ar_usdz_url",label:"iPhone/iPad USDZ URL",placeholder:"https://.../model.usdz",help:"Optional. Used for iOS Quick Look AR."},{key:"description",label:"Catalog description",placeholder:"Introduce this collection.",type:"textarea",full:true}],
+event:[{key:"event_name",label:"Event name",placeholder:"e.g. Zeta Future Expo",required:true},{key:"username",label:"Username",placeholder:"e.g. zeta-future-expo",required:true},{key:"organizer",label:"Organizer",placeholder:"e.g. Zeta Events"},{key:"date",label:"Date",placeholder:"e.g. 20 March 2027"},{key:"time",label:"Time",placeholder:"e.g. 10:00 AM – 6:00 PM"},{key:"venue",label:"Venue",placeholder:"e.g. Convention Centre"},{key:"address",label:"Address",placeholder:"Full venue address"},{key:"registration_url",label:"Registration URL",placeholder:"https://..."},{key:"ticket_info",label:"Ticket information",placeholder:"Free / ₹499 / VIP",full:true},{key:"contact_phone",label:"Contact phone",placeholder:"+91 98765 43210"},{key:"contact_email",label:"Contact email",placeholder:"events@example.com",type:"email"},{key:"description",label:"Event description",placeholder:"What should attendees know?",type:"textarea",full:true}],
+product:[{key:"product_name",label:"Product name",placeholder:"e.g. Zeta Chair Pro",required:true},{key:"username",label:"Username",placeholder:"e.g. zeta-chair-pro",required:true},{key:"brand",label:"Brand",placeholder:"e.g. Zeta Living"},{key:"sku",label:"SKU / model number",placeholder:"e.g. ZC-PRO-01"},{key:"price",label:"Price",placeholder:"e.g. ₹12,999"},{key:"currency",label:"Currency",placeholder:"₹"},{key:"buy_url",label:"Buy / enquiry URL",placeholder:"https://..."},{key:"support_url",label:"Support / specifications URL",placeholder:"https://..."},{key:"ar_model_url",label:"3D model URL (.glb/.gltf)",placeholder:"https://.../product.glb",help:"Optional. This powers interactive 3D and AR."},{key:"ar_usdz_url",label:"iPhone/iPad USDZ URL",placeholder:"https://.../product.usdz",help:"Optional. Used for iOS Quick Look AR."},{key:"description",label:"Product description",placeholder:"Explain the product, materials and use cases.",type:"textarea",full:true},{key:"features",label:"Key features",placeholder:"Feature 1\nFeature 2\nFeature 3",type:"textarea",full:true}],
+property:[{key:"property_title",label:"Property title",placeholder:"e.g. 3 BHK Modern Villa",required:true},{key:"username",label:"Username",placeholder:"e.g. modern-villa-patna",required:true},{key:"property_type",label:"Property type",placeholder:"Villa / Apartment / Office / Land"},{key:"price",label:"Price",placeholder:"e.g. ₹85 lakh"},{key:"location",label:"Location",placeholder:"Area, city"},{key:"area",label:"Area",placeholder:"e.g. 1,850 sq ft"},{key:"bedrooms",label:"Bedrooms",placeholder:"e.g. 3"},{key:"bathrooms",label:"Bathrooms",placeholder:"e.g. 3"},{key:"contact_phone",label:"Contact phone",placeholder:"+91 98765 43210"},{key:"contact_email",label:"Contact email",placeholder:"sales@example.com",type:"email"},{key:"map_url",label:"Map URL",placeholder:"https://maps.google.com/..."},{key:"tour_url",label:"Virtual tour URL",placeholder:"https://..."},{key:"ar_model_url",label:"3D model URL (.glb/.gltf)",placeholder:"https://.../property.glb",help:"Optional. Useful for property visualization."},{key:"ar_usdz_url",label:"iPhone/iPad USDZ URL",placeholder:"https://.../property.usdz"},{key:"description",label:"Property description",placeholder:"Describe the property.",type:"textarea",full:true},{key:"amenities",label:"Amenities",placeholder:"Parking\nPool\nSecurity\nGarden",type:"textarea",full:true}]
+};
+function fieldId(key){return "dynamic_"+key}
+function renderDynamicForm(type,prefill={}){const host=$("dynamicCardForm");if(!host)return;const schema=CARD_SCHEMAS[type]||[];const label=cardTypeLabels[type]||"Card";const descriptions={visiting:"Create a professional identity card with your contact and business details.",menu:"Turn your menu into an interactive digital experience.",wedding:"Create a beautiful invitation with date, venue and RSVP information.",identity:"Create a structured digital identity or staff card.",catalog:"Present products or services as a shareable digital catalog.",event:"Give attendees everything they need for your event.",product:"Create a product experience with pricing, specifications and optional AR.",property:"Showcase a property with details, location, virtual tour and optional AR."};let html='<div class="form-intro"><strong>'+escapeHtml(label)+'</strong><span>'+escapeHtml(descriptions[type]||"")+'</span></div><div class="field-grid">';schema.forEach(f=>{const val=String(prefill[f.key]??"");const id=fieldId(f.key);const req=f.required?'<span class="required-mark">Required</span>':'';const help=f.help?'<div class="field-help">'+escapeHtml(f.help)+'</div>':'';const attrs='data-field="'+escapeHtml(f.key)+'" id="'+id+'"'+(f.required?' required':'');const input=f.type==="textarea"?'<textarea '+attrs+' placeholder="'+escapeHtml(f.placeholder||"")+'">'+escapeHtml(val)+'</textarea>':'<input '+attrs+' type="'+escapeHtml(f.type||"text")+'" placeholder="'+escapeHtml(f.placeholder||"")+'" value="'+escapeHtml(val)+'">';html+='<div class="field '+(f.full?'full':'')+'"><div class="field-label-row"><label for="'+id+'">'+escapeHtml(f.label)+'</label>'+req+'</div>'+input+help+(f.key==="username"?'<div id="usernameHelp" class="help">3–30 lowercase letters, numbers and hyphens.</div><div id="usernameStatus" class="status"></div>':'')+'</div>';});html+='</div>';host.innerHTML=html;schema.forEach(f=>{const el=$(fieldId(f.key));if(el)el.addEventListener("input",updateMain)});if($("username"))setupUsernameCheck("username","usernameStatus");updateMain()}
+function clearDynamicForm(){const host=$("dynamicCardForm");if(host)host.innerHTML="";mainCardType="";const input=$("cardType");if(input)input.value="";const pill=$("selectedTypePill");if(pill)pill.textContent="Choose a card type";document.querySelectorAll("#cardTypePicker .type-option").forEach(btn=>{btn.classList.remove("selected");btn.setAttribute("aria-pressed","false")});const next=$("continueCardType");if(next)next.disabled=true}
+function showCardTypeStep(){$("cardTypeStep")?.classList.add("active");$("cardFormStep")?.classList.remove("active");$("builder")?.classList.add("type-selection-mode");}
+function showCardFormStep(){if(!mainCardType)return;$("cardTypeStep")?.classList.remove("active");$("cardFormStep")?.classList.add("active");$("builder")?.classList.remove("type-selection-mode");renderDynamicForm(mainCardType);window.scrollTo({top:0,behavior:"smooth"})}
+function goToSelectedCardForm(){const selected=document.querySelector("#cardTypePicker .type-option.selected");const chosen=selected?.dataset?.cardType||$("cardType")?.value||mainCardType;if(chosen){setCardType(chosen);showCardFormStep()}}
+function setCardType(type){const raw=String(type||"");if(!raw){clearDynamicForm();return}const value=safeCardType(raw);mainCardType=value;const input=$("cardType");if(input)input.value=value;document.querySelectorAll("#cardTypePicker .type-option").forEach(btn=>{const selected=btn.dataset.cardType===value;btn.classList.toggle("selected",selected);btn.setAttribute("aria-pressed",selected?"true":"false")});const pill=$("selectedTypePill");const b=document.querySelector('#cardTypePicker .type-option[data-card-type="'+value+'"]');if(pill)pill.textContent=(b?.querySelector(".type-icon")?.textContent||"")+" "+(cardTypeLabels[value]||value);const next=$("continueCardType");if(next)next.disabled=false;updateMain()}
+function setupCardTypePicker(){const picker=$("cardTypePicker");if(!picker)return;if(!picker.dataset.bound){picker.dataset.bound="1";picker.addEventListener("click",e=>{const b=e.target.closest("button.type-option");if(!b)return;e.preventDefault();e.stopPropagation();setCardType(b.dataset.cardType)});picker.querySelectorAll("button.type-option").forEach(b=>{b.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();setCardType(b.dataset.cardType)})})}$("changeCardType")?.addEventListener("click",e=>{e.preventDefault();showCardTypeStep()});clearDynamicForm();showCardTypeStep()}
+function experiencePayload(data){return data&&data.experience?data.experience:{}}
+function contentLabel(key){const map={restaurant_name:"Restaurant",business_name:"Business",event_name:"Event",product_name:"Product",property_title:"Property",bride_name:"Bride",groom_name:"Groom",organization:"Organization",designation:"Designation",id_number:"ID number",department:"Department",issue_date:"Issue date",expiry_date:"Expiry date",date:"Date",time:"Time",venue:"Venue",address:"Address",opening_hours:"Opening hours",menu_items:"Menu",order_url:"Order online",reservation_url:"Reservations",catalog_items:"Catalog items",enquiry_url:"Enquiry",registration_url:"Registration",ticket_info:"Tickets",price:"Price",currency:"Currency",brand:"Brand",sku:"SKU",buy_url:"Buy / enquiry",support_url:"Specifications / support",features:"Key features",property_type:"Property type",location:"Location",area:"Area",bedrooms:"Bedrooms",bathrooms:"Bathrooms",tour_url:"Virtual tour",amenities:"Amenities",rsvp_name:"RSVP contact",rsvp_phone:"RSVP phone",rsvp_url:"RSVP",map_url:"Map",dress_code:"Dress code",message:"Invitation",description:"Description",tagline:"Tagline",emergency_contact:"Emergency contact",contact_phone:"Contact phone",contact_email:"Contact email",website:"Website",bio:"About"};return map[key]||key.replace(/_/g," ").replace(/\b\w/g,m=>m.toUpperCase())}
+async function saveCardExperience(username,token,data){
+  if(!username||!token||!initDb())return null;
+  const r=await db.rpc("set_card_experience",{p_username:username,p_token_hash:await sha256Hex(token),p_card_type:safeCardType(data.card_type||"visiting"),p_content:experiencePayload(data),p_ar_model_url:data.ar_model_url||"",p_ar_usdz_url:data.ar_usdz_url||""});
+  if(r.error)throw r.error;return r.data;
+}
+function renderExperience(d){const panel=$("experiencePanel");if(!panel)return;const e=d&&d.experience?.content?d.experience.content:{};const type=safeCardType(d&&d.card_type);const label=cardTypeLabels[type]||cardTypeLabels.visiting;const esc=escapeHtml;const primary=e.product_name||e.property_title||e.event_name||e.restaurant_name||e.business_name||((e.bride_name||"")+(e.groom_name?" & "+e.groom_name:""))||e.name||label;const secondary=e.tagline||e.description||e.message||e.bio||"";let html='<div class="experience-head"><div><span class="experience-type">'+esc(label)+'</span><div class="experience-title">'+esc(primary)+'</div><div class="experience-subtitle">'+esc(secondary)+'</div></div></div>';const hidden=["username","name","phone","email","website","description","bio","message","tagline","ar_model_url","ar_usdz_url"];const cells=[];Object.entries(e).forEach(([key,value])=>{if(value==null||String(value).trim()===""||hidden.includes(key))return;cells.push('<div class="experience-item"><b>'+esc(contentLabel(key))+'</b><div>'+esc(String(value))+'</div></div>')});if(cells.length)html+='<div class="experience-grid">'+cells.join("")+"</div>";const long=e.description||e.message||e.bio||e.features||e.amenities||e.menu_items||e.catalog_items;if(long)html+='<div class="experience-list">'+esc(long)+"</div>";if(d.ar_model_url)html+='<div class="ar-viewer-wrap"><h3>✨ View this in 3D / AR</h3><model-viewer id="experienceModel" class="ar-viewer" src="'+esc(d.ar_model_url)+'" '+(d.ar_usdz_url?'ios-src="'+esc(d.ar_usdz_url)+'" ':'')+'ar ar-modes="webxr scene-viewer quick-look" camera-controls auto-rotate shadow-intensity="1" touch-action="pan-y" alt="'+esc(primary)+'"><button slot="ar-button" class="ar-button">View in your space</button></model-viewer><div class="ar-hint">On supported phones, use the AR button to place this experience in your surroundings.</div></div>';panel.innerHTML=html}
 
 function avatarMarkup(choice,name){
   const value=String(choice||"avatar:initials").replace("avatar:","");
@@ -1148,16 +1146,9 @@ function setupPhotoInput(inputId,type){
   });
 }
 
-function updateMain(){setThemeSelection("theme","themePicker",$("theme").value||"midnight");const d=mainData();$("pn").textContent=d.name||"Your Name";$("pt").textContent=d.job_title||"Your job title";$("pc").textContent=d.company||"Your company";$("pb").textContent=d.bio||"Your short bio will appear here";$("pp").textContent=d.phone||"Phone";$("pe").textContent=d.email||"Email";$("pp").href=d.phone?"tel:"+d.phone.replace(/[^\d+]/g,""):"#";$("pe").href=d.email?"mailto:"+d.email:"#";applyTheme($("mainCard"),d.theme);if(mainAvatarFile||mainAvatarObjectUrl){
-    renderAvatar("mainAvatar",d.name,null,mainAvatarObjectUrl);
-    renderAvatar("mainPhotoPreview",d.name,null,mainAvatarObjectUrl);
-  }else if(mainExistingAvatarUrl){
-    renderAvatar("mainAvatar",d.name,mainExistingAvatarUrl,null);
-    renderAvatar("mainPhotoPreview",d.name,mainExistingAvatarUrl,null);
-  }else{
-    renderAvatar("mainAvatar",d.name,mainAvatarChoice,null);
-    renderAvatar("mainPhotoPreview",d.name,mainAvatarChoice,null);
-  }}
+function renderTypePreview(d){const card=$("mainCard");if(!card)return;const type=safeCardType(d.card_type||mainCardType||"visiting");const name=escapeHtml(d.name||"Your Name");const role=escapeHtml(d.job_title||"Your details");const company=escapeHtml(d.company||"Your company");const phone=escapeHtml(d.phone||"Phone");const email=escapeHtml(d.email||"Email");const bio=escapeHtml(d.bio||"Your card experience will appear here.");const content=d.experience||{};const get=(k,f)=>escapeHtml(String(content[k]||f||""));const label=escapeHtml(cardTypeLabels[type]||"Card");let html="";if(type==="menu"){html='<div class="type-preview-inner"><div class="type-preview-kicker">'+(get("restaurant_name","YOUR RESTAURANT"))+'</div><div class="type-preview-title">'+(get("tagline","Our Menu"))+'</div><div class="type-preview-sub">'+(get("description","Fresh dishes, made for sharing."))+'</div><div class="type-preview-list"><div class="type-preview-row"><b>Chef Special</b><span>₹320</span></div><div class="type-preview-row"><b>Signature Dish</b><span>₹280</span></div><div class="type-preview-row"><b>Fresh Dessert</b><span>₹180</span></div></div><div class="type-preview-footer">'+(get("opening_hours","Open daily · Order online"))+'</div></div>';}else if(type==="wedding"){html='<div class="type-preview-inner"><div class="type-preview-kicker">Wedding Invitation</div><div class="type-preview-title">'+(get("bride_name","Bride"))+' &amp; '+(get("groom_name","Groom"))+'</div><div class="type-preview-sub">'+(get("message","Together with their families, we invite you to celebrate with us."))+'</div><div class="type-preview-list"><div class="type-preview-row"><b>Date</b><span>'+get("date","Your wedding date")+'</span></div><div class="type-preview-row"><b>Time</b><span>'+get("time","Your wedding time")+'</span></div><div class="type-preview-row"><b>Venue</b><span>'+get("venue","Your venue")+'</span></div></div><div class="type-preview-footer">RSVP · '+get("rsvp_phone","Contact number")+'</div></div>';}else if(type==="identity"){html='<div class="type-preview-inner"><div class="type-preview-kicker">'+(get("organization","ORGANIZATION"))+'</div><div class="type-preview-title">'+name+'</div><div class="type-preview-sub">'+(get("designation",role))+'</div><div class="type-preview-list"><div class="type-preview-row"><b>ID Number</b><span>'+get("id_number","ID-000000")+'</span></div><div class="type-preview-row"><b>Department</b><span>'+get("department","Department")+'</span></div><div class="type-preview-row"><b>Valid Until</b><span>'+get("expiry_date","—")+'</span></div></div><div class="type-preview-footer">'+phone+' · '+email+'</div></div>';}else if(type==="catalog"){html='<div class="type-preview-inner"><div class="type-preview-kicker">Catalog</div><div class="type-preview-title">'+(get("business_name",company||"Your Brand"))+'</div><div class="type-preview-sub">'+bio+'</div><div class="type-preview-list"><div class="type-preview-row"><b>Product One</b><span>₹999</span></div><div class="type-preview-row"><b>Product Two</b><span>₹1,499</span></div><div class="type-preview-row"><b>Product Three</b><span>Enquire</span></div><div class="type-preview-row"><b>Product Four</b><span>₹2,499</span></div></div><div class="type-preview-footer">'+get("enquiry_url","Browse catalog &amp; enquire")+'</div></div>';}else if(type==="event"){html='<div class="type-preview-inner"><div class="type-preview-kicker">Event Pass</div><div class="type-preview-title">'+get("event_name","Your Event")+'</div><div class="type-preview-sub">'+get("description","Your event experience")+'</div><div class="type-preview-list"><div class="type-preview-row"><b>Date</b><span>'+get("date","Event date")+'</span></div><div class="type-preview-row"><b>Venue</b><span>'+get("venue","Event venue")+'</span></div><div class="type-preview-row"><b>Registration</b><span>'+get("registration_url","Register now")+'</span></div></div><div class="type-preview-footer">'+get("ticket_info","Your ticket information")+'</div></div>';}else if(type==="product"){html='<div class="type-preview-inner"><div class="type-preview-kicker">'+get("brand","YOUR BRAND")+'</div><div class="type-preview-title">'+get("product_name","Your Product")+'</div><div class="type-preview-sub">'+get("description",bio)+'</div><div class="type-preview-list"><div class="type-preview-row"><b>Price</b><span>'+get("currency","₹")+' '+get("price","—")+'</span></div><div class="type-preview-row"><b>SKU</b><span>'+get("sku","PRODUCT-001")+'</span></div><div class="type-preview-row"><b>Features</b><span>'+get("features","View specifications")+'</span></div></div><div class="preview-ar">✨ 3D / AR ready · View this product in your space</div></div>';}else if(type==="property"){html='<div class="type-preview-inner"><div class="type-preview-kicker">Property Showcase</div><div class="type-preview-title">'+get("property_title","Your Property")+'</div><div class="type-preview-sub">'+get("location","Your location")+'</div><div class="type-preview-list"><div class="type-preview-row"><b>Price</b><span>'+get("price","Contact for price")+'</span></div><div class="type-preview-row"><b>Area</b><span>'+get("area","—")+'</span></div><div class="type-preview-row"><b>Bedrooms</b><span>'+get("bedrooms","—")+'</span></div><div class="type-preview-row"><b>Bathrooms</b><span>'+get("bathrooms","—")+'</span></div></div><div class="preview-ar">✨ Virtual tour / AR ready</div></div>';}else{html='<div class="type-preview-inner"><div class="card-topline"><div id="mainAvatar" class="avatar">Z</div><div class="brand">ZETACARD</div></div><div><div class="type-preview-title">'+name+'</div><div class="role">'+role+'</div><div class="company">'+company+'</div><p class="bio">'+bio+'</p></div><div class="contact"><span>'+phone+'</span><span>'+email+'</span></div></div>';}card.className="card type-preview-card preview-"+type;card.innerHTML=html;applyTheme(card,d.theme);if(type==="visiting"&&(mainAvatarFile||mainAvatarObjectUrl)){renderAvatar("mainAvatar",d.name,null,mainAvatarObjectUrl)}else if(type==="visiting"){renderAvatar("mainAvatar",d.name,mainAvatarChoice,null)}}
+function updateMain(){setThemeSelection("theme","themePicker",$("theme")?.value||"midnight");let d;try{d=mainData()}catch(e){d={name:"",job_title:"",company:"",phone:"",email:"",bio:"",theme:$("theme")?.value||"midnight",card_type:mainCardType||"visiting",experience:{}}}renderTypePreview(d)}
+
 function updateNew(){setThemeSelection("ntheme","nthemePicker",$("ntheme").value||"midnight");const d=newData();$("mn").textContent=d.name||"Your Name";$("mt").textContent=d.job_title||"Your job title";$("mc").textContent=d.company||"Your company";$("mb").textContent=d.bio||"Your short bio will appear here";$("mp").textContent=d.phone||"Phone";$("me").textContent=d.email||"Email";applyTheme($("newMini"),d.theme);if(newAvatarFile||newAvatarObjectUrl){
     renderAvatar("newMiniAvatar",d.name,null,newAvatarObjectUrl);
     renderAvatar("newPhotoPreview",d.name,null,newAvatarObjectUrl);
@@ -1191,6 +1182,7 @@ function fillCard(d){
 
   try{sessionStorage.setItem("zetaProfile",JSON.stringify(publicProfile))}catch(e){}
   syncEditActions();
+  renderExperience(publicProfile);
   recordView(publicProfile.username, location.hash.includes("qr") ? "qr" : "view");
 }
 
@@ -1290,7 +1282,7 @@ function saveContact(){
 }
 
 async function checkUsername(u){if(!initDb())throw new Error("Database connection is unavailable.");const r=await db.from("profiles").select("username").eq("username",u).maybeSingle();if(r.error)throw r.error;return !r.data}
-async function loadProfile(u){if(!initDb())throw new Error("Database connection is unavailable.");const r=await db.from("profiles").select("username,name,job_title,company,phone,email,bio,theme,avatar_url").eq("username",u).maybeSingle();if(r.error)throw r.error;if(!r.data)throw new Error("Profile not found.");return r.data}
+async function loadProfile(u){if(!initDb())throw new Error("Database connection is unavailable.");const r=await db.from("profiles").select("id,username,name,job_title,company,phone,email,bio,theme,avatar_url").eq("username",u).maybeSingle();if(r.error)throw r.error;if(!r.data)throw new Error("Profile not found.");const e=await db.from("card_experiences").select("card_type,content,ar_model_url,ar_usdz_url").eq("profile_id",r.data.id||"").maybeSingle();if(e.error)console.warn("Experience load skipped",e.error);r.data.experience=e.data||null;r.data.card_type=e.data?.card_type||"visiting";r.data.ar_model_url=e.data?.ar_model_url||"";r.data.ar_usdz_url=e.data?.ar_usdz_url||"";return r.data}
 async function copyLink(url,statusId){try{await navigator.clipboard.writeText(url);msg(statusId,"Profile created. Share link copied.")}catch(e){msg(statusId,"Profile created. Copy the link from the address bar.")}}
 
 async function saveProfileEdits(data,statusId){
@@ -1325,6 +1317,9 @@ async function saveProfileEdits(data,statusId){
     if(r.error)throw r.error;
 
     const saved=r.data;
+    const experience=await saveCardExperience(saved.username,editingToken,data);
+    saved.experience=experience?{card_type:experience.card_type,content:experience.content,ar_model_url:experience.ar_model_url,ar_usdz_url:experience.ar_usdz_url}:null;
+    saved.card_type=saved.experience?.card_type||data.card_type||"visiting";saved.ar_model_url=saved.experience?.ar_model_url||data.ar_model_url||"";saved.ar_usdz_url=saved.experience?.ar_usdz_url||data.ar_usdz_url||"";
     storeEditToken(saved.username,editingToken);
     ownerSession=true;
     currentProfile=saved;editingProfile=saved;
@@ -1354,6 +1349,9 @@ async function createProfile(data,statusId){
     });
     if(r.error)throw r.error;
     const saved=r.data;
+    const experience=await saveCardExperience(saved.username,editToken,data);
+    saved.experience=experience?{card_type:experience.card_type,content:experience.content,ar_model_url:experience.ar_model_url,ar_usdz_url:experience.ar_usdz_url}:null;
+    saved.card_type=saved.experience?.card_type||data.card_type||"visiting";saved.ar_model_url=saved.experience?.ar_model_url||data.ar_model_url||"";saved.ar_usdz_url=saved.experience?.ar_usdz_url||data.ar_usdz_url||"";
     storeEditToken(saved.username,editToken);
     ownerSession=true;
     fillCard(saved);showShared();history.replaceState(null,"",profileUrl(saved.username));
@@ -1367,23 +1365,12 @@ async function createProfile(data,statusId){
 function clearMain(){
   if(editMode){cancelEdit();return}
   ownerSession=false;
-  mainAvatarChoice="avatar:initials";mainExistingAvatarUrl=null;
-  ["name","username","title","company","phone","email","bio"].forEach(id=>$(id).value="");
+  mainAvatarChoice="avatar:initials";mainExistingAvatarUrl=null;clearDynamicForm();
   setIdentityMode("main","avatar");selectAvatar("mainAvatarGrid","avatar:initials");setThemeSelection("theme","themePicker","midnight");clearMainPhoto();msg("status","");msg("usernameStatus","");currentProfile=null;setBuilderMode("create",null);updateMain();showBuilder();history.replaceState(null,"",homeUrl())
 }
 function resetNew(){newAvatarChoice="avatar:initials";["nn","nu","nt","nc","np","ne","nb"].forEach(id=>$(id).value="");setIdentityMode("new","avatar");selectAvatar("newAvatarGrid","avatar:initials");setThemeSelection("ntheme","nthemePicker","midnight");clearNewPhoto();msg("newStatus","");msg("newUsernameStatus","");updateNew()}
-function openCreator(){
-  ownerSession=false;
-  editMode=false;editingProfile=null;editingToken=null;
-  setBuilderMode("create",null);
-  resetNew();history.replaceState(null,"",homeUrl()+"#create");showCreator()
-}
-function openBuilder(){
-  ownerSession=false;
-  editMode=false;editingProfile=null;editingToken=null;
-  setBuilderMode("create",null);
-  showBuilder();history.replaceState(null,"",homeUrl()+"#create-card");window.scrollTo({top:0,behavior:"smooth"})
-}
+function openCreator(){ openBuilder(); }
+function openBuilder(){ownerSession=false;editMode=false;editingProfile=null;editingToken=null;setBuilderMode("create",null);clearDynamicForm();showCardTypeStep();showBuilder();history.replaceState(null,"",homeUrl()+"#create-card");window.scrollTo({top:0,behavior:"smooth"})}
 function backToCard(){
   ownerSession=false;
   let s=null;try{s=sessionStorage.getItem("zetaProfile")}catch(e){}
@@ -1432,7 +1419,7 @@ function populateEditor(profile){
   }else{
     mainExistingAvatarUrl=null;mainAvatarChoice="avatar:initials";setIdentityMode("main","avatar");selectAvatar("mainAvatarGrid","avatar:initials");
   }
-  updateMain();msg("status","");msg("usernameStatus","Username locked while editing.");
+  const type=profile.experience?.card_type||profile.card_type||"visiting";const exp=profile.experience?.content||{};setCardType(type);renderDynamicForm(safeCardType(type),exp);const user=$("username");if(user){user.disabled=true;user.classList.add("locked-input");}if($("usernameHelp"))$("usernameHelp").textContent="Your username is locked so your public profile link stays the same.";showCardFormStep();updateMain();msg("status","");msg("usernameStatus","Username locked while editing.");
 }
 
 function openEditor(profile){
@@ -1627,7 +1614,7 @@ async function start(){
   setupIdentityPicker("new");
   setPhotoFileName("main","No photo selected");
   setPhotoFileName("new","No photo selected");
-  updateMain();
+  clearDynamicForm();
   updateNew();
   initDb();
   ownerSession=false;
@@ -1644,12 +1631,12 @@ async function start(){
   $("share").addEventListener("click",()=>{if(currentProfile)recordEvent(currentProfile.username,"share")});
   $("newCreate").addEventListener("click",()=>createProfile(newData(),"newStatus"));
   $("back").addEventListener("click",backToCard);
-  ["name","title","company","phone","email","bio"].forEach(id=>$(id).addEventListener("input",updateMain));setupThemePicker("theme","themePicker",updateMain);
+  setupThemePicker("theme","themePicker",updateMain);setupCardTypePicker();
   ["nn","nt","nc","np","ne","nb"].forEach(id=>$(id).addEventListener("input",updateNew));setupThemePicker("ntheme","nthemePicker",updateNew);
-  setupUsernameCheck("username","usernameStatus");setupUsernameCheck("nu","newUsernameStatus");setupPhotoInput("mainPhoto","main");setupPhotoInput("newPhoto","new");setupPhotoDropzone("mainPhotoDrop","mainPhoto","main");setupPhotoDropzone("newPhotoDrop","newPhoto","new");$("removeMainPhoto").addEventListener("click",clearMainPhoto);$("removeNewPhoto").addEventListener("click",clearNewPhoto);
+  setupUsernameCheck("nu","newUsernameStatus");setupPhotoInput("mainPhoto","main");setupPhotoInput("newPhoto","new");setupPhotoDropzone("mainPhotoDrop","mainPhoto","main");setupPhotoDropzone("newPhotoDrop","newPhoto","new");$("removeMainPhoto").addEventListener("click",clearMainPhoto);$("removeNewPhoto").addEventListener("click",clearNewPhoto);
   if(await openProfileFromQuery())return;
   if(window.location.hash==="#create"){showCreator();return}
-  if(window.location.hash==="#create-card"){setBuilderMode("create",null);showBuilder();return}
+  if(window.location.hash==="#create-card"){setBuilderMode("create",null);clearDynamicForm();showCardTypeStep();showBuilder();return}
   showLanding();
 }
 

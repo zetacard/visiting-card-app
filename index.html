@@ -22,6 +22,7 @@ input,textarea,button{font:inherit}button{cursor:pointer}
 /* Profile editing */
 .owner-actions{display:none;gap:9px;flex-wrap:wrap;justify-content:center;margin-top:10px}
 .owner-note{display:none;margin:7px auto 0;color:var(--muted);font-size:11px;line-height:1.4;text-align:center;max-width:460px}
+.analytics-box{display:none;margin-top:16px;padding:18px;border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:0 12px 30px #27364d0d}.analytics-box.show{display:block}.analytics-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:13px}.analytics-head strong{font-size:15px}.analytics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.metric{padding:13px;border:1px solid var(--line);border-radius:13px;background:#f8faff}.metric b{display:block;font-size:24px}.metric span{display:block;margin-top:3px;color:var(--muted);font-size:11px;font-weight:700}@media(max-width:620px){.analytics-grid{grid-template-columns:repeat(2,1fr)}}
 .editor-mode{display:none;margin:0 auto 15px;padding:10px 12px;border:1px solid #cbd7ff;border-radius:12px;background:#eef2ff;color:#3d51b5;font-size:12px;font-weight:800}
 .editor-mode.show{display:block}
 input[disabled].locked-input{background:#f0f3f8;color:#67728a;cursor:not-allowed}
@@ -778,7 +779,7 @@ input[disabled].locked-input{background:#f0f3f8;color:#67728a;cursor:not-allowed
 </div>
 </main>
 
-<section id="shared"><div class="shared"><div class="profile-home-row"><a class="profile-home" href="https://zetacard.github.io/visiting-card-app/" onclick="window.location.assign('https://zetacard.github.io/visiting-card-app/'); return false;">← Home</a></div><div class="shared-title">ZETACARD</div><div id="sharedError" class="error"></div><div class="shared-wrap"><div id="sharedCard" class="card" data-theme="midnight"><div><div class="card-topline"><div id="sharedAvatar" class="avatar" aria-hidden="true">Z</div><div class="brand">DIGITAL VISITING CARD</div></div><h2 id="sn">Your Name</h2><div id="st" class="role">Your job title</div><div id="sc" class="company">Your company</div><p id="sb" class="bio">Your short bio will appear here.</p></div><div class="contact"><a id="sp" href="#">Phone</a><a id="se" href="#">Email</a></div></div><div class="qr-box"><strong>Scan to open</strong><div id="qr" class="qr"></div></div></div><div class="card-actions"><button id="copy" class="btn primary" type="button">Copy link</button><button id="share" class="btn ghost" type="button">Share</button><button id="contact" class="btn ghost" type="button">Save contact</button><button id="own" class="btn secondary" type="button">Create your own card</button></div><div id="shareStatus" class="status"></div><div id="ownerActions" class="owner-actions"><button id="edit" class="btn ghost" type="button">Edit card</button><button id="copyEdit" class="btn ghost" type="button">Copy edit link</button></div><div id="ownerNote" class="owner-note">You have edit access for this card on this browser. Keep your edit link private if you use it on another device.</div><div class="note">Your digital card · Easy to share anywhere</div></div></section>
+<section id="shared"><div class="shared"><div class="profile-home-row"><a class="profile-home" href="https://zetacard.github.io/visiting-card-app/" onclick="window.location.assign('https://zetacard.github.io/visiting-card-app/'); return false;">← Home</a></div><div class="shared-title">ZETACARD</div><div id="sharedError" class="error"></div><div class="shared-wrap"><div id="sharedCard" class="card" data-theme="midnight"><div><div class="card-topline"><div id="sharedAvatar" class="avatar" aria-hidden="true">Z</div><div class="brand">DIGITAL VISITING CARD</div></div><h2 id="sn">Your Name</h2><div id="st" class="role">Your job title</div><div id="sc" class="company">Your company</div><p id="sb" class="bio">Your short bio will appear here.</p></div><div class="contact"><a id="sp" href="#">Phone</a><a id="se" href="#">Email</a></div></div><div class="qr-box"><strong>Scan to open</strong><div id="qr" class="qr"></div></div></div><div class="card-actions"><button id="copy" class="btn primary" type="button">Copy link</button><button id="share" class="btn ghost" type="button">Share</button><button id="contact" class="btn ghost" type="button">Save contact</button><button id="own" class="btn secondary" type="button">Create your own card</button></div><div id="shareStatus" class="status"></div><div id="ownerActions" class="owner-actions"><button id="edit" class="btn ghost" type="button">Edit card</button><button id="copyEdit" class="btn ghost" type="button">Copy edit link</button></div><div id="ownerNote" class="owner-note">You have edit access for this card on this browser. Keep your edit link private if you use it on another device.</div><div id="analyticsBox" class="analytics-box"><div class="analytics-head"><strong>Analytics</strong><button id="refreshAnalytics" class="btn ghost" type="button">Refresh</button></div><div class="analytics-grid"><div class="metric"><b id="metricViews">—</b><span>Profile views</span></div><div class="metric"><b id="metricPhone">—</b><span>Phone clicks</span></div><div class="metric"><b id="metricEmail">—</b><span>Email clicks</span></div><div class="metric"><b id="metricShare">—</b><span>Shares</span></div></div><div id="analyticsStatus" class="status"></div></div><div class="note">Your digital card · Easy to share anywhere</div></div></section>
 
 <section id="creator"><div class="creator"><div class="top"><div style="display:flex;gap:8px;flex-wrap:wrap"><button id="back" class="back" type="button">← Back to card</button><a class="back" href="https://zetacard.github.io/visiting-card-app/" onclick="window.location.assign('https://zetacard.github.io/visiting-card-app/'); return false;" style="text-decoration:none">Home</a></div><div class="creator-label">CREATE A NEW CARD</div></div><div class="creator-grid"><div class="intro"><span class="badge">ZETACARD</span><h1>Create a new digital card.</h1><p>Create a completely new profile, choose a username, preview the card, and generate a new shareable link.</p><div class="steps"><div class="step"><span class="num">1</span>Enter your details</div><div class="step"><span class="num">2</span>Choose a username</div><div class="step"><span class="num">3</span>Create your share link</div></div></div>
 <div class="box"><h2>New card</h2><div class="field"><label for="nn">Name</label><input id="nn" placeholder="e.g. Alex Morgan"></div><div class="field"><label for="nu">Username</label><input id="nu" maxlength="30" placeholder="e.g. alex-morgan"><div class="help">This becomes part of your profile link.</div><div id="newUsernameStatus" class="status"></div></div><div class="field"><label for="nt">Job title</label><input id="nt" placeholder="e.g. Founder"></div><div class="field"><label for="nc">Company</label><input id="nc" placeholder="e.g. Acme Studio"></div><div class="field"><label for="np">Phone</label><input id="np" placeholder="e.g. +91 98765 43210"></div><div class="field"><label for="ne">Email</label><input id="ne" type="email" placeholder="e.g. hello@example.com"></div><div class="field"><label for="nb">Short bio</label><textarea id="nb" placeholder="A short introduction..."></textarea></div>
@@ -930,7 +931,12 @@ function createEditToken(){
 function editStorageKey(username){return "zetaEditToken:"+uname(username)}
 function storeEditToken(username,token){if(username&&token){try{localStorage.setItem(editStorageKey(username),token)}catch(e){}}}
 function getEditToken(username){try{return localStorage.getItem(editStorageKey(username))||""}catch(e){return ""}}
-function editLink(username,token){const u=new URL(SITE_BASE,window.location.origin);u.searchParams.set("u",username);u.searchParams.set("edit","1");u.searchParams.set("key",token);return u.href}
+function editLink(username,token){return new URL(SITE_BASE,window.location.origin).href+"#edit="+encodeURIComponent(username)+"&key="+encodeURIComponent(token)}
+async function sha256Hex(value){const data=new TextEncoder().encode(String(value));const hash=await crypto.subtle.digest("SHA-256",data);return Array.from(new Uint8Array(hash),b=>b.toString(16).padStart(2,"0")).join("")}
+async function verifyOwner(username,token){if(!username||!token||!initDb())return false;try{const h=await sha256Hex(token);const r=await db.rpc("verify_profile_owner",{p_username:username,p_token_hash:h});return !r.error&&r.data===true}catch(e){console.error("Owner verification failed",e);return false}}
+async function recordEvent(username,type){if(!username||!initDb())return;try{await db.rpc("record_profile_event",{p_username:username,p_event_type:type})}catch(e){console.warn("Analytics event failed",e)}}
+function viewKey(username){return "zetaViewed:"+username+":"+new Date().toISOString().slice(0,10)}
+function recordView(username,source){try{const key=viewKey(username)+(source||"view");if(localStorage.getItem(key))return;localStorage.setItem(key,"1")}catch(e){} recordEvent(username,"view")}
 
 function safeTheme(t){return ["midnight","ocean","forest","sunset"].includes(t)?t:"midnight"}
 function applyTheme(el,theme){if(el)el.dataset.theme=safeTheme(theme)}
@@ -1180,10 +1186,11 @@ function fillCard(d){
   $("se").href=publicProfile.email?"mailto:"+publicProfile.email:"#";
 
   const url=profileUrl(publicProfile.username);
-  renderQr(url);
+  renderQr(url+"#qr");
 
   try{sessionStorage.setItem("zetaProfile",JSON.stringify(publicProfile))}catch(e){}
   syncEditActions();
+  recordView(publicProfile.username, location.hash.includes("qr") ? "qr" : "view");
 }
 
 function renderQr(url){
@@ -1197,12 +1204,17 @@ function renderQr(url){
   }
 }
 
-function syncEditActions(){
+async function syncEditActions(){
   const wrap=$("ownerActions"),note=$("ownerNote");
   const username=currentProfile&&currentProfile.username;
-  const owned=!!(username&&getEditToken(username));
+  const token=username?getEditToken(username):"";
+  const owned=!!(username&&token&&await verifyOwner(username,token));
   if(wrap)wrap.style.display=owned?"flex":"none";
   if(note)note.style.display=owned?"block":"none";
+  const box=$("analyticsBox");
+  if(box)box.classList.toggle("show",owned);
+  if(owned)loadAnalytics();
+  return owned;
 }
 
 async function copyEditLink(){
@@ -1298,7 +1310,7 @@ async function saveProfileEdits(data,statusId){
     }
 
     const r=await db.rpc("update_profile_with_token",{
-      p_edit_token:editingToken,
+      p_token_hash:await sha256Hex(editingToken),
       p_username:data.username,
       p_name:data.name,
       p_job_title:data.job_title,
@@ -1329,33 +1341,20 @@ async function createProfile(data,statusId){
   msg(statusId,"Checking username...");
   try{
     if(!(await checkUsername(data.username))){msg(statusId,"Username already taken. Choose another.");return}
-
     const editToken=createEditToken();
-    const payload={
-      username:data.username,
-      name:data.name,
-      job_title:data.job_title,
-      company:data.company,
-      phone:data.phone,
-      email:data.email,
-      bio:data.bio,
-      theme:safeTheme(data.theme),
-      edit_token:editToken
-    };
-
-    if(data.avatar_file){
-      msg(statusId,"Uploading photo...");
-      payload.avatar_url=await uploadAvatar(data.avatar_file,data.username);
-    }else{
-      payload.avatar_url=data.avatar_choice||"avatar:initials";
-    }
-
+    let avatarUrl=data.avatar_choice||"avatar:initials";
+    if(data.avatar_file){msg(statusId,"Uploading photo...");avatarUrl=await uploadAvatar(data.avatar_file,data.username)}
     msg(statusId,"Creating profile...");
-    const r=await db.from("profiles").insert(payload).select().single();
+    const r=await db.rpc("create_profile_with_owner",{
+      p_username:data.username,p_name:data.name,p_job_title:data.job_title,p_company:data.company,
+      p_phone:data.phone,p_email:data.email,p_bio:data.bio,p_theme:safeTheme(data.theme),
+      p_avatar_url:avatarUrl,p_token_hash:await sha256Hex(editToken)
+    });
     if(r.error)throw r.error;
-    const saved=r.data;const url=profileUrl(saved.username);
+    const saved=r.data;
     storeEditToken(saved.username,editToken);
-    fillCard(saved);showShared();history.replaceState(null,"",url);await copyLink(url,statusId);
+    fillCard(saved);showShared();history.replaceState(null,"",profileUrl(saved.username));
+    msg("shareStatus","Profile created. Your private edit access is saved on this browser.");
   }catch(e){
     console.error("Create failed",e);
     msg(statusId,e&&e.code==="23505"?"Username already taken. Choose another.":"Could not create profile: "+(e&&e.message?e.message:"Unknown error"));
@@ -1560,21 +1559,39 @@ function setupIdentityPicker(prefix){
   }
 }
 
+async function loadAnalytics(){
+  if(!currentProfile)return;
+  const token=getEditToken(currentProfile.username);if(!token)return;
+  const box=$("analyticsBox");if(box)box.classList.add("show");
+  msg("analyticsStatus","Loading analytics...");
+  try{
+    const r=await db.rpc("get_profile_analytics",{p_username:currentProfile.username,p_token_hash:await sha256Hex(token)});
+    if(r.error)throw r.error;
+    const counts={view:0,phone_click:0,email_click:0,share:0};
+    (r.data||[]).forEach(row=>counts[row.event_type]=Number(row.event_count)||0);
+    $("metricViews").textContent=counts.view||0;$("metricPhone").textContent=counts.phone_click||0;$("metricEmail").textContent=counts.email_click||0;$("metricShare").textContent=counts.share||0;
+    msg("analyticsStatus","");
+  }catch(e){console.error(e);msg("analyticsStatus","Could not load analytics.")}
+}
+
 function setupUsernameCheck(inputId,statusId){let timer=null;$(inputId).addEventListener("input",()=>{clearTimeout(timer);const u=uname($(inputId).value);$(inputId).value=u;msg(statusId,"");if(!u)return;if(!validUsername(u)){msg(statusId,"Use 3–30 lowercase letters, numbers or hyphens.");return}msg(statusId,"Checking...");timer=setTimeout(async()=>{try{msg(statusId,(await checkUsername(u))?"✅ Username available":"❌ Username already taken")}catch(e){console.error(e);msg(statusId,"Could not check username.")}},400)})}
 
 async function openProfileFromQuery(){
   const params=new URLSearchParams(window.location.search);
-  const u=uname(params.get("u"));
+  let u=uname(params.get("u"));
+  let incomingEdit=false,incomingKey="";
+  const hash=window.location.hash||"";
+  if(hash.startsWith("#edit=")){const h=new URLSearchParams(hash.slice(1));u=uname(h.get("edit"));incomingEdit=true;incomingKey=h.get("key")||""}
   if(!u)return false;
-  const incomingEdit=params.get("edit")==="1";
-  const incomingKey=params.get("key")||"";
   if(incomingEdit&&incomingKey)storeEditToken(u,incomingKey);
-
   showShared();msg("sharedError","");$("sn").textContent="Loading...";$("qr").innerHTML="";
   try{
     const p=await loadProfile(u);
-    fillCard(p);showShared();syncEditActions();history.replaceState(null,"",profileUrl(p.username));
-    if(incomingEdit&&getEditToken(p.username))setTimeout(()=>openEditor(p),0);
+    fillCard(p);
+    const owned=await syncEditActions();
+    history.replaceState(null,"",profileUrl(p.username));
+    if(incomingEdit&&owned)setTimeout(()=>openEditor(p),0);
+    else if(incomingEdit&&!owned)msg("shareStatus","That edit link is invalid or no longer has access.");
   }catch(e){
     console.error("Load failed",e);
     $("sn").textContent="Profile not found";$("st").textContent="";$("sc").textContent="";$("sb").textContent=e&&e.message?e.message:"Could not load this profile.";$("sp").textContent="";$("se").textContent="";
@@ -1601,6 +1618,10 @@ async function start(){
   $("copy").addEventListener("click",copyCurrentLink);
   $("share").addEventListener("click",shareCurrentProfile);
   $("contact").addEventListener("click",saveContact);
+  $("refreshAnalytics").addEventListener("click",loadAnalytics);
+  $("sp").addEventListener("click",()=>{if(currentProfile)recordEvent(currentProfile.username,"phone_click")});
+  $("se").addEventListener("click",()=>{if(currentProfile)recordEvent(currentProfile.username,"email_click")});
+  $("share").addEventListener("click",()=>{if(currentProfile)recordEvent(currentProfile.username,"share")});
   $("newCreate").addEventListener("click",()=>createProfile(newData(),"newStatus"));
   $("back").addEventListener("click",backToCard);
   ["name","title","company","phone","email","bio"].forEach(id=>$(id).addEventListener("input",updateMain));setupThemePicker("theme","themePicker",updateMain);

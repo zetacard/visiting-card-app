@@ -1591,6 +1591,8 @@ async function openProfileFromQuery(){
   const hash=window.location.hash||"";
   if(hash.startsWith("#edit=")){const h=new URLSearchParams(hash.slice(1));u=uname(h.get("edit"));incomingEdit=true;incomingKey=h.get("key")||""}
   if(!u)return false;
+  // Public profile URLs are always visitor mode.
+  // Owner access is granted only through the private edit-link hash.
   ownerSession=false;
   if(incomingEdit&&incomingKey)storeEditToken(u,incomingKey);
   showShared();msg("sharedError","");$("sn").textContent="Loading...";$("qr").innerHTML="";
@@ -1604,6 +1606,8 @@ async function openProfileFromQuery(){
       if(owned)ownerSession=true;
     }
     await syncEditActions();
+    // Never expose owner controls on an ordinary public profile URL.
+    // The creator must use the private edit link to enter owner mode.
     history.replaceState(null,"",profileUrl(p.username));
     if(incomingEdit&&owned)setTimeout(()=>openEditor(p),0);
     else if(incomingEdit&&!owned)msg("shareStatus","That edit link is invalid or no longer has access.");

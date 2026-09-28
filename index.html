@@ -903,6 +903,7 @@ let mainExistingAvatarUrl=null;
 let editMode=false;
 let editingProfile=null;
 let editingToken=null;
+let ownerSession=false;
 
 const $=id=>document.getElementById(id);
 const msg=(id,t)=>{const e=$(id);if(e)e.textContent=t;};
@@ -1208,7 +1209,7 @@ async function syncEditActions(){
   const wrap=$("ownerActions"),note=$("ownerNote");
   const username=currentProfile&&currentProfile.username;
   const token=username?getEditToken(username):"";
-  const owned=!!(username&&token&&await verifyOwner(username,token));
+  const owned=!!(ownerSession&&username&&token&&await verifyOwner(username,token));
   if(wrap)wrap.style.display=owned?"flex":"none";
   if(note)note.style.display=owned?"block":"none";
   const box=$("analyticsBox");
@@ -1325,6 +1326,7 @@ async function saveProfileEdits(data,statusId){
 
     const saved=r.data;
     storeEditToken(saved.username,editingToken);
+    ownerSession=true;
     currentProfile=saved;editingProfile=saved;
     fillCard(saved);showShared();history.replaceState(null,"",profileUrl(saved.username));
     msg("shareStatus","Profile updated successfully.");
@@ -1353,6 +1355,7 @@ async function createProfile(data,statusId){
     if(r.error)throw r.error;
     const saved=r.data;
     storeEditToken(saved.username,editToken);
+    ownerSession=true;
     fillCard(saved);showShared();history.replaceState(null,"",profileUrl(saved.username));
     msg("shareStatus","Profile created. Your private edit access is saved on this browser.");
   }catch(e){
@@ -1363,22 +1366,26 @@ async function createProfile(data,statusId){
 
 function clearMain(){
   if(editMode){cancelEdit();return}
+  ownerSession=false;
   mainAvatarChoice="avatar:initials";mainExistingAvatarUrl=null;
   ["name","username","title","company","phone","email","bio"].forEach(id=>$(id).value="");
   setIdentityMode("main","avatar");selectAvatar("mainAvatarGrid","avatar:initials");setThemeSelection("theme","themePicker","midnight");clearMainPhoto();msg("status","");msg("usernameStatus","");currentProfile=null;setBuilderMode("create",null);updateMain();showBuilder();history.replaceState(null,"",homeUrl())
 }
 function resetNew(){newAvatarChoice="avatar:initials";["nn","nu","nt","nc","np","ne","nb"].forEach(id=>$(id).value="");setIdentityMode("new","avatar");selectAvatar("newAvatarGrid","avatar:initials");setThemeSelection("ntheme","nthemePicker","midnight");clearNewPhoto();msg("newStatus","");msg("newUsernameStatus","");updateNew()}
 function openCreator(){
+  ownerSession=false;
   editMode=false;editingProfile=null;editingToken=null;
   setBuilderMode("create",null);
   resetNew();history.replaceState(null,"",homeUrl()+"#create");showCreator()
 }
 function openBuilder(){
+  ownerSession=false;
   editMode=false;editingProfile=null;editingToken=null;
   setBuilderMode("create",null);
   showBuilder();history.replaceState(null,"",homeUrl()+"#create-card");window.scrollTo({top:0,behavior:"smooth"})
 }
 function backToCard(){
+  ownerSession=false;
   let s=null;try{s=sessionStorage.getItem("zetaProfile")}catch(e){}
   if(s){try{const d=JSON.parse(s);if(d&&d.username){editMode=false;editingProfile=null;editingToken=null;setBuilderMode("create",null);fillCard(d);history.replaceState(null,"",profileUrl(d.username));showShared();return}}catch(e){}}
   editMode=false;editingProfile=null;editingToken=null;setBuilderMode("create",null);history.replaceState(null,"",homeUrl());showLanding()
@@ -1441,6 +1448,7 @@ function openEditor(profile){
 
 function cancelEdit(){
   const p=editingProfile||currentProfile;
+  ownerSession=true;
   editMode=false;editingProfile=null;editingToken=null;setBuilderMode("create",null);
   if(p&&p.username){fillCard(p);showShared();history.replaceState(null,"",profileUrl(p.username));}
   else{showLanding();history.replaceState(null,"",homeUrl());}
@@ -1583,12 +1591,19 @@ async function openProfileFromQuery(){
   const hash=window.location.hash||"";
   if(hash.startsWith("#edit=")){const h=new URLSearchParams(hash.slice(1));u=uname(h.get("edit"));incomingEdit=true;incomingKey=h.get("key")||""}
   if(!u)return false;
+  ownerSession=false;
   if(incomingEdit&&incomingKey)storeEditToken(u,incomingKey);
   showShared();msg("sharedError","");$("sn").textContent="Loading...";$("qr").innerHTML="";
   try{
     const p=await loadProfile(u);
     fillCard(p);
-    const owned=await syncEditActions();
+    let owned=false;
+    if(incomingEdit){
+      const candidate=incomingKey||getEditToken(p.username);
+      owned=!!(candidate&&await verifyOwner(p.username,candidate));
+      if(owned)ownerSession=true;
+    }
+    await syncEditActions();
     history.replaceState(null,"",profileUrl(p.username));
     if(incomingEdit&&owned)setTimeout(()=>openEditor(p),0);
     else if(incomingEdit&&!owned)msg("shareStatus","That edit link is invalid or no longer has access.");
@@ -1611,6 +1626,7 @@ async function start(){
   updateMain();
   updateNew();
   initDb();
+  ownerSession=false;
   syncEditActions();
   $("landingCreate").addEventListener("click",openBuilder);$("landingCreateTop").addEventListener("click",openBuilder);$("landingCreateBottom").addEventListener("click",openBuilder);$("landingLearn").addEventListener("click",()=>$("landingFeatures").scrollIntoView({behavior:"smooth"}));$("create").addEventListener("click",()=>{if(editMode)saveProfileEdits(mainData(),"status");else createProfile(mainData(),"status")});
   $("clear").addEventListener("click",clearMain);

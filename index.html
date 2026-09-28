@@ -587,6 +587,17 @@ input[disabled].locked-input{background:#f0f3f8;color:#67728a;cursor:not-allowed
 .type-preview-row span{color:#68758c;text-align:right}
 .type-preview-footer{margin-top:auto;padding-top:18px;font-size:12px;color:#68758c}
 .preview-menu{background:linear-gradient(180deg,#fffaf1,#fff)!important}.preview-menu .type-preview-inner{font-family:Georgia,serif}.preview-menu .type-preview-kicker{color:#a16b25}.preview-menu .type-preview-title{text-align:center;font-family:Georgia,serif}.preview-menu .type-preview-sub{text-align:center}.preview-menu .type-preview-list{border-top:2px solid #222}.preview-menu .type-preview-row{border-bottom:1px dotted #cfc5b5}.preview-wedding{background:linear-gradient(145deg,#fff7fa,#fff)!important}.preview-wedding .type-preview-inner{text-align:center}.preview-wedding .type-preview-kicker{color:#b15c78}.preview-wedding .type-preview-title{font-family:Georgia,serif}.preview-wedding .type-preview-list{max-width:360px;width:100%;margin-left:auto;margin-right:auto}.preview-wedding .type-preview-row{display:block;border:0;padding:7px}.preview-wedding .type-preview-row span{display:block;text-align:center;margin-top:3px}.preview-identity{background:linear-gradient(135deg,#eef3ff,#fff)!important}.preview-identity .type-preview-inner{border-left:8px solid #536dfe}.preview-identity .type-preview-list{margin-top:18px}.preview-catalog{background:#f7f8fb!important}.preview-catalog .type-preview-inner{padding:20px}.preview-catalog .type-preview-list{grid-template-columns:1fr 1fr}.preview-catalog .type-preview-row{display:block;background:#fff;border:1px solid #e4e8ef;border-radius:14px;padding:14px;box-shadow:0 8px 20px #27364d0a}.preview-catalog .type-preview-row span{display:block;text-align:left;margin-top:6px}.preview-event{background:linear-gradient(145deg,#111827,#334155)!important;color:#fff!important}.preview-event .type-preview-sub,.preview-event .type-preview-row span,.preview-event .type-preview-footer{color:#d7deea}.preview-event .type-preview-row{border-color:#ffffff25}.preview-product{background:linear-gradient(145deg,#f7fbff,#fff)!important}.preview-product .type-preview-inner{border-top:7px solid #536dfe}.preview-property{background:linear-gradient(145deg,#eef8f4,#fff)!important}.preview-property .type-preview-inner{border-top:7px solid #2d8a65}.preview-property .type-preview-list{grid-template-columns:1fr 1fr}.preview-property .type-preview-row{display:block;background:#fff;border:1px solid #dce9e2;border-radius:13px;padding:13px}.preview-property .type-preview-row span{display:block;text-align:left;margin-top:4px}.preview-visiting{background:radial-gradient(circle at 85% 12%,#ffffff20 0 9%,transparent 10%),linear-gradient(145deg,#101a36,#263969 55%,#536dfe)!important;color:#fff!important}.preview-visiting .type-preview-sub,.preview-visiting .type-preview-row span,.preview-visiting .type-preview-footer{color:#e4e9ff}.preview-visiting .type-preview-row{border-color:#ffffff30}.preview-visiting .type-preview-inner{background:transparent}.preview-ar{margin-top:16px;padding:11px 12px;border-radius:12px;background:#edf1ff;color:#3d51b5;font-size:12px;font-weight:800}
+/* Final theme override: theme changes the real preview while card-type layout stays intact. */
+.card.type-preview-card[data-theme="midnight"]{background:radial-gradient(circle at 85% 12%,#ffffff20 0 9%,transparent 10%),linear-gradient(145deg,#101a36 0%,#263969 55%,#536dfe 100%) !important;color:#fff !important}
+.card.type-preview-card[data-theme="ocean"]{background:radial-gradient(circle at 84% 14%,#ffffff22 0 10%,transparent 11%),linear-gradient(145deg,#062c3f 0%,#086f7a 52%,#16b8c8 100%) !important;color:#fff !important}
+.card.type-preview-card[data-theme="forest"]{background:radial-gradient(circle at 84% 14%,#ffffff1f 0 10%,transparent 11%),linear-gradient(145deg,#10291f 0%,#20563b 52%,#4eaa73 100%) !important;color:#fff !important}
+.card.type-preview-card[data-theme="sunset"]{background:radial-gradient(circle at 84% 14%,#ffffff25 0 10%,transparent 11%),linear-gradient(145deg,#3a1736 0%,#7a294e 48%,#ed7a48 100%) !important;color:#fff !important}
+.card.type-preview-card[data-theme="midnight"] .type-preview-sub,.card.type-preview-card[data-theme="midnight"] .type-preview-row span,.card.type-preview-card[data-theme="midnight"] .type-preview-footer,
+.card.type-preview-card[data-theme="ocean"] .type-preview-sub,.card.type-preview-card[data-theme="ocean"] .type-preview-row span,.card.type-preview-card[data-theme="ocean"] .type-preview-footer,
+.card.type-preview-card[data-theme="forest"] .type-preview-sub,.card.type-preview-card[data-theme="forest"] .type-preview-row span,.card.type-preview-card[data-theme="forest"] .type-preview-footer,
+.card.type-preview-card[data-theme="sunset"] .type-preview-sub,.card.type-preview-card[data-theme="sunset"] .type-preview-row span,.card.type-preview-card[data-theme="sunset"] .type-preview-footer{color:#eef3ff !important}
+.card.type-preview-card[data-theme="midnight"] .type-preview-row,.card.type-preview-card[data-theme="ocean"] .type-preview-row,.card.type-preview-card[data-theme="forest"] .type-preview-row,.card.type-preview-card[data-theme="sunset"] .type-preview-row{border-color:#ffffff38 !important}
+
 /* v7: card-type preview backgrounds must override the generic theme background */
 .card.type-preview-card.preview-visiting{background:radial-gradient(circle at 85% 12%,#ffffff20 0 9%,transparent 10%),linear-gradient(145deg,#101a36,#263969 55%,#536dfe)!important;color:#fff!important}
 .card.type-preview-card.preview-menu{background:linear-gradient(180deg,#fffaf1,#fff)!important;color:#241f19!important}
@@ -701,11 +712,11 @@ input[disabled].locked-input{background:#f0f3f8;color:#67728a;cursor:not-allowed
       <button type="button" class="type-option large" data-card-type="product" aria-pressed="false" onclick="setCardType('product'); return false;"><span class="type-icon">📦</span><strong>Product Card</strong><span>Product details, price, buying and AR experience</span><span class="type-check">✓</span></button>
       <button type="button" class="type-option large" data-card-type="property" aria-pressed="false" onclick="setCardType('property'); return false;"><span class="type-icon">🏠</span><strong>Property Showcase</strong><span>Property details, location, pricing and AR-ready media</span><span class="type-check">✓</span></button>
     </div>
-    <div class="actions"><button id="continueCardType" class="btn primary" type="button" >Continue →</button></div>
+    <div class="actions"><button id="continueCardType" class="btn primary" type="button" onclick="return goToSelectedCardForm();">Continue →</button></div>
   </div>
 
   <div id="cardFormStep" class="card-step">
-    <div class="form-step-bar"><div><strong id="formStepTitle">2. Build your card</strong><div id="formStepHint" class="help">Only the fields relevant to your selected card type are shown.</div></div><button id="changeCardType" class="profile-home change-type-top" type="button" aria-label="Back to card type selection" >⌂ Card types</button></div>
+    <div class="form-step-bar"><div><strong id="formStepTitle">2. Build your card</strong><div id="formStepHint" class="help">Only the fields relevant to your selected card type are shown.</div></div><button id="changeCardType" class="profile-home change-type-top" type="button" aria-label="Back to card type selection" onclick="goBackToCardTypes(); return false;">⌂ Card types</button></div>
     <input id="cardType" type="hidden" value="visiting">
     <div id="dynamicCardForm" class="dynamic-form"></div>
 
@@ -740,14 +751,14 @@ input[disabled].locked-input{background:#f0f3f8;color:#67728a;cursor:not-allowed
     <div class="dynamic-section">
       <h3>Card style</h3><p>Choose the visual theme people will see.</p>
       <div class="field"><div id="themePicker" class="theme-picker" role="group" aria-label="Choose a card theme">
-        <button type="button" class="theme-option selected" data-theme-value="midnight" aria-pressed="true"><div class="theme-preview-card"><div class="theme-preview-brand">ZETACARD</div><div class="theme-preview-name">Midnight</div><div class="theme-preview-line"></div><div class="theme-preview-line small"></div></div><div class="theme-meta"><strong>Midnight</strong><span>Bold & modern</span></div><span class="theme-check">✓</span></button>
-        <button type="button" class="theme-option" data-theme-value="ocean" aria-pressed="false"><div class="theme-preview-card"><div class="theme-preview-brand">ZETACARD</div><div class="theme-preview-name">Ocean</div><div class="theme-preview-line"></div><div class="theme-preview-line small"></div></div><div class="theme-meta"><strong>Ocean</strong><span>Fresh & clean</span></div><span class="theme-check">✓</span></button>
-        <button type="button" class="theme-option" data-theme-value="forest" aria-pressed="false"><div class="theme-preview-card"><div class="theme-preview-brand">ZETACARD</div><div class="theme-preview-name">Forest</div><div class="theme-preview-line"></div><div class="theme-preview-line small"></div></div><div class="theme-meta"><strong>Forest</strong><span>Calm & natural</span></div><span class="theme-check">✓</span></button>
-        <button type="button" class="theme-option" data-theme-value="sunset" aria-pressed="false"><div class="theme-preview-card"><div class="theme-preview-brand">ZETACARD</div><div class="theme-preview-name">Sunset</div><div class="theme-meta"><strong>Sunset</strong><span>Warm & creative</span></div><span class="theme-check">✓</span></button>
+        <button type="button" class="theme-option selected" data-theme-value="midnight" aria-pressed="true" onclick="chooseTheme('midnight'); return false;"><div class="theme-preview-card"><div class="theme-preview-brand">ZETACARD</div><div class="theme-preview-name">Midnight</div><div class="theme-preview-line"></div><div class="theme-preview-line small"></div></div><div class="theme-meta"><strong>Midnight</strong><span>Bold & modern</span></div><span class="theme-check">✓</span></button>
+        <button type="button" class="theme-option" data-theme-value="ocean" aria-pressed="false" onclick="chooseTheme('ocean'); return false;"><div class="theme-preview-card"><div class="theme-preview-brand">ZETACARD</div><div class="theme-preview-name">Ocean</div><div class="theme-preview-line"></div><div class="theme-preview-line small"></div></div><div class="theme-meta"><strong>Ocean</strong><span>Fresh & clean</span></div><span class="theme-check">✓</span></button>
+        <button type="button" class="theme-option" data-theme-value="forest" aria-pressed="false" onclick="chooseTheme('forest'); return false;"><div class="theme-preview-card"><div class="theme-preview-brand">ZETACARD</div><div class="theme-preview-name">Forest</div><div class="theme-preview-line"></div><div class="theme-preview-line small"></div></div><div class="theme-meta"><strong>Forest</strong><span>Calm & natural</span></div><span class="theme-check">✓</span></button>
+        <button type="button" class="theme-option" data-theme-value="sunset" aria-pressed="false" onclick="chooseTheme('sunset'); return false;"><div class="theme-preview-card"><div class="theme-preview-brand">ZETACARD</div><div class="theme-preview-name">Sunset</div><div class="theme-meta"><strong>Sunset</strong><span>Warm & creative</span></div><span class="theme-check">✓</span></button>
       </div><input id="theme" type="hidden" value="midnight"></div>
     </div>
 
-    <div class="actions"><button id="create" class="btn primary" type="button">Create share link</button><button id="clear" class="btn secondary" type="button">Clear</button></div>
+    <div class="actions"><button id="create" class="btn primary" type="button" onclick="handleCreateClick(); return false;">Create share link</button><button id="clear" class="btn secondary" type="button">Clear</button></div>
     <div id="status" class="status"></div>
   </div>
 </div>
@@ -943,11 +954,22 @@ function renderDynamicForm(type,prefill={}){const host=$("dynamicCardForm");if(!
 function clearDynamicForm(){const host=$("dynamicCardForm");if(host)host.innerHTML="";mainCardType="";const input=$("cardType");if(input)input.value="";const pill=$("selectedTypePill");if(pill)pill.textContent="Choose a card type";document.querySelectorAll("#cardTypePicker .type-option").forEach(btn=>{btn.classList.remove("selected");btn.setAttribute("aria-pressed","false")});const next=$("continueCardType");if(next)next.disabled=true}
 function showCardTypeStep(){$("cardTypeStep")?.classList.add("active");$("cardFormStep")?.classList.remove("active");$("builder")?.classList.add("type-selection-mode");}
 function goBackToCardTypes(){
-  showBuilder();
-  showCardTypeStep();
-  const builder=document.getElementById("builder");
-  if(builder) builder.scrollIntoView({behavior:"auto",block:"start"});
-  window.scrollTo(0,0);
+  try{
+    ownerSession=ownerSession;
+    showBuilder();
+    // Reset only the form view; keep the user's entered values available if they return.
+    $("cardFormStep")?.classList.remove("active");
+    $("cardTypeStep")?.classList.add("active");
+    $("builder")?.classList.add("type-selection-mode");
+    const builder=document.getElementById("builder");
+    if(builder) builder.scrollIntoView({behavior:"auto",block:"start"});
+    history.replaceState(null,"",homeUrl()+"#create-card");
+    window.scrollTo({top:0,left:0,behavior:"auto"});
+  }catch(e){
+    console.error("Back to card types failed",e);
+    showBuilder();
+  }
+  return false;
 }
 function showCardFormStep(){if(!mainCardType)return;$("cardTypeStep")?.classList.remove("active");$("cardFormStep")?.classList.add("active");$("builder")?.classList.remove("type-selection-mode");renderDynamicForm(mainCardType);updateMain();window.scrollTo({top:0,behavior:"smooth"})}
 function goToSelectedCardForm(){const selected=document.querySelector("#cardTypePicker .type-option.selected")||document.querySelector('#cardTypePicker .type-option[aria-pressed=\"true\"]');const chosen=selected?.dataset?.cardType||$("cardType")?.value||mainCardType;if(!chosen){msg("status","Please select a card type first.");return false}mainCardType=safeCardType(chosen);const input=$("cardType");if(input)input.value=mainCardType;showCardFormStep();return false}
@@ -1319,14 +1341,13 @@ function saveContact(){
 }
 
 async function checkUsername(u){if(!initDb())throw new Error("Database connection is unavailable.");const r=await db.from("profiles").select("username").eq("username",u).maybeSingle();if(r.error)throw r.error;return !r.data}
-async function loadProfile(u){if(!initDb())throw new Error("Database connection is unavailable.");const r=await db.from("profiles").select("id,username,name,job_title,company,phone,email,bio,theme,avatar_url").eq("username",u).maybeSingle();if(r.error)throw r.error;if(!r.data)throw new Error("Profile not found.");const e=await db.from("card_experiences").select("card_type,content,ar_model_url,ar_usdz_url").eq("profile_id",r.data.id||"").maybeSingle();if(e.error)console.warn("Experience load skipped",e.error);r.data.experience=e.data||null;r.data.card_type=e.data?.card_type||"visiting";r.data.ar_model_url=e.data?.ar_model_url||"";r.data.ar_usdz_url=e.data?.ar_usdz_url||"";return r.data}
+async function loadProfile(u){if(!initDb())throw new Error("Database connection is unavailable.");const r=await db.from("profiles").select("id,username,name,job_title,company,phone,email,bio,theme,avatar_url,card_type,card_data,ar_model_url,ar_usdz_url").eq("username",u).maybeSingle();if(r.error)throw r.error;if(!r.data)throw new Error("Profile not found.");r.data.card_type=safeCardType(r.data.card_type||"visiting");r.data.card_data=r.data.card_data||{};r.data.ar_model_url=r.data.ar_model_url||"";r.data.ar_usdz_url=r.data.ar_usdz_url||"";r.data.experience={card_type:r.data.card_type,content:r.data.card_data,ar_model_url:r.data.ar_model_url,ar_usdz_url:r.data.ar_usdz_url};return r.data}
 async function copyLink(url,statusId){try{await navigator.clipboard.writeText(url);msg(statusId,"Profile created. Share link copied.")}catch(e){msg(statusId,"Profile created. Copy the link from the address bar.")}}
 
 async function saveProfileEdits(data,statusId){
   if(!editingProfile||!editingToken){msg(statusId,"Edit access is missing. Open your saved edit link again.");return}
   if(!data.name){msg(statusId,"Please enter your name.");return}
   if(!initDb()){msg(statusId,"Database connection is unavailable. Refresh and try again.");return}
-
   msg(statusId,"Saving changes...");
   try{
     let avatarUrl=data.existing_avatar_url||editingProfile.avatar_url||"avatar:initials";
@@ -1338,8 +1359,7 @@ async function saveProfileEdits(data,statusId){
     }else if(data.avatar_choice==="avatar:initials" && !data.existing_avatar_url){
       avatarUrl="avatar:initials";
     }
-
-    const r=await db.rpc("update_profile_with_token",{
+    const r=await db.rpc("update_card_with_owner",{
       p_token_hash:await sha256Hex(editingToken),
       p_username:data.username,
       p_name:data.name,
@@ -1349,14 +1369,19 @@ async function saveProfileEdits(data,statusId){
       p_email:data.email,
       p_bio:data.bio,
       p_theme:safeTheme(data.theme),
-      p_avatar_url:avatarUrl
+      p_avatar_url:avatarUrl,
+      p_card_type:safeCardType(data.card_type),
+      p_card_data:experiencePayload(data),
+      p_ar_model_url:data.ar_model_url||"",
+      p_ar_usdz_url:data.ar_usdz_url||""
     });
     if(r.error)throw r.error;
-
     const saved=r.data;
-    const experience=await saveCardExperience(saved.username,editingToken,data);
-    saved.experience=experience?{card_type:experience.card_type,content:experience.content,ar_model_url:experience.ar_model_url,ar_usdz_url:experience.ar_usdz_url}:null;
-    saved.card_type=saved.experience?.card_type||data.card_type||"visiting";saved.ar_model_url=saved.experience?.ar_model_url||data.ar_model_url||"";saved.ar_usdz_url=saved.experience?.ar_usdz_url||data.ar_usdz_url||"";
+    saved.card_type=safeCardType(saved.card_type||data.card_type||"visiting");
+    saved.card_data=saved.card_data||experiencePayload(data);
+    saved.ar_model_url=saved.ar_model_url||data.ar_model_url||"";
+    saved.ar_usdz_url=saved.ar_usdz_url||data.ar_usdz_url||"";
+    saved.experience={card_type:saved.card_type,content:saved.card_data,ar_model_url:saved.ar_model_url,ar_usdz_url:saved.ar_usdz_url};
     storeEditToken(saved.username,editingToken);
     ownerSession=true;
     currentProfile=saved;editingProfile=saved;
@@ -1378,24 +1403,39 @@ async function createProfile(data,statusId){
     const editToken=createEditToken();
     let avatarUrl=data.avatar_choice||"avatar:initials";
     if(data.avatar_file){msg(statusId,"Uploading photo...");avatarUrl=await uploadAvatar(data.avatar_file,data.username)}
-    msg(statusId,"Creating profile...");
-    const r=await db.rpc("create_profile_with_owner",{
-      p_username:data.username,p_name:data.name,p_job_title:data.job_title,p_company:data.company,
-      p_phone:data.phone,p_email:data.email,p_bio:data.bio,p_theme:safeTheme(data.theme),
-      p_avatar_url:avatarUrl,p_token_hash:await sha256Hex(editToken)
+    msg(statusId,"Creating your card...");
+    const r=await db.rpc("create_card_with_owner",{
+      p_username:data.username,
+      p_name:data.name,
+      p_job_title:data.job_title,
+      p_company:data.company,
+      p_phone:data.phone,
+      p_email:data.email,
+      p_bio:data.bio,
+      p_theme:safeTheme(data.theme),
+      p_avatar_url:avatarUrl,
+      p_token_hash:await sha256Hex(editToken),
+      p_card_type:safeCardType(data.card_type),
+      p_card_data:experiencePayload(data),
+      p_ar_model_url:data.ar_model_url||"",
+      p_ar_usdz_url:data.ar_usdz_url||""
     });
     if(r.error)throw r.error;
     const saved=r.data;
-    const experience=await saveCardExperience(saved.username,editToken,data);
-    saved.experience=experience?{card_type:experience.card_type,content:experience.content,ar_model_url:experience.ar_model_url,ar_usdz_url:experience.ar_usdz_url}:null;
-    saved.card_type=saved.experience?.card_type||data.card_type||"visiting";saved.ar_model_url=saved.experience?.ar_model_url||data.ar_model_url||"";saved.ar_usdz_url=saved.experience?.ar_usdz_url||data.ar_usdz_url||"";
+    saved.card_type=safeCardType(saved.card_type||data.card_type||"visiting");
+    saved.card_data=saved.card_data||experiencePayload(data);
+    saved.ar_model_url=saved.ar_model_url||data.ar_model_url||"";
+    saved.ar_usdz_url=saved.ar_usdz_url||data.ar_usdz_url||"";
+    saved.experience={card_type:saved.card_type,content:saved.card_data,ar_model_url:saved.ar_model_url,ar_usdz_url:saved.ar_usdz_url};
     storeEditToken(saved.username,editToken);
     ownerSession=true;
+    currentProfile=saved;
     fillCard(saved);showShared();history.replaceState(null,"",profileUrl(saved.username));
-    msg("shareStatus","Profile created. Your private edit access is saved on this browser.");
+    msg("shareStatus","Card created successfully. Your share link is ready in the address bar: "+profileUrl(saved.username));
   }catch(e){
     console.error("Create failed",e);
-    msg(statusId,e&&e.code==="23505"?"Username already taken. Choose another.":"Could not create profile: "+(e&&e.message?e.message:"Unknown error"));
+    const detail=e&&e.message?e.message:"Unknown error";
+    msg(statusId,e&&e.code==="23505"?"Username already taken. Choose another.":"Could not create your card: "+detail);
   }
 }
 
@@ -1515,6 +1555,12 @@ function setThemeSelection(inputId,pickerId,theme){
     btn.classList.toggle("selected",selected);
     btn.setAttribute("aria-pressed",selected?"true":"false");
   });
+}
+
+function chooseTheme(theme){
+  setThemeSelection("theme","themePicker",theme);
+  updateMain();
+  return false;
 }
 
 function setupThemePicker(inputId,pickerId,onChange){
@@ -1667,43 +1713,68 @@ async function openProfileFromQuery(){
 }
 
 async function start(){
-  setIdentityMode("main","avatar");
-  setIdentityMode("new","avatar");
-  selectAvatar("mainAvatarGrid",mainAvatarChoice);
-  selectAvatar("newAvatarGrid",newAvatarChoice);
-  setupIdentityPicker("main");
-  setupIdentityPicker("new");
-  setPhotoFileName("main","No photo selected");
-  setPhotoFileName("new","No photo selected");
-  clearDynamicForm();
-  updateNew();
-  initDb();
-  ownerSession=false;
-  syncEditActions();
-  $("continueCardType").addEventListener("click",function(e){e.preventDefault();goToSelectedCardForm();});
-  $("landingCreate").addEventListener("click",openBuilder);$("landingCreateTop").addEventListener("click",openBuilder);$("landingCreateBottom").addEventListener("click",openBuilder);$("landingLearn").addEventListener("click",()=>$("landingFeatures").scrollIntoView({behavior:"smooth"}));$("create").addEventListener("click",handleCreateClick);
-  $("clear").addEventListener("click",clearMain);
-  $("own").addEventListener("click",openCreator);$("edit").addEventListener("click",()=>{if(currentProfile)openEditor(currentProfile)});$("copyEdit").addEventListener("click",copyEditLink);
-  $("copy").addEventListener("click",copyCurrentLink);
-  $("share").addEventListener("click",shareCurrentProfile);
-  $("contact").addEventListener("click",saveContact);
-  $("refreshAnalytics").addEventListener("click",loadAnalytics);
-  $("sp").addEventListener("click",()=>{if(currentProfile)recordEvent(currentProfile.username,"phone_click")});
-  $("se").addEventListener("click",()=>{if(currentProfile)recordEvent(currentProfile.username,"email_click")});
-  $("share").addEventListener("click",()=>{if(currentProfile)recordEvent(currentProfile.username,"share")});
-  $("newCreate").addEventListener("click",()=>createProfile(newData(),"newStatus"));
-  $("back").addEventListener("click",function(e){e.preventDefault();goBackToCardTypes();});
-  $("changeCardType").addEventListener("click",function(e){e.preventDefault();goBackToCardTypes();});
-  setupThemePicker("theme","themePicker",updateMain);setupCardTypePicker();
-  ["nn","nt","nc","np","ne","nb"].forEach(id=>$(id).addEventListener("input",updateNew));setupThemePicker("ntheme","nthemePicker",updateNew);
-  setupUsernameCheck("nu","newUsernameStatus");setupPhotoInput("mainPhoto","main");setupPhotoInput("newPhoto","new");setupPhotoDropzone("mainPhotoDrop","mainPhoto","main");setupPhotoDropzone("newPhotoDrop","newPhoto","new");$("removeMainPhoto").addEventListener("click",clearMainPhoto);$("removeNewPhoto").addEventListener("click",clearNewPhoto);
-  if(await openProfileFromQuery())return;
-  if(window.location.hash==="#create"){showCreator();return}
-  if(window.location.hash==="#create-card"){setBuilderMode("create",null);clearDynamicForm();showCardTypeStep();showBuilder();return}
-  showLanding();
-}
+  // Bind critical actions first. These are also backed by inline onclick handlers.
+  const on=(id,event,handler)=>{const el=$(id);if(el)el.addEventListener(event,handler);};
+  on("continueCardType","click",e=>{e.preventDefault();goToSelectedCardForm();});
+  on("create","click",e=>{e.preventDefault();handleCreateClick();});
+  on("back","click",e=>{e.preventDefault();goBackToCardTypes();});
+  on("changeCardType","click",e=>{e.preventDefault();goBackToCardTypes();});
+  try{
+    setIdentityMode("main","avatar");
+    setIdentityMode("new","avatar");
+    selectAvatar("mainAvatarGrid",mainAvatarChoice);
+    selectAvatar("newAvatarGrid",newAvatarChoice);
+    setupIdentityPicker("main");
+    setupIdentityPicker("new");
+    setPhotoFileName("main","No photo selected");
+    setPhotoFileName("new","No photo selected");
+    clearDynamicForm();
+    updateNew();
+    initDb();
+    ownerSession=false;
+    syncEditActions();
 
-window.addEventListener("DOMContentLoaded",()=>{start().catch(e=>{console.error("Startup error",e);showBuilder();msg("status","The page loaded, but startup failed. Please refresh.")})});
+    on("landingCreate","click",e=>{e.preventDefault();openBuilder();});
+    on("landingCreateTop","click",e=>{e.preventDefault();openBuilder();});
+    on("landingCreateBottom","click",e=>{e.preventDefault();openBuilder();});
+    on("landingLearn","click",()=>$("landingFeatures")?.scrollIntoView({behavior:"smooth"}));
+    on("clear","click",clearMain);
+    on("own","click",openCreator);
+    on("edit","click",()=>{if(currentProfile)openEditor(currentProfile);});
+    on("copyEdit","click",copyEditLink);
+    on("copy","click",copyCurrentLink);
+    on("share","click",shareCurrentProfile);
+    on("contact","click",saveContact);
+    on("refreshAnalytics","click",loadAnalytics);
+    on("sp","click",()=>{if(currentProfile)recordEvent(currentProfile.username,"phone_click");});
+    on("se","click",()=>{if(currentProfile)recordEvent(currentProfile.username,"email_click");});
+    on("share","click",()=>{if(currentProfile)recordEvent(currentProfile.username,"share");});
+    on("newCreate","click",()=>createProfile(newData(),"newStatus"));
+
+    setupThemePicker("theme","themePicker",updateMain);
+    setupCardTypePicker();
+    ["nn","nt","nc","np","ne","nb"].forEach(id=>on(id,"input",updateNew));
+    setupThemePicker("ntheme","nthemePicker",updateNew);
+    setupUsernameCheck("nu","newUsernameStatus");
+    setupPhotoInput("mainPhoto","main");
+    setupPhotoInput("newPhoto","new");
+    setupPhotoDropzone("mainPhotoDrop","mainPhoto","main");
+    setupPhotoDropzone("newPhotoDrop","newPhoto","new");
+    on("removeMainPhoto","click",clearMainPhoto);
+    on("removeNewPhoto","click",clearNewPhoto);
+
+    if(await openProfileFromQuery())return;
+    if(window.location.hash==="#create"){showCreator();return;}
+    if(window.location.hash==="#create-card"){setBuilderMode("create",null);clearDynamicForm();showCardTypeStep();showBuilder();return;}
+    showLanding();
+  }catch(e){
+    console.error("Startup error",e);
+    // Keep the card-type picker usable even if an optional startup feature fails.
+    try{setupCardTypePicker();showBuilder();}catch(_e){showBuilder();}
+    msg("status","Some optional features could not initialize. Card creation is still available.");
+  }
+}
+window.addEventListener("DOMContentLoaded",()=>{start().catch(e=>{console.error("Startup error",e);showBuilder();showCardTypeStep();msg("status","Some optional features could not initialize. You can still choose a card type and create your card.")})});
 </script>
 </body>
 </html>

@@ -120,6 +120,53 @@ button:disabled{cursor:not-allowed;opacity:.55}
 .premium-catalog{margin-top:12px;padding:12px;border:1px solid rgba(98,112,150,.12);border-radius:16px;background:linear-gradient(145deg,rgba(255,255,255,.88),rgba(245,248,255,.88))}.premium-catalog-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}.premium-catalog-head strong{font-size:12px}.premium-catalog-head span{font-size:10px;color:var(--muted)}.premium-catalog-items{display:grid;gap:7px}.premium-catalog-item{display:flex;justify-content:space-between;gap:10px;padding:9px 10px;border-radius:11px;background:#fff;border:1px solid #e7ebf4;font-size:11px}.premium-catalog-item b{font-weight:900}.premium-catalog-item span{color:#4d5a75}
 @media(max-width:620px){.model-template-grid,.model-results{grid-template-columns:1fr}.threeD-mini-viewer model-viewer{height:290px}}
 
+
+/* v23 Premium Catalog Experience */
+.premium-catalog-studio{margin-top:18px;padding:18px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,#fff,#f8f9ff)}
+.premium-catalog-studio h3{margin:0;font-size:16px}.premium-catalog-studio .sub{margin-top:4px}
+.catalog-builder-toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap}
+.catalog-builder-count{font-size:11px;color:var(--muted);font-weight:800}
+.catalog-products-editor{display:grid;gap:10px;margin-top:12px}
+.catalog-product-editor{padding:13px;border:1px solid var(--line);border-radius:16px;background:#fff}
+.catalog-product-editor .topline{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.catalog-product-editor .topline strong{font-size:12px}
+.catalog-product-editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px}
+.catalog-product-editor-grid .full{grid-column:1/-1}
+.catalog-preview-shell{margin-top:12px;border:1px solid var(--line);border-radius:18px;padding:14px;background:#fff}
+.catalog-preview-shell .cp-toolbar{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.catalog-preview-shell .cp-filter{display:flex;gap:7px;flex-wrap:wrap}
+.catalog-filter{padding:7px 10px;border:1px solid var(--line);border-radius:999px;background:#fff;font-size:10px;font-weight:800;cursor:pointer}
+.catalog-filter.active{background:#eef2ff;border-color:#a7b2ff;color:#3c48ad}
+.catalog-live-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.catalog-live-card{border:1px solid var(--line);border-radius:15px;padding:10px;background:linear-gradient(180deg,#fff,#fbfcff);overflow:hidden}
+.catalog-live-image{height:110px;border-radius:11px;background:linear-gradient(135deg,#e9edfa,#dfe5f7);display:grid;place-items:center;overflow:hidden;margin-bottom:9px}
+.catalog-live-image img{width:100%;height:100%;object-fit:cover}
+.catalog-live-card h4{margin:0;font-size:13px}.catalog-live-card .price{font-weight:900;color:#313f77;font-size:12px;margin-top:4px}
+.catalog-live-card .desc{color:var(--muted);font-size:10px;line-height:1.4;margin-top:5px;min-height:28px}
+.catalog-live-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.catalog-live-actions button,.catalog-live-actions a{font-size:10px;font-weight:900;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:#fff;text-decoration:none;color:#2c385a;cursor:pointer}
+.catalog-live-actions .primary{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border:0}
+.catalog-empty{padding:22px;text-align:center;color:var(--muted);font-size:11px}
+.catalog-public-wrap{margin-top:16px;padding:16px;border-radius:20px;background:linear-gradient(180deg,#ffffff,#f5f7ff);border:1px solid var(--line)}
+.catalog-public-wrap .public-catalog-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-end;flex-wrap:wrap;margin-bottom:12px}
+.catalog-public-wrap .public-catalog-title{font-size:20px;font-weight:900;letter-spacing:-.03em}
+.catalog-public-wrap .public-catalog-sub{font-size:11px;color:var(--muted);margin-top:4px}
+.catalog-public-search{display:flex;gap:8px;margin-bottom:12px}
+.catalog-public-search input{flex:1}
+.catalog-public-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.catalog-public-card{padding:11px;border:1px solid var(--line);border-radius:16px;background:#fff}
+.catalog-public-card .name{font-size:13px;font-weight:900}.catalog-public-card .cat{font-size:10px;color:#5966a7;margin-top:3px}.catalog-public-card .price{font-size:12px;font-weight:900;margin-top:5px}.catalog-public-card .desc{font-size:10px;line-height:1.4;color:var(--muted);margin-top:5px;min-height:28px}
+.catalog-public-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.catalog-public-actions a,.catalog-public-actions button{padding:8px 10px;border-radius:10px;font-size:10px;font-weight:900;text-decoration:none;border:1px solid var(--line);background:#fff;color:#2d395e;cursor:pointer}
+.catalog-public-actions .primary{background:linear-gradient(135deg,var(--brand),var(--brand2));border:0;color:#fff}
+.catalog-detail-modal{position:fixed;inset:0;background:rgba(17,24,39,.55);display:none;place-items:center;padding:20px;z-index:9999}
+.catalog-detail-modal.show{display:grid}
+.catalog-detail-card{max-width:620px;width:100%;background:#fff;border-radius:22px;padding:20px;box-shadow:0 30px 100px rgba(0,0,0,.2)}
+.catalog-detail-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.catalog-detail-card h3{margin:0;font-size:20px}.catalog-detail-card p{color:var(--muted);font-size:12px;line-height:1.55}
+.catalog-detail-model{margin-top:12px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#f2f5fb}
+.catalog-detail-model model-viewer{width:100%;height:320px}
+@media(max-width:700px){.catalog-product-editor-grid,.catalog-live-grid,.catalog-public-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -266,7 +313,7 @@ function renderForm(prefill={}){
   document.querySelectorAll('#dynamicForm [data-key]').forEach(el=>el.addEventListener('input',()=>{if(el.dataset.key==="username")checkUser(el.value);updatePreview()}));
   $("visualSection").classList.toggle("hidden",!t.photo);$("styleSection").classList.toggle("hidden",!t.theme);
   if(t.photo){$("visualHint").textContent=selectedType==="product"?"Add the main product image.":selectedType==="property"?"Add the main property image.":selectedType==="wedding"?"Add a couple or invitation image.":selectedType==="identity"?"Add the ID photo.":"Add your profile photo or logo."}
-  buildThemeButtons();renderIdentityPreview();mountThreeDStudio(prefill);
+  buildThemeButtons();renderIdentityPreview();mountThreeDStudio(prefill);mountCatalogStudio(prefill);
 }
 async function checkUser(v){const u=uname(v);if(!u){msg("userStatus","");return}if(!validUsername(u)){msg("userStatus","Use 3–30 lowercase letters, numbers or hyphens.",true);return}if(!initDb()){msg("userStatus","Database unavailable.",true);return}const r=await db.from("profiles").select("username").eq("username",u).maybeSingle();if(r.error){msg("userStatus","Could not check username.",true);return}msg("userStatus",r.data?"Username already taken":"✓ Username available",!!r.data)}
 function buildThemeButtons(){const el=$("styleGrid");el.innerHTML=[["midnight","Midnight","Bold & modern"],["ocean","Ocean","Fresh & clean"],["forest","Forest","Calm & natural"],["sunset","Sunset","Warm & creative"]].map(([k,n,s])=>'<button type="button" class="theme-btn '+(mainTheme===k?'selected':'')+'" data-theme="'+k+'"><div class="theme-swatch '+k+'"><b style="font-size:12px">'+n+'</b></div><div class="theme-name">'+n+'</div><div class="theme-sub">'+s+'</div><span class="theme-mark">✓</span></button>').join("");el.onclick=e=>{const b=e.target.closest(".theme-btn");if(!b)return;mainTheme=safeTheme(b.dataset.theme);document.querySelectorAll(".theme-btn").forEach(x=>x.classList.toggle("selected",x===b));updatePreview()}}
@@ -290,7 +337,7 @@ function renderCardMarkup(type,c,photoUrl){
   if(type==="menu")return '<div class="preview-inner"><div class="preview-kicker">'+escapeHtml(c.restaurant_name||"YOUR RESTAURANT")+'</div><div class="preview-title">'+escapeHtml(c.tagline||"Our Menu")+'</div><div class="preview-sub">'+escapeHtml(c.description||"Fresh dishes, made for sharing.")+'</div><div class="preview-meta">'+menuItems(c.menu_items,c.currency)+'</div><div class="preview-footer">'+escapeHtml(c.opening_hours||"Open daily")+' · '+escapeHtml(c.order_url||"Order online")+'</div></div>';
   if(type==="wedding")return '<div class="preview-inner"><div class="preview-kicker">Wedding invitation</div><div class="preview-title">'+escapeHtml(c.bride_name||"Bride")+' &amp; '+escapeHtml(c.groom_name||"Groom")+'</div><div class="preview-sub">'+escapeHtml(c.message||"Together with their families, we invite you to celebrate.")+'</div><div class="preview-meta">'+line("Date","date","Your wedding date")+line("Time","time","Your wedding time")+line("Venue","venue","Your venue")+'</div><div class="preview-footer">RSVP · '+escapeHtml(c.rsvp_phone||"Contact")+'</div></div>';
   if(type==="identity")return '<div class="preview-inner">'+(img||'<span class="id-chip">IDENTITY</span>')+'<div class="preview-kicker" style="margin-top:16px">'+escapeHtml(c.organization||"ORGANIZATION")+'</div><div class="preview-title">'+escapeHtml(c.name||"Your Name")+'</div><div class="preview-sub">'+escapeHtml(c.designation||"Designation")+'</div><div class="preview-meta">'+line("ID number","id_number")+line("Department","department")+line("Valid until","expiry_date")+line("Phone","phone")+'</div><div class="preview-footer">'+escapeHtml(c.email||"Identity information")+'</div></div>';
-  if(type==="catalog")return '<div class="preview-inner"><div class="preview-kicker">Premium catalog</div><div class="preview-title">'+escapeHtml(c.business_name||"Your Brand")+'</div><div class="preview-sub">'+escapeHtml(c.tagline||c.description||"Browse the collection")+'</div><div class="premium-catalog"><div class="premium-catalog-head"><strong>Featured collection</strong><span>Tap to explore</span></div><div class="premium-catalog-items">'+catalogItems(c.catalog_items)+'</div></div><div class="preview-footer">'+escapeHtml(c.enquiry_url||"Enquire now")+'</div></div>';
+  if(type==="catalog")return '<div class="preview-inner"><div class="preview-kicker">Premium catalog experience</div><div class="preview-title">'+escapeHtml(c.business_name||"Your Brand")+'</div><div class="preview-sub">'+escapeHtml(c.tagline||c.description||"Browse the collection")+'</div>'+renderPremiumCatalog(type,c)+'<div class="preview-footer">'+escapeHtml(c.enquiry_url||"Enquire now")+'</div></div>';
   if(type==="event")return '<div class="preview-inner"><div class="preview-kicker">Event pass</div><div class="preview-title">'+escapeHtml(c.event_name||"Your Event")+'</div><div class="preview-sub">'+escapeHtml(c.description||"Everything attendees need in one place.")+'</div><div class="preview-meta">'+line("Date","date")+line("Time","time")+line("Venue","venue")+'</div><div class="ticket-box"><b>Ticket</b><div style="margin-top:6px;font-size:12px;opacity:.8">'+escapeHtml(c.ticket_info||"Registration required")+'</div></div><div class="preview-footer">'+escapeHtml(c.registration_url||"Register")+'</div></div>';
   if(type==="product")return '<div class="preview-inner">'+(img||'<div class="preview-logo">📦</div>')+'<div class="preview-kicker" style="margin-top:16px">'+escapeHtml(c.brand||"YOUR BRAND")+'</div><div class="preview-title">'+escapeHtml(c.product_name||"Your Product")+'</div><div class="preview-sub">'+escapeHtml(c.description||"Product description")+'</div><div class="product-hero"><div style="font-size:11px;color:#6d7a8e">SKU '+escapeHtml(c.sku||"PRODUCT-001")+'</div><div class="product-price">'+escapeHtml(c.currency||"₹")+' '+escapeHtml(c.price||"—")+'</div></div><div class="ar-badge">✨ '+(c.ar_model_url?"Interactive 3D / AR":"3D ready")+'</div><div class="preview-footer">'+escapeHtml(c.buy_url||"Buy / enquire")+'</div></div>';
   return '<div class="preview-inner">'+(img||'<div class="preview-logo">🏠</div>')+'<div class="preview-kicker" style="margin-top:16px">Property showcase</div><div class="preview-title">'+escapeHtml(c.property_title||"Your Property")+'</div><div class="preview-sub">'+escapeHtml(c.location||"Your location")+'</div><div class="property-stats"><div class="stat"><b>Price</b><span>'+escapeHtml(c.price||"—")+'</span></div><div class="stat"><b>Area</b><span>'+escapeHtml(c.area||"—")+'</span></div><div class="stat"><b>Bedrooms</b><span>'+escapeHtml(c.bedrooms||"—")+'</span></div><div class="stat"><b>Bathrooms</b><span>'+escapeHtml(c.bathrooms||"—")+'</span></div></div><div class="property-cta">'+escapeHtml(c.tour_url||c.map_url||"View property details")+'</div><div class="preview-footer">'+(c.ar_model_url?"✨ 3D / AR ready":"Virtual tour / AR ready")+'</div></div>';
@@ -380,7 +427,140 @@ async function searchThreeDOnline(){
   }catch(e){status.className="threeD-status error";status.textContent="Online search failed. Make sure the Supabase hyper-service Edge Function is deployed and Verify JWT is OFF."}
 }
 
-function updatePreview(){if(!selectedType)return;const c=values();let photo=imageObjectUrl||"";const el=$("mainCard");el.className="card-preview card-"+selectedType+" theme-"+themeClass()+(TYPES[selectedType].theme?" recolorable":"");el.innerHTML=renderCardMarkup(selectedType,c,photo);if((selectedType==="product"||selectedType==="property")&&c.ar_model_url){el.innerHTML+='<div class="public-ar"><model-viewer class="ar-viewer" src="'+escapeHtml(c.ar_model_url)+'" ar ar-modes="webxr scene-viewer quick-look" camera-controls auto-rotate alt="Interactive 3D experience"><button slot="ar-button" class="ar-action">View in your space</button></model-viewer></div>'}}
+
+let catalogProducts = [];
+
+function parseCatalogProducts(raw){
+  const s=String(raw||"").trim();
+  if(!s)return [];
+  try{
+    const arr=JSON.parse(s);
+    if(Array.isArray(arr)) return arr.map(x=>({
+      name:clean(x.name),price:clean(x.price),description:clean(x.description),
+      category:clean(x.category),url:clean(x.url),model_url:clean(x.model_url),image:clean(x.image)
+    })).filter(x=>x.name);
+  }catch(e){}
+  return s.split(/\n+/).map(line=>line.trim()).filter(Boolean).map(line=>{
+    const p=line.split(/\s+\|\s+|\s+—\s+/);
+    return {name:clean(p[0]),price:clean(p[1]),description:clean(p[2]),category:clean(p[3]),url:clean(p[4]),model_url:clean(p[5]),image:""};
+  }).filter(x=>x.name);
+}
+function syncCatalogField(){
+  const field=studioField("catalog_items");
+  if(field) field.value=JSON.stringify(catalogProducts);
+}
+function catalogEditorHtml(){
+  return `<div class="premium-catalog-studio" id="premiumCatalogStudio">
+    <h3>🛍️ Premium Catalog Studio</h3>
+    <div class="sub">Build product tiles with prices, descriptions, links, images and optional 3D models. The public catalog gets search, filters and quick product details.</div>
+    <div class="catalog-builder-toolbar">
+      <span class="catalog-builder-count" id="catalogBuilderCount">0 products</span>
+      <button type="button" id="addCatalogProduct" class="btn primary">+ Add product</button>
+    </div>
+    <div id="catalogProductsEditor" class="catalog-products-editor"></div>
+    <div class="catalog-preview-shell">
+      <div class="cp-toolbar">
+        <strong style="font-size:12px">Live catalog preview</strong>
+        <div class="cp-filter"><span class="small">Search and buttons are active in the public card.</span></div>
+      </div>
+      <div id="catalogLivePreview" class="catalog-live-grid"></div>
+    </div>
+  </div>`;
+}
+function mountCatalogStudio(prefill={}){
+  const old=document.getElementById("premiumCatalogStudio");if(old)old.remove();
+  if(selectedType!=="catalog")return;
+  const field=studioField("catalog_items");
+  if(field && field.closest(".field")) field.closest(".field").style.display="none";
+  catalogProducts=parseCatalogProducts(prefill.catalog_items||getStudioValue("catalog_items"));
+  if(!catalogProducts.length)catalogProducts=[
+    {name:"Product One",price:"₹999",description:"A polished featured product.",category:"Featured",url:"",model_url:"",image:""},
+    {name:"Product Two",price:"₹1,499",description:"Another collection highlight.",category:"Featured",url:"",model_url:"",image:""}
+  ];
+  syncCatalogField();
+  const holder=document.createElement("div");holder.innerHTML=catalogEditorHtml();$("dynamicForm").appendChild(holder.firstElementChild);
+  renderCatalogEditor();
+}
+function renderCatalogEditor(){
+  const list=$("catalogProductsEditor");if(!list)return;
+  $("catalogBuilderCount").textContent=`${catalogProducts.length} product${catalogProducts.length===1?"":"s"}`;
+  list.innerHTML=catalogProducts.map((p,i)=>`<div class="catalog-product-editor" data-ci="${i}">
+    <div class="topline"><strong>Product ${i+1}</strong><button type="button" class="btn ghost remove-cat" data-ci="${i}">Remove</button></div>
+    <div class="catalog-product-editor-grid">
+      <input data-cat-key="name" value="${escapeHtml(p.name)}" placeholder="Product name">
+      <input data-cat-key="price" value="${escapeHtml(p.price)}" placeholder="Price">
+      <input data-cat-key="category" value="${escapeHtml(p.category)}" placeholder="Category">
+      <input data-cat-key="url" value="${escapeHtml(p.url)}" placeholder="Buy / enquiry URL">
+      <input class="full" data-cat-key="description" value="${escapeHtml(p.description)}" placeholder="Short description">
+      <input class="full" data-cat-key="image" value="${escapeHtml(p.image)}" placeholder="Image URL (optional)">
+      <input class="full" data-cat-key="model_url" value="${escapeHtml(p.model_url)}" placeholder="3D GLB URL (optional)">
+    </div>
+  </div>`).join("");
+  list.querySelectorAll("[data-cat-key]").forEach(inp=>inp.addEventListener("input",e=>{
+    const card=e.target.closest(".catalog-product-editor");const i=Number(card.dataset.ci);catalogProducts[i][e.target.dataset.catKey]=e.target.value;syncCatalogField();renderCatalogLivePreview();updatePreview();
+  }));
+  list.querySelectorAll(".remove-cat").forEach(b=>b.addEventListener("click",()=>{
+    catalogProducts.splice(Number(b.dataset.ci),1);syncCatalogField();renderCatalogEditor();renderCatalogLivePreview();updatePreview();
+  }));
+  $("addCatalogProduct")?.addEventListener("click",()=>{
+    catalogProducts.push({name:"New product",price:"₹0",description:"Add a short description.",category:"",url:"",model_url:"",image:""});
+    syncCatalogField();renderCatalogEditor();renderCatalogLivePreview();updatePreview();
+  });
+  renderCatalogLivePreview();
+}
+function renderCatalogLivePreview(){
+  const box=$("catalogLivePreview");if(!box)return;
+  const items=catalogProducts.filter(x=>x.name);
+  box.innerHTML=items.length?items.map((p,i)=>`<article class="catalog-live-card">
+    <div class="catalog-live-image">${p.image?`<img src="${escapeHtml(p.image)}" alt="">`:"🛍️"}</div>
+    <h4>${escapeHtml(p.name)}</h4>
+    <div class="price">${escapeHtml(p.price||"Price on request")}</div>
+    <div class="desc">${escapeHtml(p.description||"Explore this product.")}</div>
+    <div class="catalog-live-actions">${p.model_url?`<button type="button" class="primary catalog-preview-3d" data-ci="${i}">View 3D</button>`:""}${p.url?`<a href="${escapeHtml(p.url)}" target="_blank" rel="noopener">Open link</a>`:""}</div>
+  </article>`).join(""):'<div class="catalog-empty">Add your first product.</div>';
+  box.querySelectorAll(".catalog-preview-3d").forEach(b=>b.addEventListener("click",()=>{
+    const p=items[Number(b.dataset.ci)];const viewer=$("threeDViewer");if(viewer&&p?.model_url){ensureStudioHiddenFields();setStudioValue("ar_model_url",p.model_url);setStudioValue("model_name",p.name);viewer.src=p.model_url;msg("threeDSelected","Catalog 3D preview: "+p.name)}else msg("formStatus","This catalog product has no GLB URL.",true);
+  }));
+}
+function catalogPayload(raw){return parseCatalogProducts(raw)}
+function renderPremiumCatalog(type,c){
+  const products=catalogPayload(c.catalog_items);
+  return `<div class="catalog-public-wrap" id="publicCatalog"><div class="public-catalog-head"><div><div class="public-catalog-title">${escapeHtml(c.business_name||"Your Catalog")}</div><div class="public-catalog-sub">${escapeHtml(c.tagline||c.description||"Explore the collection.")}</div></div><span class="pill">${products.length} item${products.length===1?"":"s"}</span></div><div class="catalog-public-search"><input id="publicCatalogSearch" placeholder="Search products..."><button type="button" class="btn primary" id="publicCatalogSearchBtn">Search</button></div><div class="catalog-public-grid" id="publicCatalogGrid"></div></div>`;
+}
+function renderPublicCatalogItems(c){
+  const products=catalogPayload(c.catalog_items);
+  const grid=$("publicCatalogGrid");if(!grid)return;
+  const q=clean($("publicCatalogSearch")?.value||"").toLowerCase();
+  const filtered=products.filter(p=>(p.name+" "+p.category+" "+p.description).toLowerCase().includes(q));
+  grid.innerHTML=filtered.length?filtered.map((p,i)=>`<article class="catalog-public-card">
+    <div class="name">${escapeHtml(p.name)}</div>
+    <div class="cat">${escapeHtml(p.category||"Featured")}</div>
+    <div class="price">${escapeHtml(p.price||"Price on request")}</div>
+    <div class="desc">${escapeHtml(p.description||"Explore this product.")}</div>
+    <div class="catalog-public-actions">${p.model_url?`<button type="button" class="primary public-cat-3d" data-index="${i}">View 3D</button>`:""}${p.url?`<a href="${escapeHtml(p.url)}" target="_blank" rel="noopener">Enquire</a>`:""}<button type="button" class="public-cat-details" data-index="${i}">Details</button></div>
+  </article>`).join(""):'<div class="catalog-empty">No matching products.</div>';
+  grid.querySelectorAll(".public-cat-details").forEach(b=>b.addEventListener("click",()=>openCatalogDetails(filtered[Number(b.dataset.index)])));
+  grid.querySelectorAll(".public-cat-3d").forEach(b=>b.addEventListener("click",()=>openCatalogDetails(filtered[Number(b.dataset.index)],true)));
+}
+function openCatalogDetails(p,showModel=false){
+  if(!p)return;
+  let modal=$("catalogDetailModal");
+  if(!modal){modal=document.createElement("div");modal.id="catalogDetailModal";modal.className="catalog-detail-modal";modal.innerHTML='<div class="catalog-detail-card"><div class="catalog-detail-head"><div><h3 id="catalogDetailTitle"></h3><div id="catalogDetailPrice" class="price"></div></div><button type="button" id="catalogDetailClose" class="btn ghost">Close</button></div><p id="catalogDetailText"></p><div id="catalogDetailModel" class="catalog-detail-model"></div><div class="controls" id="catalogDetailActions"></div></div>';document.body.appendChild(modal);$("catalogDetailClose").addEventListener("click",()=>modal.classList.remove("show"));modal.addEventListener("click",e=>{if(e.target===modal)modal.classList.remove("show")})}
+  $("catalogDetailTitle").textContent=p.name||"Product";$("catalogDetailPrice").textContent=p.price||"Price on request";$("catalogDetailText").textContent=p.description||"";
+  const modelBox=$("catalogDetailModel");modelBox.innerHTML="";
+  if(showModel&&p.model_url){const v=document.createElement("model-viewer");v.setAttribute("camera-controls","");v.setAttribute("auto-rotate","");v.setAttribute("ar","");v.setAttribute("ar-modes","webxr scene-viewer quick-look");v.src=p.model_url;modelBox.appendChild(v)}
+  $("catalogDetailActions").innerHTML=p.url?`<a class="btn primary" href="${escapeHtml(p.url)}" target="_blank" rel="noopener">Open product link</a>`:"";
+  modal.classList.add("show");
+}
+function setupPublicCatalog(c){
+  const shell=$("publicCatalog");if(!shell)return;
+  const search=()=>renderPublicCatalogItems(c);
+  $("publicCatalogSearchBtn")?.addEventListener("click",search);
+  $("publicCatalogSearch")?.addEventListener("keydown",e=>{if(e.key==="Enter")search()});
+  renderPublicCatalogItems(c);
+}
+
+function updatePreview(){if(!selectedType)return;const c=values();let photo=imageObjectUrl||"";const el=$("mainCard");el.className="card-preview card-"+selectedType+" theme-"+themeClass()+(TYPES[selectedType].theme?" recolorable":"");el.innerHTML=renderCardMarkup(selectedType,c,photo);if((selectedType==="product"||selectedType==="property")&&c.ar_model_url){el.innerHTML+='<div class="public-ar"><model-viewer class="ar-viewer" src="'+escapeHtml(c.ar_model_url)+'" ar ar-modes="webxr scene-viewer quick-look" camera-controls auto-rotate alt="Interactive 3D experience"><button slot="ar-button" class="ar-action">View in your space</button></model-viewer></div>'}if(selectedType==="catalog"){const wrap=$("mainCard").querySelector("#publicCatalog");if(wrap){const run=()=>{const c2=values();renderPublicCatalogItems(c2)};$("mainCard").querySelector("#publicCatalogSearchBtn")?.addEventListener("click",run);$("mainCard").querySelector("#publicCatalogSearch")?.addEventListener("keydown",e=>{if(e.key==="Enter")run()});}}}
 function experienceData(profile){const content=profile.card_data||{};return {...content}}
 function normalizedProfile(p){const q={...p};q.card_type=TYPES[p.card_type]?p.card_type:"visiting";q.card_data=q.card_data||{};q.theme=safeTheme(p.theme);q.avatar_url=p.avatar_url||"";q.ar_model_url=p.ar_model_url||q.card_data.ar_model_url||"";q.ar_usdz_url=p.ar_usdz_url||q.card_data.ar_usdz_url||"";q.model_name=p.model_name||q.card_data.model_name||"";q.model_scale=Number(p.model_scale||q.card_data.model_scale||100);q.hotspots=p.hotspots||q.card_data.hotspots||[];return q}
 async function createProfile(){
@@ -416,7 +596,7 @@ function saveContact(){if(!currentProfile)return;const b=currentProfile;const li
 function renderPublicCard(p){
   const el=$("sharedCard");const c=experienceData(p);const photo=(p.avatar_url&&p.avatar_url.startsWith("http"))?p.avatar_url:"";
   el.className="card-preview card-"+p.card_type+" theme-"+safeTheme(p.theme)+(TYPES[p.card_type].theme?" recolorable":"");
-  el.innerHTML=renderCardMarkup(p.card_type,c,photo);
+  el.innerHTML=renderCardMarkup(p.card_type,c,photo);if(p.card_type==="catalog")setupPublicCatalog(c);
   if((p.card_type==="product"||p.card_type==="property")&&p.ar_model_url){
     const box=document.createElement("div");box.className="public-ar";
     const v=document.createElement("model-viewer");v.className="ar-viewer";v.setAttribute("camera-controls","");v.setAttribute("auto-rotate","");v.setAttribute("ar","");v.setAttribute("ar-modes","webxr scene-viewer quick-look");v.setAttribute("shadow-intensity","1");v.setAttribute("exposure","1");v.setAttribute("alt","Interactive 3D experience");v.src=p.ar_model_url;

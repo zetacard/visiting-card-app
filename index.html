@@ -143,6 +143,7 @@ const SITE_BASE="/visiting-card-app/";
 const dbClient=()=>window.supabase&&window.supabase.createClient?window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY):null;
 let db=null,currentProfile=null,selectedType="",ownerSession=false,editToken="",mainTheme="midnight",imageFile=null,imageObjectUrl=null,arModelFile=null,arModelObjectUrl=null,createBusy=false,editing=false;
 const $=id=>document.getElementById(id);
+const qs=sel=>document.querySelector(sel);
 const escapeHtml=v=>String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 const clean=v=>String(v??"").trim();
 const uname=v=>clean(v).toLowerCase();
@@ -275,54 +276,41 @@ function renderARTemplates(){
   wrap.classList.toggle("hidden",!list.length);
   if(!list.length){grid.innerHTML="";return}
   sub.textContent=selectedType==="product"?"Ready-made product models are available instantly.":"Ready-made property/staging models are available instantly.";
-  const field=$("dynamicForm [data-key=\"ar_model_url\"]");
+  const field=qs('#dynamicForm [data-key="ar_model_url"]');
   const current=clean(field?field.value:"");
-  grid.innerHTML=list.map(x=>'<button type="button" class="ar-template-card '+(current===x.url?'selected':'')+'" data-ar-template="'+escapeHtml(x.id)+'" onclick="zetaChooseARTemplate(\''+escapeHtml(x.id)+'\')"><strong>'+escapeHtml(x.name)+'</strong><span>'+escapeHtml(x.note)+'</span><span class="ar-template-check">✓</span></button>').join("");
+  grid.innerHTML=list.map(x=>'<button type="button" class="ar-template-card '+(current===x.url?'selected':'')+'" data-ar-template="'+escapeHtml(x.id)+'"><strong>'+escapeHtml(x.name)+'</strong><span>'+escapeHtml(x.note)+'</span><span class="ar-template-check">✓</span></button>').join("");
   if(btn)btn.textContent=selectedType==="product"?"Use suggested product model":"Use suggested property model";
 }
 function chooseARTemplate(id){
   const item=currentARTemplates().find(x=>x.id===id);
-  const field=$("dynamicForm [data-key=\"ar_model_url\"]");
-  if(!item||!field)return;
+  const field=qs('#dynamicForm [data-key="ar_model_url"]');
+  if(!item||!field)return false;
   clearARRemoteObjectUrl();
   arModelFile=null;
   const fileEl=$("arModelFile");if(fileEl)fileEl.value="";
   field.value=item.url;
-  const n=$("arModelFileName"); if(n)n.textContent=item.name+" template selected";
-  msg("arStudioStatus","Template selected. You can publish it as-is or replace it with another model.");
+  field.dispatchEvent(new Event("input",{bubbles:true}));
+  const n=$("arModelFileName");if(n)n.textContent=item.name+" template selected";
+  msg("arStudioStatus",item.name+" selected. The model is ready in your preview and can be used when you create the card.");
   renderARTemplates();
   refreshBuilderAR();
+  return true;
 }
 function clearARRemoteObjectUrl(){if(arModelObjectUrl){try{URL.revokeObjectURL(arModelObjectUrl)}catch(e){}arModelObjectUrl=null}}
 window.zetaChooseARTemplate=chooseARTemplate;
 async function useOnlineModel(url,title){
-  const field=$("dynamicForm [data-key=\"ar_model_url\"]");
-  if(!url||!field){return}
-  try{
-    msg("arSearchStatus","Preparing "+title+"…");
-    clearARRemoteObjectUrl();
-    arModelFile=null;
-    const response=await fetch(url,{mode:"cors"});
-    if(!response.ok)throw new Error("The model could not be fetched in this browser.");
-    const blob=await response.blob();
-    if(blob.size>15*1024*1024)throw new Error("This model is larger than the 15 MB ZetaCard upload limit.");
-    const filename=(clean(title).toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"")||"online-model")+".glb";
-    arModelFile=new File([blob],filename,{type:"model/gltf-binary"});
-    arModelObjectUrl=URL.createObjectURL(blob);
-    field.value=arModelObjectUrl;
-    const n=$("arModelFileName");if(n)n.textContent=title+" selected from online library";
-    msg("arSearchStatus","Model selected. ZetaCard will upload a copy to your card when you create it.");
-    msg("arStudioStatus","Online 3D model ready. It will be stored in your ZetaCard when you create/save the card.");
-    renderARTemplates();
-    refreshBuilderAR();
-  }catch(e){
-    field.value=url;
-    const n=$("arModelFileName");if(n)n.textContent=title+" selected by URL";
-    msg("arSearchStatus",(e.message||"Could not import the model.")+" You can still use its public URL.",true);
-    msg("arStudioStatus","Online model selected by URL. If upload is unavailable, the public model URL will be used.",false);
-    renderARTemplates();
-    refreshBuilderAR();
-  }
+  const field=qs('#dynamicForm [data-key="ar_model_url"]');
+  if(!url||!field)return;
+  clearARRemoteObjectUrl();
+  arModelFile=null;
+  const fileEl=$("arModelFile");if(fileEl)fileEl.value="";
+  field.value=url;
+  field.dispatchEvent(new Event("input",{bubbles:true}));
+  const n=$("arModelFileName");if(n)n.textContent=title+" selected from online library";
+  msg("arSearchStatus","Model selected. ZetaCard will use the library's direct GLB URL in this card.");
+  msg("arStudioStatus",title+" selected. You can publish it as-is or replace it with your own upload.");
+  renderARTemplates();
+  refreshBuilderAR();
 }
 function refreshBuilderAR(){
   const box=$("builderArView"); if(!box)return;
@@ -350,22 +338,29 @@ function render3DSearchResults(items){
   grid.innerHTML=items.map(x=>'<div class="ar-search-card"><div class="ar-search-thumb">'+(x.image?'<img src="'+escapeHtml(x.image)+'" alt="">':'✨')+'</div><div class="ar-search-name">'+escapeHtml(x.title)+'</div><div class="ar-search-meta">'+escapeHtml(x.license)+(x.attribution?' · '+escapeHtml(x.attribution):'')+'</div><div class="ar-search-actions"><button type="button" class="ar-use-btn" data-online-model="'+escapeHtml(x.url)+'" data-online-title="'+escapeHtml(x.title)+'">Use & store in card</button>'+(x.page?'<a class="ar-open-btn" href="'+escapeHtml(x.page)+'" target="_blank" rel="noopener noreferrer">Open source</a>':'')+'</div></div>').join("");
 }
 async function searchOnline3D(){
-  const input=$("arSearchInput"),status=$("arSearchStatus"),grid=$("arSearchGrid");
+  const input=$("arSearchInput"),grid=$("arSearchGrid");
   const q=clean(input?input.value:"");
   if(!q){msg("arSearchStatus","Enter a model name to search.",true);return}
   const disallowed=/\b(weapon|gun|rifle|pistol|knife|sword|bomb|grenade|ammo|firearm)\b/i;
   if(disallowed.test(q)){msg("arSearchStatus","That search is not available here.",true);if(grid)grid.innerHTML="";return}
   msg("arSearchStatus","Searching the online 3D library…");if(grid)grid.innerHTML="";
   try{
-    const url="https://3dassets.dev/api/v1/assets?"+new URLSearchParams({q:q,sort:"relevance",limit:"12"}).toString();
-    const response=await fetch(url,{mode:"cors"});
-    if(!response.ok)throw new Error("Online model search returned an error ("+response.status+").");
-    const payload=await response.json();
+    let payload=null;
+    if(initDb() && db.functions && db.functions.invoke){
+      const fn=await db.functions.invoke("search-3d-assets",{body:{q,limit:12}});
+      if(!fn.error)payload=fn.data;
+    }
+    if(!payload){
+      const url="https://3dassets.dev/api/v1/assets?"+new URLSearchParams({q,sort:"relevance",limit:"12"}).toString();
+      const response=await fetch(url,{mode:"cors",headers:{Accept:"application/json"}});
+      if(!response.ok)throw new Error("Online library returned HTTP "+response.status+".");
+      payload=await response.json();
+    }
     const items=normalize3DSearchResults(payload).slice(0,12);
     render3DSearchResults(items);
     msg("arSearchStatus",items.length?items.length+" compatible 3D models found.":"No compatible models found.");
   }catch(e){
-    msg("arSearchStatus","Online search is temporarily unavailable. You can still use the built-in templates or upload a GLB.",true);
+    msg("arSearchStatus","Online search could not connect. The built-in templates still work. To enable reliable internet search on GitHub Pages, deploy the Supabase Edge Function provided with this version.",true);
   }
 }
 async function uploadARModel(file,u){
@@ -416,7 +411,7 @@ window.addEventListener("DOMContentLoaded",async()=>{
   $("copyLinkBtn").onclick=copyLink;$("shareBtn").onclick=shareCurrent;$("saveContactBtn").onclick=saveContact;$("refreshAnalytics").onclick=loadAnalytics;
   $("editBtn").onclick=()=>{if(currentProfile&&editToken)startEdit(currentProfile)};$("copyEditBtn").onclick=async()=>{if(!currentProfile||!editToken)return;try{await navigator.clipboard.writeText(editUrl(currentProfile.username,editToken));msg("sharedStatus","Private edit link copied. Keep it secret.")}catch(e){msg("sharedStatus","Copy unavailable. Your private edit link is in the current browser hash.")}};
   $("cardPhoto").onchange=()=>{const f=$("cardPhoto").files&&$("cardPhoto").files[0];if(!f)return;imageFile=f;if(imageObjectUrl)URL.revokeObjectURL(imageObjectUrl);imageObjectUrl=URL.createObjectURL(f);$("fileName").textContent=f.name;renderIdentityPreview();updatePreview()};$("removePhoto").onclick=()=>{clearImage();updatePreview()};
-  $("arModelFile").onchange=()=>{const f=$("arModelFile").files&&$("arModelFile").files[0];if(!f)return;clearARRemoteObjectUrl();arModelFile=f;$("arModelFileName").textContent=f.name;msg("arStudioStatus","3D model selected. It will upload when you create/save the card.");arModelObjectUrl=URL.createObjectURL(f);const field=$("dynamicForm [data-key=\"ar_model_url\"]");if(field)field.value=arModelObjectUrl;refreshBuilderAR();};
+  $("arModelFile").onchange=()=>{const f=$("arModelFile").files&&$("arModelFile").files[0];if(!f)return;clearARRemoteObjectUrl();arModelFile=f;$("arModelFileName").textContent=f.name;msg("arStudioStatus","3D model selected. It will upload when you create/save the card.");arModelObjectUrl=URL.createObjectURL(f);const field=qs('#dynamicForm [data-key="ar_model_url"]');if(field)field.value=arModelObjectUrl;refreshBuilderAR();};
   $("arDemoBtn").onclick=()=>{const first=currentARTemplates()[0];if(first)chooseARTemplate(first.id);};
   $("arTemplateGrid").addEventListener("click",e=>{const b=e.target.closest("[data-ar-template]");if(b)chooseARTemplate(b.dataset.arTemplate)});
   $("arSearchBtn").onclick=searchOnline3D;

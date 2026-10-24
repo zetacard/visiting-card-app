@@ -1,4 +1,4 @@
-<!-- ZetaCard v61.1 updated build: premium templates + Networking Suite (local-first with optional Supabase migration). -->
+<!-- ZetaCard v61.2 merged build: original card studio + Networking Suite + enterprise overview (existing modules, no sample CRM records). -->
 <!-- ZetaCard v52: Professional UI refinement on top of v51; application logic intentionally preserved. -->
 <!-- Base application: ZetaCard v49, with prior feature markers retained below. -->
 <!-- ZetaCard v44: Smart Forms + Enquiry Inbox -->
@@ -2435,6 +2435,46 @@ html{scroll-behavior:smooth}body{background:#f7f8fb;color:var(--zc-v54-ink);-web
 @media(max-width:620px){.template-studio .template-grid,.zc-template-picker-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}}
 </style>
 
+
+<style id="zc-enterprise-merge">
+/* ZetaCard enterprise overview: a static-page integration of the useful dashboard layout from the supplied TSX. */
+.zc-enterprise-page{display:none;min-height:100vh;padding:20px clamp(12px,3vw,32px) 44px;background:radial-gradient(ellipse at 5% 0%,rgba(83,109,254,.14),transparent 34%),#f4f6fb;color:#172033;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.zc-enterprise-page.show{display:block}
+.zc-enterprise-shell{max-width:1320px;margin:0 auto}
+.zc-enterprise-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:5px 0 22px}
+.zc-enterprise-brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:-.04em;font-size:22px;color:#111a30}
+.zc-enterprise-mark{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#4f46e5,#06b6d4);color:white;font-weight:950;box-shadow:0 7px 20px #4f46e533}
+.zc-enterprise-actions{display:flex;gap:8px;flex-wrap:wrap}
+.zc-enterprise-btn{border:1px solid #d9dfeb;background:#fff;color:#27334b;border-radius:10px;padding:9px 13px;font:inherit;font-size:12px;font-weight:800;cursor:pointer;transition:transform .15s,box-shadow .15s}
+.zc-enterprise-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px #1c2d5014}
+.zc-enterprise-btn.primary{background:#4f46e5;color:#fff;border-color:#4f46e5}
+.zc-enterprise-hero{display:flex;justify-content:space-between;gap:24px;align-items:flex-end;padding:25px 26px;border-radius:22px;background:linear-gradient(120deg,#11182d,#202c4d 70%,#164e63);color:white;box-shadow:0 18px 42px #1b29451c}
+.zc-enterprise-hero h1{font-size:clamp(25px,4vw,36px);line-height:1.12;letter-spacing:-.045em;margin:8px 0 10px}
+.zc-enterprise-hero p{color:#c2cbe0;max-width:690px;margin:0;font-size:13px;line-height:1.7}
+.zc-enterprise-eyebrow{font-size:10px;letter-spacing:.17em;text-transform:uppercase;font-weight:900;color:#aebdff}
+.zc-enterprise-mode{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;padding:7px 10px;border:1px solid #ffffff2c;background:#ffffff0c;border-radius:999px;color:#dce5ff;font-size:10px;font-weight:800}
+.zc-enterprise-dot{width:7px;height:7px;border-radius:50%;background:#fbbf24;display:inline-block}
+.zc-enterprise-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:15px 0 25px}
+.zc-enterprise-kpi{background:#fff;border:1px solid #e4e8f0;border-radius:15px;padding:16px;min-width:0;box-shadow:0 5px 18px #17203306}
+.zc-enterprise-kpi span{display:block;color:#66728a;font-size:11px;font-weight:750}
+.zc-enterprise-kpi strong{display:block;color:#172033;font-size:28px;line-height:1.2;margin:8px 0 3px;letter-spacing:-.04em}
+.zc-enterprise-kpi small{font-size:10px;color:#7a8497}
+.zc-enterprise-section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap;margin:0 0 12px}
+.zc-enterprise-section-head h2{font-size:17px;letter-spacing:-.025em;margin:0;color:#172033}
+.zc-enterprise-section-head p{font-size:11px;color:#707b90;margin:5px 0 0}
+.zc-enterprise-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.zc-enterprise-module{display:flex;align-items:flex-start;gap:12px;text-align:left;width:100%;min-height:130px;padding:17px;background:#fff;border:1px solid #e2e7f0;border-radius:16px;color:#172033;cursor:pointer;box-shadow:0 5px 18px #17203305;transition:transform .16s,border-color .16s,box-shadow .16s}
+.zc-enterprise-module:hover{transform:translateY(-2px);border-color:#b7c2ff;box-shadow:0 12px 26px #24365b12}
+.zc-enterprise-icon{width:38px;height:38px;display:grid;place-items:center;flex:0 0 auto;border-radius:12px;background:#eef0ff;color:#4f46e5;font-size:18px}
+.zc-enterprise-module h3{font-size:13px;margin:1px 0 6px;font-weight:900}
+.zc-enterprise-module p{font-size:11px;line-height:1.6;color:#68748a;margin:0}
+.zc-enterprise-module .zc-enterprise-arrow{display:block;margin-top:10px;color:#4f46e5;font-size:10px;font-weight:900}
+.zc-enterprise-note{margin-top:18px;border:1px solid #e5d9ae;background:#fffaf0;color:#6f5722;padding:13px 15px;border-radius:13px;font-size:11px;line-height:1.6}
+.zc-enterprise-note strong{color:#624a12}
+@media(max-width:850px){.zc-enterprise-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.zc-enterprise-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.zc-enterprise-hero{align-items:flex-start;flex-direction:column}}
+@media(max-width:520px){.zc-enterprise-grid{grid-template-columns:1fr}.zc-enterprise-module{min-height:0}.zc-enterprise-hero{padding:20px}.zc-enterprise-kpi{padding:13px}.zc-enterprise-kpi strong{font-size:24px}}
+</style>
+
 </head>
 <body>
 
@@ -2447,6 +2487,7 @@ html{scroll-behavior:smooth}body{background:#f7f8fb;color:var(--zc-v54-ink);-web
       <button id="signOutBtn" class="btn ghost" type="button" style="display:none">Sign out</button>
       <button id="dashboardNavBtn" class="btn ghost" type="button" style="display:none">My Cards</button>
       <button id="networkingHubBtn" class="btn ghost" type="button">Networking Hub</button>
+      <button id="enterpriseDashboardBtn" class="btn ghost" type="button">Enterprise Overview</button>
       <button id="landingCreateTop" class="btn primary" type="button">Create a card</button>
     </div>
   </nav>
@@ -2471,8 +2512,48 @@ html{scroll-behavior:smooth}body{background:#f7f8fb;color:var(--zc-v54-ink);-web
   <div class="features"><div class="feature"><div>🧩</div><h3>Forms that fit</h3><p>Only show the fields that make sense for the card type. Keep creating clear and focused.</p></div><div class="feature"><div>🎨</div><h3>Designs with purpose</h3><p>Choose a layout that suits the job, from a business profile to an invitation or product catalog.</p></div><div class="feature"><div>✨</div><h3>More than a card</h3><p>Add sharing, QR codes, enquiries, booking or product experiences where they are relevant.</p></div></div>
 </section>
 
+
+<section id="enterpriseDashboard" class="zc-enterprise-page" aria-label="ZetaCard enterprise overview">
+  <div class="zc-enterprise-shell">
+    <header class="zc-enterprise-top">
+      <div class="zc-enterprise-brand"><span class="zc-enterprise-mark">Z</span><span>ZetaCard <span style="font-size:10px;letter-spacing:.1em;color:#66728a;vertical-align:middle">OVERVIEW</span></span></div>
+      <div class="zc-enterprise-actions">
+        <button class="zc-enterprise-btn" id="enterpriseHomeBtn" type="button">← Home</button>
+        <button class="zc-enterprise-btn" id="enterpriseNetworkingBtn" type="button">Networking Hub</button>
+        <button class="zc-enterprise-btn primary" id="enterpriseMyCardsBtn" type="button">My Cards ↗</button>
+      </div>
+    </header>
+    <section class="zc-enterprise-hero">
+      <div><div class="zc-enterprise-eyebrow">ZetaCard workspace</div><h1>Your cards. Your contacts. One workspace.</h1><p>Quick access to the existing ZetaCard card studio, orders, leads, contacts, QR/NFC tools, campaigns and team workspace. This overview uses your current app modules instead of replacing them with sample enterprise data.</p></div>
+      <div class="zc-enterprise-mode"><span class="zc-enterprise-dot"></span><span id="enterpriseDataMode">Live status not yet checked</span></div>
+    </section>
+    <div class="zc-enterprise-kpis" aria-label="Current account summary">
+      <div class="zc-enterprise-kpi"><span>My digital cards</span><strong id="enterpriseCardsCount">—</strong><small>From the current signed-in account</small></div>
+      <div class="zc-enterprise-kpi"><span>Leads & enquiries</span><strong id="enterpriseLeadsCount">—</strong><small>Loaded records only</small></div>
+      <div class="zc-enterprise-kpi"><span>Orders</span><strong id="enterpriseOrdersCount">—</strong><small>Loaded records only</small></div>
+      <div class="zc-enterprise-kpi"><span>Contacts</span><strong id="enterpriseContactsCount">—</strong><small>Networking Hub records</small></div>
+    </div>
+    <div class="zc-enterprise-section-head"><div><h2>Workspace modules</h2><p>Open the existing feature directly. Sign-in and backend requirements still apply.</p></div></div>
+    <div class="zc-enterprise-grid">
+      <button class="zc-enterprise-module" type="button" data-enterprise-route="cards"><span class="zc-enterprise-icon">▤</span><span><h3>Digital business cards</h3><p>Create, edit, publish, share or delete your existing ZetaCards.</p><span class="zc-enterprise-arrow">OPEN MY CARDS ↗</span></span></button>
+      <button class="zc-enterprise-module" type="button" data-enterprise-route="contacts"><span class="zc-enterprise-icon">♙</span><span><h3>Contacts & CRM</h3><p>Manage contacts, tags, notes, CSV imports and vCard exports.</p><span class="zc-enterprise-arrow">OPEN CONTACTS ↗</span></span></button>
+      <button class="zc-enterprise-module" type="button" data-enterprise-route="leads"><span class="zc-enterprise-icon">◎</span><span><h3>Leads & enquiries</h3><p>Review lead submissions received through your cards and campaigns.</p><span class="zc-enterprise-arrow">OPEN LEADS ↗</span></span></button>
+      <button class="zc-enterprise-module" type="button" data-enterprise-route="orders"><span class="zc-enterprise-icon">▣</span><span><h3>Products & orders</h3><p>Open your current order management and storefront requests.</p><span class="zc-enterprise-arrow">OPEN ORDERS ↗</span></span></button>
+      <button class="zc-enterprise-module" type="button" data-enterprise-route="bookings"><span class="zc-enterprise-icon">▦</span><span><h3>Appointments & bookings</h3><p>Manage booking requests and update their status.</p><span class="zc-enterprise-arrow">OPEN BOOKINGS ↗</span></span></button>
+      <button class="zc-enterprise-module" type="button" data-enterprise-route="campaigns"><span class="zc-enterprise-icon">➤</span><span><h3>Campaigns & sharing</h3><p>Create lead campaigns and use existing QR, sharing and NFC tools.</p><span class="zc-enterprise-arrow">OPEN CAMPAIGNS ↗</span></span></button>
+      <button class="zc-enterprise-module" type="button" data-enterprise-route="team"><span class="zc-enterprise-icon">♧</span><span><h3>Team workspace</h3><p>Open workspace and invite tools; cloud access requires configured Supabase tables.</p><span class="zc-enterprise-arrow">OPEN TEAM ↗</span></span></button>
+      <button class="zc-enterprise-module" type="button" data-enterprise-route="integrations"><span class="zc-enterprise-icon">⛓</span><span><h3>Integrations</h3><p>Check the existing integration information and setup requirements.</p><span class="zc-enterprise-arrow">VIEW INTEGRATIONS ↗</span></span></button>
+      <button class="zc-enterprise-module" type="button" data-enterprise-route="print"><span class="zc-enterprise-icon">▧</span><span><h3>Physical card prototype</h3><p>Open your card list, then open a card to use its print/PNG options.</p><span class="zc-enterprise-arrow">PREPARE A CARD ↗</span></span></button>
+      <button class="zc-enterprise-module" type="button" data-enterprise-route="meetings"><span class="zc-enterprise-icon">✎</span><span><h3>Meetings & follow-ups</h3><p>Keep meeting notes, summaries and follow-up dates in the Networking Hub.</p><span class="zc-enterprise-arrow">OPEN MEETINGS ↗</span></span></button>
+      <button class="zc-enterprise-module" type="button" data-enterprise-route="signature"><span class="zc-enterprise-icon">✉</span><span><h3>Email signature</h3><p>Generate and download an HTML email signature from your details.</p><span class="zc-enterprise-arrow">OPEN SIGNATURE ↗</span></span></button>
+      <button class="zc-enterprise-module" type="button" data-enterprise-route="forms"><span class="zc-enterprise-icon">☷</span><span><h3>Custom forms</h3><p>Review form submissions attached to your published cards.</p><span class="zc-enterprise-arrow">OPEN FORMS ↗</span></span></button>
+    </div>
+    <div class="zc-enterprise-note"><strong>Security & feature status:</strong> this is a navigation and summary layer over ZetaCard's existing features—not a claim that every external integration is connected. Salesforce/HubSpot OAuth, SSO/SCIM, wallet pass issuance and physical NFC writing require real provider setup or supported hardware. Verify Supabase Row Level Security and test with separate accounts before production use.</div>
+  </div>
+</section>
+
 <section id="dashboardPage" class="container dashboard-page">
-  <div class="topbar"><button id="dashboardBack" class="nav-btn" type="button">← Home</button><div class="brand">ZetaCard</div><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button id="dashboardNetworkingHubBtn" class="nav-btn" type="button">Networking Hub</button><div id="dashboardAccountEmail" style="font-size:11px;color:var(--muted);font-weight:850"></div></div></div>
+  <div class="topbar"><button id="dashboardBack" class="nav-btn" type="button">← Home</button><div class="brand">ZetaCard</div><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button id="dashboardNetworkingHubBtn" class="nav-btn" type="button">Networking Hub</button><button id="dashboardEnterpriseBtn" class="nav-btn" type="button">Enterprise Overview</button><div id="dashboardAccountEmail" style="font-size:11px;color:var(--muted);font-weight:850"></div></div></div>
   <div class="dashboard-head"><div><div class="eyebrow">MY ZETACARDS</div><h2>Your card dashboard</h2><p>Manage every ZetaCard from one account. Create multiple cards for different roles, products, menus and campaigns.</p></div><div class="dashboard-actions"><button id="dashboardCreateBtn" class="btn primary" type="button">+ Create new card</button><button id="dashboardRefreshBtn" class="btn ghost" type="button">Refresh</button></div></div>
   <div class="dashboard-tabs">
     <button id="dashboardCardsTab" class="dashboard-tab active" type="button">My Cards</button>
@@ -2603,7 +2684,7 @@ html{scroll-behavior:smooth}body{background:#f7f8fb;color:var(--zc-v54-ink);-web
 
 
 <section id="networkingHub" class="container" style="display:none" aria-label="ZetaCard Networking Hub">
-  <div class="topbar"><button id="zcnetBackHome" class="nav-btn" type="button">← Home</button><div class="brand">ZetaCard · Networking</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button id="zcnetMyCards" class="nav-btn" type="button">My Cards</button><button id="zcnetRefresh" class="nav-btn" type="button">Refresh</button></div></div>
+  <div class="topbar"><button id="zcnetBackHome" class="nav-btn" type="button">← Home</button><div class="brand">ZetaCard · Networking</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button id="zcnetMyCards" class="nav-btn" type="button">My Cards</button><button id="zcnetRefresh" class="nav-btn" type="button">Refresh</button><button id="zcnetEnterprise" class="nav-btn" type="button">Overview</button></div></div>
   <div class="zcnet-hero"><div class="zcnet-row"><div><div style="font-size:10px;letter-spacing:2px;font-weight:950;color:#aebdff">ZETACARD NETWORKING SUITE</div><h1>One hub for every connection.</h1><p>Manage contacts, capture event leads, create email signatures, prepare meeting follow-ups, share profile links and connect your networking tools.</p></div><div style="font-size:48px" aria-hidden="true">◈</div></div></div>
   <div id="zcnetStatus" class="zcnet-status" role="status" data-state="local">Local-first mode: data is saved in this browser. Sign in and apply the included Supabase migration to enable cloud contacts, campaigns and team workspaces.</div>
   <div class="zcnet-kpis"><div class="zcnet-kpi"><strong id="zcnetKpiContacts">0</strong><span>Saved contacts</span></div><div class="zcnet-kpi"><strong id="zcnetKpiCampaigns">0</strong><span>Lead campaigns</span></div><div class="zcnet-kpi"><strong id="zcnetKpiMeetings">0</strong><span>Meeting notes</span></div><div class="zcnet-kpi"><strong id="zcnetKpiLeads">0</strong><span>Captured leads</span></div></div>
@@ -3273,7 +3354,7 @@ function getToken(u){try{return localStorage.getItem(editKey(u))||""}catch(e){re
 function makeToken(){const a=new Uint8Array(24);crypto.getRandomValues(a);return Array.from(a,b=>b.toString(16).padStart(2,"0")).join("")}
 async function hash(v){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(v));return Array.from(new Uint8Array(b),x=>x.toString(16).padStart(2,"0")).join("")}
 async function verifyOwner(u,t){if(!initDb()||!u||!t)return false;try{const r=await db.rpc("verify_profile_owner",{p_username:u,p_token_hash:await hash(t)});return !r.error&&r.data===true}catch(e){console.warn(e);return false}}
-function showOnly(id){["landing","builder","shared","dashboardPage","networkingHub","campaignCapturePage"].forEach(x=>{const el=$(x);if(el)el.style.display="none"});const el=$(id);if(el)el.style.display="block";if(id==="dashboardPage")el.classList.add("show")}
+function showOnly(id){["landing","builder","shared","dashboardPage","networkingHub","campaignCapturePage","enterpriseDashboard"].forEach(x=>{const el=$(x);if(el)el.style.display="none"});const el=$(id);if(el)el.style.display="block";if(id==="dashboardPage")el.classList.add("show");if(id==="enterpriseDashboard")el.classList.add("show")}
 function showLanding(){showOnly("landing");window.scrollTo(0,0)}
 function showBuilder(){showOnly("builder");window.scrollTo(0,0)}
 function showShared(){showOnly("shared");window.scrollTo(0,0)}
@@ -5289,6 +5370,7 @@ window.addEventListener("DOMContentLoaded",async()=>{
   $("authNavBtn").onclick=()=>openAuth("signup");
   $("signOutBtn").onclick=signOut;
   $("dashboardNavBtn").onclick=showDashboard;
+  $("dashboardEnterpriseBtn")?.addEventListener("click",openEnterpriseDashboard);
   $("dashboardBack").onclick=showLanding;
   $("dashboardCreateBtn").onclick=openBuilder;
   $("dashboardRefreshBtn").onclick=loadDashboard;
@@ -5687,7 +5769,7 @@ document.getElementById('printCardBtn')?.addEventListener('click',zcPrintCardPDF
   async function handleCaptureRoute(){const params=new URLSearchParams(location.search);const token=max(params.get('zcCampaign'),160);const invite=max(params.get('zcInvite'),160);if(invite){if(!signedIn()&&typeof refreshAuth==='function'){try{await refreshAuth()}catch(e){}}if(!signedIn()){showHub();switchTab('team');stateMessage('Sign in with the invited email, then reopen the invitation link.','local');return;}try{const r=await db.rpc('zc_suite_accept_invite',{p_token:invite});if(r.error)throw r.error;history.replaceState(null,'',location.pathname);showHub();switchTab('team');await loadWorkspaces();stateMessage('Workspace invitation accepted.','cloud');}catch(e){showHub();switchTab('team');stateMessage('Invitation could not be accepted: '+(e.message||e),'error');}return;}
     if(!token)return;let campaign=state.campaigns.find(c=>c.token===token)||null;if(initDb()){try{const r=await db.rpc('zc_suite_get_public_campaign',{p_campaign_token:token});if(!r.error&&r.data){const row=Array.isArray(r.data)?r.data[0]:r.data;if(row)campaign={name:row.name,description:row.description||'',fields:row.fields||'basic',active:row.is_active!==false,token};}}catch(e){console.warn('Public campaign metadata unavailable',e)}}$n('zcnetCaptureToken').value=token;$n('zcnetCaptureTitle').textContent=campaign?.name||'Connect with us';$n('zcnetCaptureDescription').textContent=campaign?.description||'Share your details and choose how you would like to be contacted.';if(campaign?.active===false){$n('zcnetCaptureForm').style.display='none';statusText('This campaign is no longer active.','error');}else{$n('zcnetCaptureForm').style.display='';}if(campaign?.fields==='business'){$n('zcnetCaptureCompanyField').style.display='';$n('zcnetCaptureRoleField').style.display='';}else{$n('zcnetCaptureCompanyField').style.display='none';$n('zcnetCaptureRoleField').style.display='none';}if(campaign?.fields==='message')$n('zcnetCaptureMessage').required=true;else $n('zcnetCaptureMessage').required=false;showOnly('campaignCapturePage');window.scrollTo(0,0);}
   function bindEvents(){
-    $n('networkingHubBtn')?.addEventListener('click',showHub);$n('dashboardNetworkingHubBtn')?.addEventListener('click',showHub);$n('zcnetBackHome')?.addEventListener('click',()=>showLanding());$n('zcnetMyCards')?.addEventListener('click',()=>{if(typeof showDashboard==='function')showDashboard();else showLanding()});$n('zcnetRefresh')?.addEventListener('click',async()=>{loadLocal();await syncCloud();renderAll()});
+    $n('zcnetEnterprise')?.addEventListener('click',()=>{if(typeof openEnterpriseDashboard==='function')openEnterpriseDashboard()});$n('networkingHubBtn')?.addEventListener('click',showHub);$n('dashboardNetworkingHubBtn')?.addEventListener('click',showHub);$n('zcnetBackHome')?.addEventListener('click',()=>showLanding());$n('zcnetMyCards')?.addEventListener('click',()=>{if(typeof showDashboard==='function')showDashboard();else showLanding()});$n('zcnetRefresh')?.addEventListener('click',async()=>{loadLocal();await syncCloud();renderAll()});
     qan('[data-zcnet-tab]').forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.zcnetTab)));
     $n('zcnetContactForm')?.addEventListener('submit',async e=>{e.preventDefault();const id=$n('zcnetContactId').value||uid();const tags=max($n('zcnetContactTags').value,500).split(',').map(s=>s.trim()).filter(Boolean).slice(0,30);const c={id,name:max($n('zcnetContactName').value,160),email:max($n('zcnetContactEmail').value,254),phone:max($n('zcnetContactPhone').value,50),company:max($n('zcnetContactCompany').value,160),role:max($n('zcnetContactRole').value,160),website:safeUrl($n('zcnetContactWebsite').value),tags,notes:max($n('zcnetContactNotes').value,5000)};if(!c.name){stateMessage('Full name is required.','error');return;}await saveContact(c);resetContactForm();});
     $n('zcnetResetContact')?.addEventListener('click',resetContactForm);$n('zcnetContactSearch')?.addEventListener('input',renderContacts);
@@ -5712,6 +5794,49 @@ document.getElementById('printCardBtn')?.addEventListener('click',zcPrintCardPDF
   }
   init();
 })();
+
+/* ZetaCard enterprise dashboard merge: routes to the existing app modules and avoids demo-only records. */
+function refreshEnterpriseOverview(){
+  const cards=Array.isArray(dashboardCards)?dashboardCards.length:0;
+  const leads=Array.isArray(dashboardLeads)?dashboardLeads.length:0;
+  const orders=Array.isArray(dashboardOrders)?dashboardOrders.length:0;
+  const contactsEl=document.getElementById('zcnetKpiContacts');
+  const contacts=contactsEl?String(contactsEl.textContent||'0').trim():'0';
+  const put=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=String(value)};
+  put('enterpriseCardsCount',authUser?cards:'Sign in');
+  put('enterpriseLeadsCount',authUser?leads:'Sign in');
+  put('enterpriseOrdersCount',authUser?orders:'Sign in');
+  put('enterpriseContactsCount',contacts);
+  const mode=document.getElementById('enterpriseDataMode');
+  if(mode)mode.textContent=authUser?'Signed in · counts reflect records loaded in this session':'Guest view · sign in to load account records';
+}
+function openEnterpriseDashboard(){
+  showOnly('enterpriseDashboard');
+  refreshEnterpriseOverview();
+  window.scrollTo(0,0);
+  if(authUser){Promise.resolve(loadDashboard()).then(()=>refreshEnterpriseOverview()).catch(()=>refreshEnterpriseOverview())}
+}
+function openEnterpriseRoute(route){
+  if(route==='cards'||route==='print'){showDashboard();if(route==='print'&&authUser){setTimeout(()=>{const first=document.querySelector('#dashboardCards .dash-open');if(first)first.focus()},0)}return}
+  if(['leads','orders','bookings','forms'].includes(route)){
+    if(!authUser){openAuth('login');return}
+    showDashboard();
+    const mode={leads:'leads',orders:'orders',bookings:'bookings',forms:'forms'}[route];
+    setDashboardMode(mode);
+    return;
+  }
+  showOnly('networkingHub');
+  window.scrollTo(0,0);
+  const tab={contacts:'contacts',campaigns:'campaigns',team:'team',integrations:'integrations',meetings:'meetings',signature:'signature'}[route]||'contacts';
+  const tabButton=document.querySelector(`[data-zcnet-tab="${tab}"]`);
+  if(tabButton)tabButton.click();
+  refreshEnterpriseOverview();
+}
+document.getElementById('enterpriseDashboardBtn')?.addEventListener('click',openEnterpriseDashboard);
+document.getElementById('enterpriseHomeBtn')?.addEventListener('click',showLanding);
+document.getElementById('enterpriseNetworkingBtn')?.addEventListener('click',()=>{showOnly('networkingHub');window.scrollTo(0,0)});
+document.getElementById('enterpriseMyCardsBtn')?.addEventListener('click',showDashboard);
+document.querySelectorAll('[data-enterprise-route]').forEach(button=>button.addEventListener('click',()=>openEnterpriseRoute(button.dataset.enterpriseRoute)));
 
 </script>
 

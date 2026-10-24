@@ -1,3 +1,4 @@
+
 <!-- ZetaCard v61.2 merged build: original card studio + Networking Suite + enterprise overview (existing modules, no sample CRM records). -->
 <!-- ZetaCard v52: Professional UI refinement on top of v51; application logic intentionally preserved. -->
 <!-- Base application: ZetaCard v49, with prior feature markers retained below. -->
@@ -2605,6 +2606,96 @@ input,select,textarea{border-radius:10px!important;border-color:#dce4ef!importan
 }
 </style>
 
+<!-- ZetaCard premium physical-card design refresh v1 -->
+
+<style id="zc-premium-physical-card-refresh">
+/* ZetaCard premium physical-card refresh: refined hierarchy, print-safe details, and consistent business-card proportions. */
+.card-preview.card-visiting{
+  --zc-card-ink:var(--v46-ink,var(--tpl-ink,#f7f5ef));
+  --zc-card-accent:var(--v46-accent,var(--tpl-accent,#c8a96b));
+  aspect-ratio:3.5/2!important;
+  min-height:0!important;height:auto!important;max-height:none!important;
+  border-radius:14px!important;isolation:isolate;
+  background-image:radial-gradient(ellipse at 100% 0%,color-mix(in srgb,var(--zc-card-accent) 24%,transparent),transparent 42%),linear-gradient(132deg,var(--v46-bg,var(--tpl-bg,#111a2e)),var(--v46-bg2,var(--tpl-bg2,#293958)))!important;
+  color:var(--zc-card-ink)!important;
+  box-shadow:0 18px 44px rgba(16,27,48,.18),inset 0 0 0 1px color-mix(in srgb,var(--zc-card-accent) 52%,transparent)!important;
+}
+#mainCard.card-visiting>.zc-trad-visiting,#shared #sharedCard.card-visiting>.zc-trad-visiting{
+  position:relative!important;isolation:isolate!important;
+  background:linear-gradient(115deg,rgba(255,255,255,.045),transparent 42%)!important;
+}
+#mainCard.card-visiting>.zc-trad-visiting:before,#shared #sharedCard.card-visiting>.zc-trad-visiting:before{
+  content:"";position:absolute;inset:7px;border:1px solid color-mix(in srgb,var(--zc-card-accent,var(--tpl-accent,#c8a96b)) 58%,transparent);
+  border-radius:8px;pointer-events:none;z-index:0;
+}
+#mainCard.card-visiting .zc-visit-top,#shared #sharedCard.card-visiting .zc-visit-top{
+  border-bottom:1px solid color-mix(in srgb,var(--zc-card-accent,var(--tpl-accent,#c8a96b)) 52%,transparent)!important;
+}
+#mainCard.card-visiting .zc-monogram,#shared #sharedCard.card-visiting .zc-monogram{
+  border:1px solid color-mix(in srgb,var(--zc-card-accent,var(--tpl-accent,#c8a96b)) 78%,transparent)!important;
+  background:color-mix(in srgb,var(--zc-card-accent,var(--tpl-accent,#c8a96b)) 13%,transparent)!important;
+  color:inherit!important;box-shadow:0 2px 8px rgba(0,0,0,.08)!important;
+}
+#mainCard.card-visiting .zc-visit-brand strong,#shared #sharedCard.card-visiting .zc-visit-brand strong{
+  font-weight:850!important;letter-spacing:.01em!important;
+}
+#mainCard.card-visiting .zc-visit-stamp,#shared #sharedCard.card-visiting .zc-visit-stamp{
+  border:1px solid color-mix(in srgb,var(--zc-card-accent,var(--tpl-accent,#c8a96b)) 66%,transparent)!important;
+  color:inherit!important;background:color-mix(in srgb,var(--zc-card-accent,var(--tpl-accent,#c8a96b)) 10%,transparent)!important;
+}
+#mainCard.card-visiting .zc-visit-person h2,#shared #sharedCard.card-visiting .zc-visit-person h2{
+  text-wrap:balance;overflow-wrap:anywhere;
+}
+#mainCard.card-visiting .zc-visit-role,#shared #sharedCard.card-visiting .zc-visit-role{
+  color:var(--zc-card-accent,var(--tpl-accent,#c8a96b))!important;font-weight:750!important;
+}
+#mainCard.card-visiting .zc-visit-divider,#shared #sharedCard.card-visiting .zc-visit-divider{
+  color:var(--zc-card-accent,var(--tpl-accent,#c8a96b))!important;letter-spacing:.18em!important;
+}
+#mainCard.card-visiting .zc-contact-item,#shared #sharedCard.card-visiting .zc-contact-item{
+  min-width:0!important;overflow-wrap:anywhere!important;
+}
+#mainCard.card-visiting .zc-contact-item span,#shared #sharedCard.card-visiting .zc-contact-item span{
+  opacity:.72;letter-spacing:.08em!important;
+}
+#mainCard.card-visiting .zc-contact-item b,#shared #sharedCard.card-visiting .zc-contact-item b{
+  overflow-wrap:anywhere!important;word-break:break-word!important;
+}
+#mainCard.card-visiting .zc-visit-footer,#shared #sharedCard.card-visiting .zc-visit-footer{
+  border-top:1px solid color-mix(in srgb,var(--zc-card-accent,var(--tpl-accent,#c8a96b)) 34%,transparent)!important;
+}
+/* Screen preview uses the real 3.5 × 2 inch card ratio; other card types retain their purpose-specific layouts. */
+@media(max-width:620px){
+ #mainCard.card-visiting{border-radius:8px!important}
+ #mainCard.card-visiting>.zc-trad-visiting{padding:10px!important}
+ #mainCard.card-visiting .zc-visit-person h2{font-size:clamp(14px,4.4vw,23px)!important;line-height:1.02!important}
+ #mainCard.card-visiting .zc-visit-role{font-size:clamp(7px,1.8vw,10px)!important}
+ #mainCard.card-visiting .zc-contact-list{grid-template-columns:repeat(2,minmax(0,1fr))!important;column-gap:7px!important}
+ #mainCard.card-visiting .zc-contact-item span{font-size:5px!important}
+ #mainCard.card-visiting .zc-contact-item b{font-size:6px!important}
+}
+@media print{
+ @page{size:A4 portrait;margin:12mm}
+ #shared .shared-layout #sharedCard.card-visiting{
+   width:90mm!important;min-width:90mm!important;max-width:90mm!important;
+   height:50.8mm!important;min-height:50.8mm!important;max-height:50.8mm!important;
+   aspect-ratio:3.5/2!important;margin:24mm auto 0!important;border-radius:1mm!important;
+   box-shadow:none!important;overflow:hidden!important;break-inside:avoid!important;page-break-inside:avoid!important;
+   print-color-adjust:exact!important;-webkit-print-color-adjust:exact!important;
+ }
+ #shared .shared-layout #sharedCard.card-visiting>.zc-trad-visiting{
+   width:90mm!important;height:50.8mm!important;min-height:50.8mm!important;max-height:50.8mm!important;
+   box-sizing:border-box!important;padding:4mm!important;overflow:hidden!important;
+ }
+ #shared .shared-layout #sharedCard.card-visiting .zc-visit-person h2{font-size:16pt!important;line-height:1.02!important}
+ #shared .shared-layout #sharedCard.card-visiting .zc-visit-role{font-size:6.5pt!important}
+ #shared .shared-layout #sharedCard.card-visiting .zc-visit-person p{font-size:5pt!important;line-height:1.2!important}
+ #shared .shared-layout #sharedCard.card-visiting .zc-contact-item{padding:.7mm 0!important}
+ #shared .shared-layout #sharedCard.card-visiting .zc-contact-item span{font-size:4.5pt!important}
+ #shared .shared-layout #sharedCard.card-visiting .zc-contact-item b{font-size:5.5pt!important;line-height:1.15!important}
+ #shared .shared-layout #sharedCard.card-visiting .zc-visit-footer{padding-top:1.2mm!important;font-size:5pt!important}
+}
+</style>
 </head>
 <body>
 

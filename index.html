@@ -1,4 +1,3 @@
-
 <!-- ZetaCard v61.2 merged build: original card studio + Networking Suite + enterprise overview (existing modules, no sample CRM records). -->
 <!-- ZetaCard v52: Professional UI refinement on top of v51; application logic intentionally preserved. -->
 <!-- Base application: ZetaCard v49, with prior feature markers retained below. -->
@@ -2476,7 +2475,6 @@ html{scroll-behavior:smooth}body{background:#f7f8fb;color:var(--zc-v54-ink);-web
 @media(max-width:520px){.zc-enterprise-grid{grid-template-columns:1fr}.zc-enterprise-module{min-height:0}.zc-enterprise-hero{padding:20px}.zc-enterprise-kpi{padding:13px}.zc-enterprise-kpi strong{font-size:24px}}
 </style>
 
-
 <style id="zc-premium-full-platform-polish">
 /* ZetaCard full-platform visual polish. Styling only: feature logic, navigation and integrations remain untouched. */
 :root{--zc-ink:#15233b;--zc-muted:#68758c;--zc-line:#e0e6ef;--zc-soft:#f6f8fc;--zc-brand:#315cf5;--zc-brand2:#6747e8;--zc-radius:18px}
@@ -2492,6 +2490,119 @@ button,input,select,textarea{font:inherit}button{transition:transform .16s ease,
 input,select,textarea{border-radius:10px!important;border-color:#dce4ef!important}input:focus,select:focus,textarea:focus{border-color:#8098ff!important;box-shadow:0 0 0 3px rgba(49,92,245,.09)!important}
 @media(max-width:760px){.landing-nav{padding:12px 16px!important;gap:12px!important;flex-wrap:wrap}.auth-bar{gap:7px!important;flex-wrap:wrap}.hero{padding-left:18px!important;padding-right:18px!important}.hero h1{font-size:clamp(36px,10vw,54px)!important}.type-option{min-height:140px!important;padding:15px!important}.landing-wrap{padding-left:14px!important;padding-right:14px!important}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+<style id="zc-v62-physical-business-card">
+/* ZetaCard v62: real landscape business-card proportions, traditional information hierarchy, and print-safe sizing. */
+#mainCard.card-visiting,
+#shared #sharedCard.card-visiting{
+  box-sizing:border-box!important;
+  width:100%!important;
+  aspect-ratio:3.5 / 2!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  overflow:hidden!important;
+  border-radius:4px!important;
+  box-shadow:0 12px 28px rgba(20,29,46,.14)!important;
+  isolation:isolate;
+}
+#mainCard.card-visiting>.zc-trad-visiting,
+#shared #sharedCard.card-visiting>.zc-trad-visiting{
+  box-sizing:border-box!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  max-height:none!important;
+  padding:clamp(12px,2.1vw,24px)!important;
+  border-radius:inherit!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:space-between!important;
+  gap:0!important;
+  overflow:hidden!important;
+  background-image:linear-gradient(135deg,rgba(255,255,255,.035),transparent 45%)!important;
+}
+#mainCard.card-visiting .zc-visit-top,
+#shared #sharedCard.card-visiting .zc-visit-top{
+  display:flex!important;align-items:center!important;gap:10px!important;
+  padding:0 0 9px!important;margin:0!important;
+  border-bottom:1px solid color-mix(in srgb,var(--tpl-accent,#c7a96b) 68%,transparent)!important;
+  min-width:0!important;
+}
+#mainCard.card-visiting .zc-monogram,
+#shared #sharedCard.card-visiting .zc-monogram{
+  width:38px!important;height:38px!important;min-width:38px!important;flex:0 0 38px!important;
+  border-radius:3px!important;font-size:13px!important;box-shadow:none!important;
+}
+#mainCard.card-visiting .zc-visit-brand,
+#shared #sharedCard.card-visiting .zc-visit-brand{min-width:0!important;gap:2px!important}
+#mainCard.card-visiting .zc-visit-brand .preview-kicker,
+#shared #sharedCard.card-visiting .zc-visit-brand .preview-kicker{font-size:6px!important;letter-spacing:1.5px!important;line-height:1.2!important}
+#mainCard.card-visiting .zc-visit-brand strong,
+#shared #sharedCard.card-visiting .zc-visit-brand strong{font-size:12px!important;line-height:1.2!important;overflow-wrap:anywhere!important}
+#mainCard.card-visiting .zc-visit-brand small,
+#shared #sharedCard.card-visiting .zc-visit-brand small{font-size:7px!important;line-height:1.25!important;overflow-wrap:anywhere!important}
+#mainCard.card-visiting .zc-visit-stamp,
+#shared #sharedCard.card-visiting .zc-visit-stamp{margin-left:auto!important;font-size:8px!important;flex:0 0 auto!important}
+#mainCard.card-visiting .zc-visit-person,
+#shared #sharedCard.card-visiting .zc-visit-person{padding:10px 0 7px!important;margin:0!important;min-width:0!important}
+#mainCard.card-visiting .zc-visit-person h2,
+#shared #sharedCard.card-visiting .zc-visit-person h2{font-size:clamp(18px,3.2vw,29px)!important;line-height:1.02!important;letter-spacing:-.35px!important;margin:0!important;overflow-wrap:anywhere!important}
+#mainCard.card-visiting .zc-visit-role,
+#shared #sharedCard.card-visiting .zc-visit-role{font-size:8px!important;line-height:1.25!important;margin-top:4px!important;letter-spacing:.25px!important}
+#mainCard.card-visiting .zc-visit-person p,
+#shared #sharedCard.card-visiting .zc-visit-person p{font-size:7px!important;line-height:1.25!important;margin:4px 0 0!important;max-width:75ch!important;display:-webkit-box!important;-webkit-line-clamp:1!important;-webkit-box-orient:vertical!important;overflow:hidden!important}
+#mainCard.card-visiting .zc-visit-divider,
+#shared #sharedCard.card-visiting .zc-visit-divider{display:flex!important;align-items:center!important;gap:6px!important;margin:0 0 2px!important;font-size:6px!important;letter-spacing:1.2px!important;line-height:1!important}
+#mainCard.card-visiting .zc-visit-divider span,
+#shared #sharedCard.card-visiting .zc-visit-divider span{height:1px!important;flex:1!important;background:color-mix(in srgb,var(--tpl-accent,#c7a96b) 58%,transparent)!important}
+#mainCard.card-visiting .zc-contact-list,
+#shared #sharedCard.card-visiting .zc-contact-list{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:0 12px!important;margin:0!important;min-width:0!important}
+#mainCard.card-visiting .zc-contact-item,
+#shared #sharedCard.card-visiting .zc-contact-item{display:flex!important;align-items:baseline!important;gap:5px!important;min-width:0!important;padding:4px 0!important;border-bottom:1px solid color-mix(in srgb,currentColor 13%,transparent)!important;overflow:hidden!important}
+#mainCard.card-visiting .zc-contact-item b,
+#shared #sharedCard.card-visiting .zc-contact-item b{font-size:5.5px!important;letter-spacing:.6px!important;flex:0 0 auto!important;opacity:.72!important}
+#mainCard.card-visiting .zc-contact-item span,
+#shared #sharedCard.card-visiting .zc-contact-item span{font-size:7px!important;line-height:1.15!important;min-width:0!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
+#mainCard.card-visiting .zc-visit-footer,
+#shared #sharedCard.card-visiting .zc-visit-footer{display:flex!important;justify-content:space-between!important;align-items:center!important;gap:8px!important;margin:6px 0 0!important;padding:5px 0 0!important;border-top:1px solid color-mix(in srgb,var(--tpl-accent,#c7a96b) 60%,transparent)!important;font-size:6px!important;line-height:1.1!important;letter-spacing:.8px!important}
+#mainCard.card-visiting .zc-visit-footer b,
+#shared #sharedCard.card-visiting .zc-visit-footer b{font-size:6.5px!important;letter-spacing:.2px!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
+@media(max-width:520px){
+ #mainCard.card-visiting>.zc-trad-visiting{padding:10px!important}
+ #mainCard.card-visiting .zc-visit-top{gap:7px!important;padding-bottom:6px!important}
+ #mainCard.card-visiting .zc-monogram{width:30px!important;height:30px!important;min-width:30px!important;flex-basis:30px!important}
+ #mainCard.card-visiting .zc-visit-person{padding:7px 0 5px!important}
+ #mainCard.card-visiting .zc-visit-person h2{font-size:clamp(15px,4vw,22px)!important}
+ #mainCard.card-visiting .zc-contact-list{column-gap:7px!important}
+ #mainCard.card-visiting .zc-contact-item b{font-size:5px!important}
+ #mainCard.card-visiting .zc-contact-item span{font-size:6px!important}
+}
+@media print{
+ @page{size:A4 portrait;margin:12mm}
+ #shared .shared-layout #sharedCard.card-visiting{
+   width:89mm!important;min-width:89mm!important;max-width:89mm!important;
+   height:50.8mm!important;min-height:50.8mm!important;max-height:50.8mm!important;
+   aspect-ratio:3.5 / 2!important;margin:30mm auto 0!important;
+   border-radius:1mm!important;box-shadow:none!important;overflow:hidden!important;
+   print-color-adjust:exact!important;-webkit-print-color-adjust:exact!important;
+ }
+ #shared .shared-layout #sharedCard.card-visiting>.zc-trad-visiting{
+   width:89mm!important;height:50.8mm!important;min-height:50.8mm!important;max-height:50.8mm!important;
+   padding:4mm!important;overflow:hidden!important;box-sizing:border-box!important;
+ }
+ #shared .shared-layout #sharedCard.card-visiting .zc-visit-top{padding-bottom:2mm!important}
+ #shared .shared-layout #sharedCard.card-visiting .zc-monogram{width:9mm!important;height:9mm!important;min-width:9mm!important;flex-basis:9mm!important}
+ #shared .shared-layout #sharedCard.card-visiting .zc-visit-person{padding:2.5mm 0 1.5mm!important}
+ #shared .shared-layout #sharedCard.card-visiting .zc-visit-person h2{font-size:16pt!important}
+ #shared .shared-layout #sharedCard.card-visiting .zc-visit-role{font-size:6.5pt!important}
+ #shared .shared-layout #sharedCard.card-visiting .zc-visit-person p{font-size:5pt!important}
+ #shared .shared-layout #sharedCard.card-visiting .zc-contact-item{padding:1mm 0!important}
+ #shared .shared-layout #sharedCard.card-visiting .zc-contact-item b{font-size:4.5pt!important}
+ #shared .shared-layout #sharedCard.card-visiting .zc-contact-item span{font-size:5.5pt!important}
+ #shared .shared-layout #sharedCard.card-visiting .zc-visit-footer{margin-top:1mm!important;padding-top:1mm!important;font-size:4.5pt!important}
+ #shared .shared-layout #sharedCard.card-visiting .zc-visit-footer b{font-size:5pt!important}
+}
 </style>
 
 </head>
@@ -2514,7 +2625,7 @@ input,select,textarea{border-radius:10px!important;border-color:#dce4ef!importan
     <div class="hero">
       <div class="hero-kicker">THE CARD SHOULD FIT THE MOMENT</div>
       <h1>Your identity. Your network. One ZetaCard.</h1>
-      <p>Create a professional digital visiting card, invitations, menus, and product or property showcases in one polished platform. Choose the experience you need, customize the design, and share it with confidence.</p>
+      <p>Traditional wedding invitations. Refined visiting cards. Restaurant menus people can actually read. Product and property showcases made to present the details that matter. Start with the purpose—not a generic template.</p>
       <div class="hero-actions"><button id="landingCreate" class="btn primary" type="button">Design your first card <span aria-hidden="true">→</span></button></div>
       <div class="hero-points"><span>✓ Purpose-built forms</span><span>✓ Curated design library</span><span>✓ One shareable link</span><span>✓ QR + optional 3D / AR</span></div>
     </div>

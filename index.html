@@ -1,3 +1,4 @@
+
 <!-- ZetaCard v61.2 merged build: original card studio + Networking Suite + enterprise overview (existing modules, no sample CRM records). -->
 <!-- ZetaCard v52: Professional UI refinement on top of v51; application logic intentionally preserved. -->
 <!-- Base application: ZetaCard v49, with prior feature markers retained below. -->
@@ -2475,6 +2476,24 @@ html{scroll-behavior:smooth}body{background:#f7f8fb;color:var(--zc-v54-ink);-web
 @media(max-width:520px){.zc-enterprise-grid{grid-template-columns:1fr}.zc-enterprise-module{min-height:0}.zc-enterprise-hero{padding:20px}.zc-enterprise-kpi{padding:13px}.zc-enterprise-kpi strong{font-size:24px}}
 </style>
 
+
+<style id="zc-premium-full-platform-polish">
+/* ZetaCard full-platform visual polish. Styling only: feature logic, navigation and integrations remain untouched. */
+:root{--zc-ink:#15233b;--zc-muted:#68758c;--zc-line:#e0e6ef;--zc-soft:#f6f8fc;--zc-brand:#315cf5;--zc-brand2:#6747e8;--zc-radius:18px}
+html{scroll-behavior:smooth}body{font-family:Inter,"DM Sans",ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:-.012em;color:var(--zc-ink);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+button,input,select,textarea{font:inherit}button{transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease,background .16s ease}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #8ca5ff;outline-offset:3px}
+.landing-nav{background:rgba(255,255,255,.94)!important;backdrop-filter:blur(16px);border-bottom:1px solid #e8edf5!important;box-shadow:0 3px 18px rgba(22,38,70,.035)}
+.landing-brand{font-weight:850!important;letter-spacing:-.045em!important;color:var(--zc-ink)!important}.landing-brand>span{color:var(--zc-brand)!important}.landing-wrap{max-width:1180px!important}
+.hero{max-width:850px!important;padding-top:clamp(42px,7vw,86px)!important;padding-bottom:30px!important}.hero-kicker{font-weight:800!important;letter-spacing:.14em!important;color:var(--zc-brand)!important;font-size:11px!important}.hero h1{max-width:800px;font-size:clamp(38px,6.2vw,72px)!important;line-height:1.02!important;letter-spacing:-.065em!important;font-weight:820!important;color:#14213b!important;text-wrap:balance}.hero>p{max-width:700px!important;font-size:clamp(16px,2vw,19px)!important;line-height:1.75!important;color:#65738a!important}
+.btn.primary{background:linear-gradient(135deg,var(--zc-brand),var(--zc-brand2))!important;box-shadow:0 9px 22px rgba(65,86,230,.2)!important;border:1px solid transparent!important}.btn.primary:hover{transform:translateY(-1px);box-shadow:0 12px 26px rgba(65,86,230,.25)!important}.btn.ghost,.btn.secondary{border-color:#dfe6f1!important;background:#fff!important;color:#253450!important}.btn.ghost:hover,.btn.secondary:hover{border-color:#b8c7e3!important;background:#f8faff!important}
+.hero-points{gap:10px 18px!important;color:#52627b!important;font-size:13px!important}.hero-points span{line-height:1.6}
+.type-option{position:relative!important;border:1px solid #e1e7f0!important;border-radius:17px!important;background:#fff!important;box-shadow:0 4px 15px rgba(23,42,76,.035)!important;min-height:160px!important;padding:20px!important;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease!important}.type-option:hover{transform:translateY(-3px);border-color:#a9baff!important;box-shadow:0 12px 28px rgba(35,61,120,.09)!important}.type-option.selected{border-color:var(--zc-brand)!important;box-shadow:0 0 0 3px rgba(49,92,245,.10)!important;background:#f8faff!important}.type-option .type-icon{border-radius:13px!important;background:#eef2ff!important}.type-option strong{font-weight:780!important;letter-spacing:-.025em}
+.step-pane,.form-panel,.preview-panel,.dashboard-card,.zc-enterprise-panel{border-radius:20px!important;border-color:#e2e8f1!important;box-shadow:0 8px 28px rgba(23,42,76,.045)!important}.step-title h2,.form-head strong{letter-spacing:-.035em!important;font-weight:800!important}.help,.step-title p{color:#6b7890!important;line-height:1.65!important}
+input,select,textarea{border-radius:10px!important;border-color:#dce4ef!important}input:focus,select:focus,textarea:focus{border-color:#8098ff!important;box-shadow:0 0 0 3px rgba(49,92,245,.09)!important}
+@media(max-width:760px){.landing-nav{padding:12px 16px!important;gap:12px!important;flex-wrap:wrap}.auth-bar{gap:7px!important;flex-wrap:wrap}.hero{padding-left:18px!important;padding-right:18px!important}.hero h1{font-size:clamp(36px,10vw,54px)!important}.type-option{min-height:140px!important;padding:15px!important}.landing-wrap{padding-left:14px!important;padding-right:14px!important}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+
 </head>
 <body>
 
@@ -2494,8 +2513,8 @@ html{scroll-behavior:smooth}body{background:#f7f8fb;color:var(--zc-v54-ink);-web
   <div class="landing-wrap">
     <div class="hero">
       <div class="hero-kicker">THE CARD SHOULD FIT THE MOMENT</div>
-      <h1>A different design for every kind of card.</h1>
-      <p>Traditional wedding invitations. Refined visiting cards. Restaurant menus people can actually read. Product and property showcases made to present the details that matter. Start with the purpose—not a generic template.</p>
+      <h1>Your identity. Your network. One ZetaCard.</h1>
+      <p>Create a professional digital visiting card, invitations, menus, and product or property showcases in one polished platform. Choose the experience you need, customize the design, and share it with confidence.</p>
       <div class="hero-actions"><button id="landingCreate" class="btn primary" type="button">Design your first card <span aria-hidden="true">→</span></button></div>
       <div class="hero-points"><span>✓ Purpose-built forms</span><span>✓ Curated design library</span><span>✓ One shareable link</span><span>✓ QR + optional 3D / AR</span></div>
     </div>
